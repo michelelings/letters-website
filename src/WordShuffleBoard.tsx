@@ -957,7 +957,7 @@ export function BuildBoardView({
         })}
       </div>
 
-      {round.tiles.map((tile) => {
+      {round.tiles.map((tile, tileIndex) => {
         const placement = displayPlacement(tile, previewIds);
         const isDragged = d.tileId === tile.id;
         const m = metrics;
@@ -983,21 +983,25 @@ export function BuildBoardView({
               ? 0
               : 10;
 
+        const tileOuterStyle: React.CSSProperties = {
+          position: "absolute",
+          left,
+          top,
+          width: sizeFor.width,
+          height: sizeFor.height,
+          zIndex: z,
+          transform: `rotate(${rot}deg) scale(${isDragged ? 1.08 : 1})`,
+          cursor: "grab",
+          touchAction: "none",
+          ["--shuffle-stagger" as string]: `${tileIndex * 55}ms`,
+        };
+
         return (
           <div
             key={tile.id}
+            className={isDragged ? "shuffle-tile shuffle-tile--dragging" : "shuffle-tile"}
             onPointerDown={(ev) => onTilePointerDown(tile, ev)}
-            style={{
-              position: "absolute",
-              left,
-              top,
-              width: sizeFor.width,
-              height: sizeFor.height,
-              zIndex: z,
-              transform: `rotate(${rot}deg) scale(${isDragged ? 1.08 : 1})`,
-              cursor: "grab",
-              touchAction: "none",
-            }}
+            style={tileOuterStyle}
           >
             <LetterTileView letter={tile.value} state={visualState} size={sizeFor} />
           </div>
@@ -1021,7 +1025,10 @@ export function WordShuffleWebDemo({ prompt }: { prompt: VocabularyPrompt }) {
   }, [session]);
 
   return (
-    <div style={{ width: "100%", maxWidth: 560, margin: "0 auto", padding: 24, ...cssVars }}>
+    <div
+      className="word-board-demo"
+      style={{ width: "100%", maxWidth: 560, margin: "0 auto", padding: 24, ...cssVars }}
+    >
       <BuildBoardView
         session={session}
         onSessionChange={setSession}

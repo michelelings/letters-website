@@ -32,6 +32,61 @@ body {
   min-height: min(92vh, 720px);
 }
 
+/* Word shuffle board: slide tiles between bank ↔ answer; deal-in + board enter on new word */
+@media (prefers-reduced-motion: no-preference) {
+  .word-board-demo {
+    animation: word-board-demo-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes word-board-demo-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Opacity-only deal-in so it does not fight per-tile inline rotate/scale */
+  @keyframes shuffle-tile-deal-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .shuffle-tile {
+    transition:
+      left 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+      top 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+      width 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+      height 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: shuffle-tile-deal-in 0.42s cubic-bezier(0.22, 1, 0.45, 1) both;
+    animation-delay: var(--shuffle-stagger, 0ms);
+  }
+
+  .shuffle-tile--dragging {
+    transition: none;
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-board-demo {
+    animation: none;
+  }
+
+  .shuffle-tile {
+    transition: none;
+    animation: none;
+  }
+}
+
 .site-footer {
   padding: 1rem 1.25rem 1.5rem;
   text-align: center;
