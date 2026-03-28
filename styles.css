@@ -81,20 +81,20 @@ body {
   width: max-content;
 }
 
-/* Outgoing strip sits on top and fades; incoming strip stays in normal flow underneath */
+/* Incoming strip on top (new letters); outgoing underneath and exits */
+.word--crossfade .word-layer--in {
+  position: relative;
+  z-index: 2;
+  margin-inline: auto;
+}
+
 .word--crossfade .word-layer--out {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.word--crossfade .word-layer--in {
-  position: relative;
   z-index: 1;
-  margin-inline: auto;
+  pointer-events: none;
 }
 
 @keyframes tile-enter {
