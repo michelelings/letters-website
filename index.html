@@ -14,52 +14,10 @@
 
     gtag('config', 'G-CYNDT2QSQX');
   </script>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #efefef;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    }
-
-    .word {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
-
-    .tile {
-      width: 3.25rem;
-      height: 5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      border-radius: 1.25rem;
-      color: #111;
-      font-size: clamp(1.75rem, 5vw, 2.25rem);
-      font-weight: 800;
-      line-height: 1;
-      box-shadow:
-        0.2rem 0.35rem 0.65rem rgba(0, 0, 0, 0.12),
-        0 0.06rem 0.1rem rgba(0, 0, 0, 0.06);
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="word" aria-label="ROLEJ">
-    <span class="tile">R</span>
-    <span class="tile">O</span>
-    <span class="tile">L</span>
-    <span class="tile">E</span>
-    <span class="tile">J</span>
-  </div>
+  <div class="word" id="word" aria-live="polite"></div>
+  <script src="words.js" defer></script>
 </body>
 </html>
