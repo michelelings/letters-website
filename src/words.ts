@@ -74,11 +74,11 @@ export const WORDS = [
   "Benvegnû",
   "Bienvegni",
   "Bainvegnî",
-] as const;
+];
 
 export function pickWord(exclude: string | null): string {
   if (WORDS.length === 0) return "";
-  if (WORDS.length === 1) return WORDS[0];
+  if (WORDS.length === 1) return WORDS[0] ?? "";
   let w: string;
   do {
     w = WORDS[Math.floor(Math.random() * WORDS.length)]!;

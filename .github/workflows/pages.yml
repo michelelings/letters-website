@@ -23,8 +23,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      # Use install until package-lock.json is committed (npm ci requires a lockfile).
-      - run: npm install --no-audit --no-fund
+      - run: npm ci --no-audit --no-fund
       - run: npm run build
         env:
           # GitHub project page URL: /<repo>/
