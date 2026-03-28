@@ -138,16 +138,17 @@ function getOrCreateFit(container) {
   return el;
 }
 
-/** Main content box inside padding — space available for the word row */
+/** Box inside padding — space available for the word row (main stage if present) */
 function mainContentInnerSize(main) {
-  const st = getComputedStyle(main);
+  const box = main.querySelector(".main__stage") || main;
+  const st = getComputedStyle(box);
   const padX =
     (parseFloat(st.paddingLeft) || 0) + (parseFloat(st.paddingRight) || 0);
   const padY =
     (parseFloat(st.paddingTop) || 0) + (parseFloat(st.paddingBottom) || 0);
   return {
-    w: Math.max(0, main.clientWidth - padX),
-    h: Math.max(0, main.clientHeight - padY),
+    w: Math.max(0, box.clientWidth - padX),
+    h: Math.max(0, box.clientHeight - padY),
   };
 }
 

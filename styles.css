@@ -54,8 +54,10 @@ body {
 .main {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
   /* Vertical room so scaled / translated tiles are not clipped (avoid overflow:* on .word — it traps content in a box) */
   padding-top: clamp(2.25rem, 6vh, 4rem);
   padding-inline: clamp(0.75rem, 4vw, 2rem);
@@ -64,6 +66,16 @@ body {
     clamp(2.25rem, 6vh, 4rem) + 5.25rem + env(safe-area-inset-bottom, 0px)
   );
   overflow: visible;
+}
+
+/* Flex slice for letter tiles so fit scaling uses remaining height above the beta CTA */
+.main__stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .site-footer {
@@ -80,6 +92,22 @@ body {
   font-size: 0.875rem;
   color: var(--lg-footer-fg);
   background: var(--lg-bg-page);
+}
+
+.beta-cta {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--lg-footer-fg);
+}
+
+.beta-cta a {
+  color: var(--lg-footer-link);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.beta-cta a:hover {
+  text-decoration: underline;
 }
 
 .site-footer p {
