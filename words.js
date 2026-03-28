@@ -128,6 +128,76 @@ function enterDurationForTiles(n) {
   );
 }
 
+function getOrCreateFit(container) {
+  let el = container.querySelector(":scope > .word__fit");
+  if (!el) {
+    el = document.createElement("div");
+    el.className = "word__fit";
+    container.appendChild(el);
+  }
+  return el;
+}
+
+/** Main content box inside padding — space available for the word row */
+function mainContentInnerSize(main) {
+  const st = getComputedStyle(main);
+  const padX =
+    (parseFloat(st.paddingLeft) || 0) + (parseFloat(st.paddingRight) || 0);
+  const padY =
+    (parseFloat(st.paddingTop) || 0) + (parseFloat(st.paddingBottom) || 0);
+  return {
+    w: Math.max(0, main.clientWidth - padX),
+    h: Math.max(0, main.clientHeight - padY),
+  };
+}
+
+/** Widest/tallest layer (crossfade can have two rows with different lengths) */
+function measureFitContentSize(fit) {
+  let maxW = 0;
+  let maxH = 0;
+  const layers = fit.querySelectorAll(".word-layer");
+  for (const layer of layers) {
+    maxW = Math.max(maxW, layer.offsetWidth);
+    maxH = Math.max(maxH, layer.offsetHeight);
+  }
+  return {
+    w: maxW || fit.scrollWidth,
+    h: maxH || fit.scrollHeight,
+  };
+}
+
+let wordFitRaf = 0;
+
+function scheduleWordFit(container) {
+  if (!container) return;
+  cancelAnimationFrame(wordFitRaf);
+  wordFitRaf = requestAnimationFrame(() => {
+    wordFitRaf = 0;
+    applyWordFit(container);
+  });
+}
+
+function applyWordFit(container) {
+  const main = container.closest(".main");
+  const fit = container.querySelector(":scope > .word__fit");
+  if (!main || !fit) return;
+
+  container.style.setProperty("--word-fit-scale", "1");
+  void container.offsetHeight;
+
+  const { w: naturalW, h: naturalH } = measureFitContentSize(fit);
+  if (!naturalW || !naturalH) return;
+
+  const { w: availW, h: availH } = mainContentInnerSize(main);
+  const pad = 2;
+  const scaleW = (availW - pad) / naturalW;
+  const scaleH = (availH - pad) / naturalH;
+  let scale = Math.min(1, scaleW, scaleH);
+  if (!Number.isFinite(scale) || scale <= 0) scale = 1;
+
+  container.style.setProperty("--word-fit-scale", String(scale));
+}
+
 function buildLayerElement(word) {
   const layer = document.createElement("div");
   layer.className = "word-layer";
@@ -165,10 +235,12 @@ function buildLayerElement(word) {
 }
 
 function installWord(container, word) {
-  container.replaceChildren();
+  const fit = getOrCreateFit(container);
+  fit.replaceChildren();
   container.classList.remove("word--crossfade");
-  container.appendChild(buildLayerElement(word));
+  fit.appendChild(buildLayerElement(word));
   container.setAttribute("aria-label", word);
+  scheduleWordFit(container);
 }
 
 function renderInitialWord() {
@@ -183,7 +255,8 @@ function cycleWords() {
   if (!container) return;
 
   window.setTimeout(() => {
-    const active = container.querySelector(":scope > .word-layer:last-of-type");
+    const fit = getOrCreateFit(container);
+    const active = fit.querySelector(".word-layer:last-of-type");
     const nTiles = active?.querySelectorAll(".tile").length ?? 0;
 
     if (nTiles === 0) {
@@ -210,9 +283,10 @@ function cycleWords() {
       "--enter-overlap",
       `${ENTER_OVERLAP_MS / 1000}s`
     );
-    container.appendChild(inLayer);
+    fit.appendChild(inLayer);
 
     container.setAttribute("aria-label", word);
+    scheduleWordFit(container);
 
     const nNew = inLayer.querySelectorAll(".tile").length;
     const cleanupMs = Math.max(
@@ -225,12 +299,27 @@ function cycleWords() {
       container.classList.remove("word--crossfade");
       inLayer.classList.remove("word-layer--in");
       inLayer.style.removeProperty("--enter-overlap");
+      scheduleWordFit(container);
       cycleWords();
     }, cleanupMs);
   }, WORD_CYCLE_MS);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("word");
+  const main = document.querySelector(".main");
+
   renderInitialWord();
   cycleWords();
+
+  if (container && main) {
+    const refit = () => scheduleWordFit(container);
+    if (document.fonts?.ready) {
+      void document.fonts.ready.then(refit);
+    }
+    window.addEventListener("resize", refit, { passive: true });
+    if (typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(refit).observe(main);
+    }
+  }
 });

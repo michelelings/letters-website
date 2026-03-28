@@ -96,15 +96,26 @@ body {
 }
 
 .word {
+  --word-fit-scale: 1;
+  --fit-tile-w: calc(var(--tile-w) * var(--word-fit-scale));
+  --fit-tile-h: calc(var(--tile-h) * var(--word-fit-scale));
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   max-width: 100%;
-  min-height: var(--tile-h);
+  min-height: var(--fit-tile-h);
   overflow: visible;
   text-transform: uppercase;
+}
+
+.word__fit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
 }
 
 .word-layer {
@@ -157,6 +168,11 @@ body {
   }
 }
 
+.word .tile {
+  width: var(--fit-tile-w);
+  height: var(--fit-tile-h);
+}
+
 .tile {
   position: relative;
   z-index: var(--z, 1);
@@ -182,6 +198,10 @@ body {
 
 .tile + .tile {
   margin-inline-start: calc(-1 * var(--tile-w) * var(--answer-overlap));
+}
+
+.word .tile + .tile {
+  margin-inline-start: calc(-1 * var(--fit-tile-w) * var(--answer-overlap));
 }
 
 .tile__face {
@@ -244,6 +264,15 @@ body {
 .word-gap {
   flex: 0 0 auto;
   width: 0.85rem;
+}
+
+.word .word-gap {
+  width: calc(0.85rem * var(--word-fit-scale));
+}
+
+.word .tile__face {
+  font-size: calc(clamp(1.65rem, 5vw, 2.05rem) * var(--word-fit-scale));
+  border-radius: min(1.25rem, calc(var(--fit-tile-w) * 0.25));
 }
 
 @media (prefers-reduced-motion: reduce) {
