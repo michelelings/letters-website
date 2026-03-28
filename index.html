@@ -45,5 +45,24 @@
     <p>Letters is made by <a href="https://www.ocho.so" target="_blank" rel="noopener noreferrer">Ocho</a></p>
   </footer>
   <script src="words.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      function analyticsEvent(name, params) {
+        if (typeof gtag === 'function') {
+          gtag('event', name, params);
+        }
+      }
+
+      const betaLink = document.querySelector('.beta-cta a');
+      betaLink?.addEventListener('click', () => {
+        analyticsEvent('download_beta_click', { link_url: betaLink.href });
+      });
+
+      const ochoLink = document.querySelector('.site-footer a');
+      ochoLink?.addEventListener('click', () => {
+        analyticsEvent('ocho_link_click', { link_url: ochoLink.href });
+      });
+    });
+  </script>
 </body>
 </html>
