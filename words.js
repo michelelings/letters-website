@@ -1,7 +1,4 @@
-/** How long each demo word stays on screen before switching (milliseconds). */
-export const WORD_ROTATE_MS = 4000;
-
-export const WORDS = [
+const WORDS = [
   "Welcome",
   "Bienvenue",
   "Willkommen",
@@ -76,12 +73,41 @@ export const WORDS = [
   "Bainvegnî",
 ];
 
-export function pickWord(exclude: string | null): string {
-  if (WORDS.length === 0) return "";
-  if (WORDS.length === 1) return WORDS[0] ?? "";
-  let w: string;
-  do {
-    w = WORDS[Math.floor(Math.random() * WORDS.length)]!;
-  } while (w === exclude);
-  return w;
+/** Degrees; repeats for words longer than this pattern */
+const TILTS = [-4, 3, 1, -3, 4];
+
+function pickWord() {
+  return WORDS[Math.floor(Math.random() * WORDS.length)];
 }
+
+function renderWord() {
+  const word = pickWord();
+  const container = document.getElementById("word");
+  if (!container) return;
+
+  container.replaceChildren();
+  container.setAttribute("aria-label", word);
+
+  let tileIndex = 0;
+  [...word].forEach((char, i) => {
+    if (char === " ") {
+      const gap = document.createElement("span");
+      gap.className = "word-gap";
+      gap.setAttribute("aria-hidden", "true");
+      container.appendChild(gap);
+      return;
+    }
+
+    const span = document.createElement("span");
+    span.className = "tile";
+    span.textContent = char;
+    span.style.zIndex = String(i + 1);
+    span.style.setProperty("--tilt", `${TILTS[tileIndex % TILTS.length]}deg`);
+    tileIndex += 1;
+    container.appendChild(span);
+  });
+
+  document.title = `${word} — Letters`;
+}
+
+document.addEventListener("DOMContentLoaded", renderWord);
