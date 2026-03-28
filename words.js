@@ -88,12 +88,22 @@ function renderWord() {
   container.replaceChildren();
   container.setAttribute("aria-label", word);
 
+  let tileIndex = 0;
   [...word].forEach((char, i) => {
+    if (char === " ") {
+      const gap = document.createElement("span");
+      gap.className = "word-gap";
+      gap.setAttribute("aria-hidden", "true");
+      container.appendChild(gap);
+      return;
+    }
+
     const span = document.createElement("span");
     span.className = "tile";
     span.textContent = char;
     span.style.zIndex = String(i + 1);
-    span.style.setProperty("--tilt", `${TILTS[i % TILTS.length]}deg`);
+    span.style.setProperty("--tilt", `${TILTS[tileIndex % TILTS.length]}deg`);
+    tileIndex += 1;
     container.appendChild(span);
   });
 
