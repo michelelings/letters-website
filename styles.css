@@ -2,13 +2,33 @@
   box-sizing: border-box;
 }
 
+:root {
+  /* BuildBoardView / LetterTileView (iOS + React handoff) */
+  --lg-bg-primary: #f5f5f7;
+  --lg-bg-page: #efefef;
+  --lg-fg-primary: #1c1c1e;
+  --lg-tile-border: rgba(0, 0, 0, 0.07);
+  --lg-tile-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+  --lg-hover-ring: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  /* BoardTileSizing: 56×88 answer tiles; overlap = 8% of width */
+  --tile-w: 3.25rem;
+  --tile-h: 5rem;
+  --answer-overlap: 0.08;
+  --tile-ease: cubic-bezier(0.34, 1.2, 0.64, 1);
+  --tile-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --tile-dur: 0.22s;
+  --tile-enter-dur: 0.55s;
+  --tile-exit-dur: 0.42s;
+  --tile-stagger-ms: 42ms;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #efefef;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--lg-bg-page);
+  font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 .main {
@@ -16,6 +36,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Vertical room so scaled / translated tiles are not clipped (avoid overflow:* on .word — it traps content in a box) */
+  padding: clamp(2.25rem, 6vh, 4rem) clamp(0.75rem, 4vw, 2rem);
+  overflow: visible;
 }
 
 .site-footer {
@@ -42,34 +65,159 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: nowrap;
+  width: max-content;
+  max-width: 100%;
+  min-height: var(--tile-h);
+  overflow: visible;
   text-transform: uppercase;
+}
+
+@keyframes tile-enter {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--tilt, 0deg)) translateY(0.6rem) scale(0.9);
+  }
+  70% {
+    opacity: 1;
+    transform: rotate(var(--tilt, 0deg)) translateY(-0.08rem) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(var(--tilt, 0deg)) translateY(0) scale(1);
+  }
+}
+
+@keyframes tile-exit {
+  0% {
+    opacity: 1;
+    transform: rotate(var(--tilt, 0deg)) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--tilt, 0deg)) translateY(-0.45rem) scale(0.86);
+  }
 }
 
 .tile {
   position: relative;
-  flex-shrink: 0;
-  width: 3.25rem;
-  height: 5rem;
+  z-index: var(--z, 1);
+  flex: 0 0 auto;
+  width: var(--tile-w);
+  height: var(--tile-h);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border-radius: 1.25rem;
-  color: #111;
-  font-size: clamp(1.75rem, 5vw, 2.25rem);
-  font-weight: 800;
-  line-height: 1;
-  transform: rotate(var(--tilt, 0deg));
-  box-shadow:
-    0.2rem 0.35rem 0.65rem rgba(0, 0, 0, 0.12),
-    0 0.06rem 0.1rem rgba(0, 0, 0, 0.06);
+  align-items: stretch;
+  justify-content: stretch;
+  transform: rotate(var(--tilt, 0deg)) scale(1);
+  transform-origin: center center;
+  perspective: 200px;
+  transition:
+    transform var(--tile-dur) var(--tile-ease-out),
+    box-shadow var(--tile-dur) ease,
+    filter var(--tile-dur) ease;
+  animation: tile-enter var(--tile-enter-dur) var(--tile-ease) backwards;
+  animation-delay: calc(var(--stagger, 0) * var(--tile-stagger-ms));
+  touch-action: manipulation;
 }
 
 .tile + .tile {
-  margin-left: -0.65rem;
+  margin-inline-start: calc(-1 * var(--tile-w) * var(--answer-overlap));
+}
+
+.tile__face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: min(1.25rem, calc(var(--tile-w) * 0.25));
+  background: var(--lg-bg-primary);
+  border: 1px solid var(--lg-tile-border);
+  color: var(--lg-fg-primary);
+  font-size: clamp(1.65rem, 5vw, 2.05rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  box-shadow: var(--lg-tile-shadow);
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform var(--tile-dur) var(--tile-ease-out);
+}
+
+.word--exiting .tile {
+  animation: tile-exit var(--tile-exit-dur) var(--tile-ease-out) forwards;
+  animation-delay: calc((var(--stagger-max, 0) - var(--stagger, 0)) * var(--tile-stagger-ms));
+}
+
+/* Pointer devices: mirror BuildBoardView outer scale(1.08) + inner scale(0.92) while dragging */
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    transform: rotate(var(--tilt, 0deg)) scale(1.08);
+    z-index: 999;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.12));
+  }
+
+  .tile:hover .tile__face {
+    transform: scale(0.92);
+    box-shadow:
+      var(--lg-tile-shadow),
+      var(--lg-hover-ring);
+  }
+}
+
+.tile:active {
+  transform: rotate(var(--tilt, 0deg)) scale(1.04);
+  transition-duration: 0.1s;
+}
+
+.tile:active .tile__face {
+  transform: scale(0.9);
+  transition-duration: 0.1s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tile:active:hover {
+    transform: rotate(var(--tilt, 0deg)) scale(1.02);
+  }
 }
 
 .word-gap {
-  flex-shrink: 0;
+  flex: 0 0 auto;
   width: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --tile-enter-dur: 0.01ms;
+    --tile-exit-dur: 0.01ms;
+    --tile-stagger-ms: 0ms;
+    --tile-dur: 0.01ms;
+  }
+
+  .tile,
+  .tile__face {
+    animation: none !important;
+    transition: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .tile:hover {
+      transform: rotate(var(--tilt, 0deg)) scale(1);
+      filter: none;
+    }
+
+    .tile:hover .tile__face {
+      transform: scale(1);
+      box-shadow: var(--lg-tile-shadow);
+    }
+  }
+
+  .tile:active,
+  .tile:active .tile__face {
+    transform: rotate(var(--tilt, 0deg)) scale(1);
+  }
+
+  .tile__face {
+    transform: scale(1);
+  }
 }

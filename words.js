@@ -73,23 +73,37 @@ const WORDS = [
   "Bainvegnî",
 ];
 
-/** Degrees; repeats for words longer than this pattern */
-const TILTS = [-4, 3, 1, -3, 4];
+/** BuildBoardView.stableRotation — degrees */
+function stableRotationDeg(index) {
+  const seed = ((index * 7 + 3) % 11) / 11;
+  return (seed - 0.5) * 6;
+}
+
+const WORD_CYCLE_MS = 3000;
+const EXIT_PAD_MS = 120;
 
 function pickWord() {
   return WORDS[Math.floor(Math.random() * WORDS.length)];
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 function renderWord() {
-  const word = pickWord();
   const container = document.getElementById("word");
   if (!container) return;
 
+  const word = pickWord();
+
   container.replaceChildren();
+  container.classList.remove("word--exiting");
+  container.removeAttribute("style");
+
   container.setAttribute("aria-label", word);
 
   let tileIndex = 0;
-  [...word].forEach((char, i) => {
+  [...word].forEach((char) => {
     if (char === " ") {
       const gap = document.createElement("span");
       gap.className = "word-gap";
@@ -98,16 +112,76 @@ function renderWord() {
       return;
     }
 
-    const span = document.createElement("span");
-    span.className = "tile";
-    span.textContent = char;
-    span.style.zIndex = String(i + 1);
-    span.style.setProperty("--tilt", `${TILTS[tileIndex % TILTS.length]}deg`);
+    const tile = document.createElement("span");
+    tile.className = "tile";
+    tile.setAttribute("aria-hidden", "true");
+
+    const face = document.createElement("span");
+    face.className = "tile__face";
+    face.textContent = char;
+
+    tile.appendChild(face);
+
+    const depth = tileIndex + 1;
+    tile.style.setProperty("--z", String(depth));
+    tile.style.setProperty("--tilt", `${stableRotationDeg(tileIndex)}deg`);
+    tile.style.setProperty("--stagger", String(tileIndex));
     tileIndex += 1;
-    container.appendChild(span);
+
+    container.appendChild(tile);
   });
+
+  const n = tileIndex;
+  if (n > 0) {
+    container.style.setProperty("--stagger-max", String(n - 1));
+  }
 
   document.title = `${word} — Letters`;
 }
 
-document.addEventListener("DOMContentLoaded", renderWord);
+function exitDurationMs() {
+  if (prefersReducedMotion()) return 0;
+
+  const root = document.documentElement;
+  const staggerMs = Number.parseFloat(
+    getComputedStyle(root).getPropertyValue("--tile-stagger-ms").trim() || "42"
+  );
+  const exitSec = Number.parseFloat(
+    getComputedStyle(root).getPropertyValue("--tile-exit-dur").trim() || "0.42"
+  );
+  const exitMs = (Number.isFinite(exitSec) ? exitSec : 0.42) * 1000;
+  const n = document.querySelectorAll("#word .tile").length;
+  const staggerSpan = n > 0 ? (n - 1) * staggerMs : 0;
+  return Math.round(exitMs + staggerSpan + EXIT_PAD_MS);
+}
+
+function cycleWords() {
+  const container = document.getElementById("word");
+  if (!container) return;
+
+  window.setTimeout(() => {
+    const tiles = container.querySelectorAll(".tile");
+    if (tiles.length === 0) {
+      window.setTimeout(() => cycleWords(), WORD_CYCLE_MS);
+      return;
+    }
+
+    if (prefersReducedMotion()) {
+      renderWord();
+      cycleWords();
+      return;
+    }
+
+    container.classList.add("word--exiting");
+
+    window.setTimeout(() => {
+      renderWord();
+      cycleWords();
+    }, exitDurationMs());
+  }, WORD_CYCLE_MS);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderWord();
+  cycleWords();
+});
