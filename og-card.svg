@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="ogTitle">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="ogTitle">
   <title id="ogTitle">Download Letters on the App Store</title>
   <defs>
     <filter id="tile-shadow" x="-25%" y="-25%" width="150%" height="150%">
       <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.08"/>
     </filter>
   </defs>
-  <rect width="1200" height="630" fill="#efefef"/>
-  <text x="600" y="178" text-anchor="middle" font-family="ui-rounded, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" letter-spacing="-0.02em" fill="#1c1c1e">Download</text>
-  <g transform="translate(600, 314)">
+  <rect width="1200" height="900" fill="#efefef"/>
+  <text x="600" y="314" text-anchor="middle" font-family="ui-rounded, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" letter-spacing="-0.02em" fill="#1c1c1e">Download</text>
+  <g transform="translate(600, 450)">
     <g font-family="ui-rounded, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="58" font-weight="900" letter-spacing="-0.03em" fill="#1c1c1e" text-anchor="middle">
       <!-- Tile tilt matches words.js stableRotationDeg(index) -->
       <g transform="translate(-209.76, -59) rotate(-1.363636 38 59)" filter="url(#tile-shadow)">
@@ -40,5 +40,5 @@
       </g>
     </g>
   </g>
-  <text x="600" y="458" text-anchor="middle" font-family="ui-rounded, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="46" font-weight="600" letter-spacing="-0.015em" fill="#3a3a3c">on the App Store</text>
+  <text x="600" y="594" text-anchor="middle" font-family="ui-rounded, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="46" font-weight="600" letter-spacing="-0.015em" fill="#3a3a3c">on the App Store</text>
 </svg>
