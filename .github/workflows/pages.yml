@@ -23,8 +23,12 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
+      # Use install until package-lock.json is committed (npm ci requires a lockfile).
+      - run: npm install --no-audit --no-fund
       - run: npm run build
+        env:
+          # GitHub project page URL: /<repo>/
+          VITE_BASE: /letters-website/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
