@@ -81,6 +81,9 @@ function stableRotationDeg(index) {
 
 const WORD_CYCLE_MS = 3000;
 const EXIT_PAD_MS = 120;
+const ENTER_PAD_MS = 80;
+/** How soon the incoming row starts (after outgoing exit begins), in ms */
+const ENTER_OVERLAP_MS = 160;
 
 function pickWord() {
   return WORDS[Math.floor(Math.random() * WORDS.length)];
@@ -90,17 +93,44 @@ function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-function renderWord() {
-  const container = document.getElementById("word");
-  if (!container) return;
+function parseCssTimeMs(value, fallback) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return fallback;
+  if (/ms$/i.test(raw)) return Number.parseFloat(raw) || fallback;
+  if (/s$/i.test(raw)) return (Number.parseFloat(raw) || 0) * 1000;
+  const n = Number.parseFloat(raw);
+  return Number.isFinite(n) ? n * 1000 : fallback;
+}
 
-  const word = pickWord();
+function durationFromRootVar(prop, fallback) {
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue(prop)
+    .trim();
+  return parseCssTimeMs(raw, fallback);
+}
 
-  container.replaceChildren();
-  container.classList.remove("word--exiting");
-  container.removeAttribute("style");
+function exitDurationForTiles(n) {
+  if (prefersReducedMotion()) return 0;
+  const exitMs = durationFromRootVar("--tile-exit-dur", 420);
+  const staggerMs = durationFromRootVar("--tile-stagger-ms", 42);
+  const staggerSpan = n > 0 ? (n - 1) * staggerMs : 0;
+  return Math.round(exitMs + staggerSpan + EXIT_PAD_MS);
+}
 
-  container.setAttribute("aria-label", word);
+/** Last incoming tile finishes at overlap + (n-1)*stagger + enter length */
+function enterDurationForTiles(n) {
+  if (prefersReducedMotion()) return 0;
+  const enterMs = durationFromRootVar("--tile-enter-dur", 550);
+  const staggerMs = durationFromRootVar("--tile-stagger-ms", 42);
+  const staggerSpan = n > 0 ? (n - 1) * staggerMs : 0;
+  return Math.round(
+    ENTER_OVERLAP_MS + enterMs + staggerSpan + ENTER_PAD_MS
+  );
+}
+
+function buildLayerElement(word) {
+  const layer = document.createElement("div");
+  layer.className = "word-layer";
 
   let tileIndex = 0;
   [...word].forEach((char) => {
@@ -108,7 +138,7 @@ function renderWord() {
       const gap = document.createElement("span");
       gap.className = "word-gap";
       gap.setAttribute("aria-hidden", "true");
-      container.appendChild(gap);
+      layer.appendChild(gap);
       return;
     }
 
@@ -128,31 +158,24 @@ function renderWord() {
     tile.style.setProperty("--stagger", String(tileIndex));
     tileIndex += 1;
 
-    container.appendChild(tile);
+    layer.appendChild(tile);
   });
 
-  const n = tileIndex;
-  if (n > 0) {
-    container.style.setProperty("--stagger-max", String(n - 1));
-  }
-
-  document.title = `${word} — Letters`;
+  return layer;
 }
 
-function exitDurationMs() {
-  if (prefersReducedMotion()) return 0;
+function installWord(container, word) {
+  container.replaceChildren();
+  container.classList.remove("word--crossfade");
+  container.appendChild(buildLayerElement(word));
+  container.setAttribute("aria-label", word);
+}
 
-  const root = document.documentElement;
-  const staggerMs = Number.parseFloat(
-    getComputedStyle(root).getPropertyValue("--tile-stagger-ms").trim() || "42"
-  );
-  const exitSec = Number.parseFloat(
-    getComputedStyle(root).getPropertyValue("--tile-exit-dur").trim() || "0.42"
-  );
-  const exitMs = (Number.isFinite(exitSec) ? exitSec : 0.42) * 1000;
-  const n = document.querySelectorAll("#word .tile").length;
-  const staggerSpan = n > 0 ? (n - 1) * staggerMs : 0;
-  return Math.round(exitMs + staggerSpan + EXIT_PAD_MS);
+function renderInitialWord() {
+  const container = document.getElementById("word");
+  if (!container) return;
+  const word = pickWord();
+  installWord(container, word);
 }
 
 function cycleWords() {
@@ -160,28 +183,54 @@ function cycleWords() {
   if (!container) return;
 
   window.setTimeout(() => {
-    const tiles = container.querySelectorAll(".tile");
-    if (tiles.length === 0) {
+    const active = container.querySelector(":scope > .word-layer:last-of-type");
+    const nTiles = active?.querySelectorAll(".tile").length ?? 0;
+
+    if (nTiles === 0) {
       window.setTimeout(() => cycleWords(), WORD_CYCLE_MS);
       return;
     }
 
     if (prefersReducedMotion()) {
-      renderWord();
+      const word = pickWord();
+      installWord(container, word);
       cycleWords();
       return;
     }
 
-    container.classList.add("word--exiting");
+    active.classList.add("word-layer--out");
+    active.style.setProperty("--stagger-max", String(Math.max(0, nTiles - 1)));
+
+    container.classList.add("word--crossfade");
+
+    const word = pickWord();
+    const inLayer = buildLayerElement(word);
+    inLayer.classList.add("word-layer--in");
+    inLayer.style.setProperty(
+      "--enter-overlap",
+      `${ENTER_OVERLAP_MS / 1000}s`
+    );
+    container.appendChild(inLayer);
+
+    container.setAttribute("aria-label", word);
+
+    const nNew = inLayer.querySelectorAll(".tile").length;
+    const cleanupMs = Math.max(
+      exitDurationForTiles(nTiles),
+      enterDurationForTiles(nNew)
+    );
 
     window.setTimeout(() => {
-      renderWord();
+      active.remove();
+      container.classList.remove("word--crossfade");
+      inLayer.classList.remove("word-layer--in");
+      inLayer.style.removeProperty("--enter-overlap");
       cycleWords();
-    }, exitDurationMs());
+    }, cleanupMs);
   }, WORD_CYCLE_MS);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderWord();
+  renderInitialWord();
   cycleWords();
 });

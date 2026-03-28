@@ -62,15 +62,39 @@ body {
 }
 
 .word {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: var(--tile-h);
+  overflow: visible;
+  text-transform: uppercase;
+}
+
+.word-layer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
   width: max-content;
-  max-width: 100%;
-  min-height: var(--tile-h);
-  overflow: visible;
-  text-transform: uppercase;
+}
+
+/* Outgoing strip sits on top and fades; incoming strip stays in normal flow underneath */
+.word--crossfade .word-layer--out {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.word--crossfade .word-layer--in {
+  position: relative;
+  z-index: 1;
+  margin-inline: auto;
 }
 
 @keyframes tile-enter {
@@ -116,7 +140,9 @@ body {
     box-shadow var(--tile-dur) ease,
     filter var(--tile-dur) ease;
   animation: tile-enter var(--tile-enter-dur) var(--tile-ease) backwards;
-  animation-delay: calc(var(--stagger, 0) * var(--tile-stagger-ms));
+  animation-delay: calc(
+    var(--stagger, 0) * var(--tile-stagger-ms) + var(--enter-overlap, 0s)
+  );
   touch-action: manipulation;
 }
 
@@ -144,7 +170,7 @@ body {
   transition: transform var(--tile-dur) var(--tile-ease-out);
 }
 
-.word--exiting .tile {
+.word-layer--out .tile {
   animation: tile-exit var(--tile-exit-dur) var(--tile-ease-out) forwards;
   animation-delay: calc((var(--stagger-max, 0) - var(--stagger, 0)) * var(--tile-stagger-ms));
 }
