@@ -57,7 +57,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0;
   /* Vertical room so scaled / translated tiles are not clipped (avoid overflow:* on .word — it traps content in a box) */
   padding-top: clamp(2.25rem, 6vh, 4rem);
   padding-inline: clamp(0.75rem, 4vw, 2rem);
@@ -75,7 +75,6 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: 0.125rem;
   width: 100%;
 }
 
@@ -97,6 +96,7 @@ body {
 
 .beta-cta {
   margin: 0;
+  margin-top: -2rem;
   display: flex;
   justify-content: center;
 }
