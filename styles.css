@@ -96,18 +96,43 @@ body {
 
 .beta-cta {
   margin: 0;
-  font-size: 0.8125rem;
-  color: var(--lg-footer-fg);
+  display: flex;
+  justify-content: center;
 }
 
-.beta-cta a {
-  color: var(--lg-footer-link);
+.beta-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5625rem 1.25rem;
+  font-size: 0.9375rem;
   font-weight: 600;
+  font-family: inherit;
+  line-height: 1.2;
   text-decoration: none;
+  color: var(--lg-bg-primary);
+  background: var(--lg-fg-primary);
+  border: none;
+  border-radius: 9999px;
+  box-shadow: var(--lg-tile-shadow);
+  transition:
+    transform var(--tile-dur) var(--tile-ease-out),
+    filter var(--tile-dur) var(--tile-ease-out),
+    box-shadow var(--tile-dur) var(--tile-ease-out);
 }
 
-.beta-cta a:hover {
-  text-decoration: underline;
+.beta-cta__btn:hover {
+  filter: brightness(1.06);
+  box-shadow: var(--lg-tile-hover-drop);
+}
+
+.beta-cta__btn:active {
+  transform: scale(0.98);
+}
+
+.beta-cta__btn:focus-visible {
+  outline: 2px solid var(--lg-fg-primary);
+  outline-offset: 3px;
 }
 
 .site-footer p {
