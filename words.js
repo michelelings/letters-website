@@ -205,21 +205,13 @@ function buildLayerElement(word) {
 
   let tileIndex = 0;
   [...word].forEach((char) => {
-    if (char === " ") {
-      const gap = document.createElement("span");
-      gap.className = "word-gap";
-      gap.setAttribute("aria-hidden", "true");
-      layer.appendChild(gap);
-      return;
-    }
-
     const tile = document.createElement("span");
     tile.className = "tile";
     tile.setAttribute("aria-hidden", "true");
 
     const face = document.createElement("span");
     face.className = "tile__face";
-    face.textContent = char;
+    if (char !== " ") face.textContent = char;
 
     tile.appendChild(face);
 
