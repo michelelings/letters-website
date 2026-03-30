@@ -19,7 +19,7 @@ This topical map targets casual language-curious adults who prefer game-first ex
 
 **Maintainers:** Treat this section as the running changelog for the marketing repo. When you add a locale, URL, or article: (1) set **Last updated** below, (2) edit the bullets/tables here, (3) mark **Shipped** on the matching **Content calendar** lines and pillar tables if applicable, (4) update `sitemap.xml` in git. One source of truth—no duplicate shipped lists in other docs.
 
-*Last updated: March 30, 2026.*
+*Last updated: March 30, 2026 (Phase 1 cluster guides added).*
 
 ### Locales and homepage
 
@@ -60,6 +60,20 @@ Each row is the primary **pillar page** from the map, shipped as informational l
 **Regenerator:** Eight pillar hubs (Pillars 3–7, 8–10 in the table above, excluding Pillar 1 and the Spanish Pillar 2 page) are generated from `scripts/gen_pillar_articles.py`. **Hand-edited in HTML:** Pillar 1 (*best ways*) and Pillar 2 Spanish hub (*learn Spanish*). After changing copy/templates for the generated set, edit the script and run `python3 scripts/gen_pillar_articles.py` (overwrites those eight pairs only).
 
 Internal discovery: **Home** footers include “**All guides**” / “**Todas las guías**” → guides index; each article links related hubs and the index.
+
+### Phase 1 cluster / support articles (guides, EN + ES)
+
+Five support articles from the Phase 1 calendar are live with full metadata, `hreflang`, and internal links to pillar hubs. **`sitemap.xml`** includes all URLs below.
+
+| Article (EN title) | English URL | Spanish URL |
+| --- | --- | --- |
+| How to Learn Vocabulary Fast: 7 Proven Techniques | `/guides/how-to-learn-vocabulary-fast/` | `/es/guides/aprender-vocabulario-rapido/` |
+| Best Way to Learn Vocabulary (for Casual Learners) | `/guides/best-way-to-learn-vocabulary/` | `/es/guides/mejor-forma-aprender-vocabulario/` |
+| How to Learn Japanese Vocabulary (The Fun Way) | `/guides/how-to-learn-japanese-vocabulary/` | `/es/guides/como-aprender-vocabulario-japones/` |
+| Strategies for Learning Difficult Vocabulary Words | `/guides/strategies-difficult-vocabulary-words/` | `/es/guides/estrategias-vocabulario-dificil/` |
+| Best Way to Learn Spanish Vocabulary for Travel | `/guides/best-way-to-learn-spanish-vocabulary-travel/` | `/es/guides/mejor-forma-vocabulario-espanol-viaje/` |
+
+Pillar hubs link to the relevant clusters (e.g. **Best ways…** → three Pillar 1 clusters; **Learn Spanish…** → travel cluster; **Learn Japanese…** → “fun way” cluster).
 
 ### Not yet in scope
 
@@ -103,12 +117,12 @@ Target keyword: "learn vocabulary" · Articles: 11 — Building consistent vocab
 | Priority | Article | Volume | KD | Type | Notes |
 | --- | --- | --- | --- | --- | --- |
 | P1 | Best Ways to Learn Vocabulary (Without Flashcards) Target: "best ways to learn vocabulary" | 7,500 | 3 | Informational | Pillar page. **Blog shipped** (EN+ES, Mar 2026) — see **Implementation status**. Covers spaced repetition, context learning, game-based practice. Links to all cluster articles. |
-| P1 | How to Learn Vocabulary Fast: 7 Proven TechniquesTarget: "how to learn vocabulary" | 150 | 6 | Informational | Quick-win guide. Emphasizes short sessions and active recall. Links up to Pillar 1. |
-| P1 | Best Way to Learn Vocabulary for Casual LearnersTarget: "best way to learn vocabulary" | 100 | 1 | Informational | ICP-focused. Positions puzzle games as ideal for non-committal learners. Links to Pillar 1 and 6. |
+| P1 | How to Learn Vocabulary Fast: 7 Proven TechniquesTarget: "how to learn vocabulary" | 150 | 6 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/how-to-learn-vocabulary-fast/`. Quick-win guide. Emphasizes short sessions and active recall. Links up to Pillar 1. |
+| P1 | Best Way to Learn Vocabulary for Casual LearnersTarget: "best way to learn vocabulary" | 100 | 1 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/best-way-to-learn-vocabulary/`. ICP-focused. Positions puzzle games as ideal for non-committal learners. Links to Pillar 1 and 6. |
 | P2 | How to Learn More Vocabulary in 5 Minutes a DayTarget: "how to learn more vocabulary" | 60 | 18 | Informational | Micro-habit guide. Supports daily puzzle hook. Links to Pillar 1 and 10. |
 | P2 | Why Learn Vocabulary Through Games WorksTarget: "why learn vocabulary" | 60 | — | Informational | Authority-building explainer. Cites cognitive science. Links to Pillar 1 and 6. |
 | P2 | Learn New Vocabulary Every Day: A Simple SystemTarget: "learn new vocabulary" | 70 | 38 | Transactional | CTA to daily puzzle. Includes printable tracker. Links to Pillar 10. |
-| P1 | Strategies for Learning Difficult Vocabulary WordsTarget: "an appropriate strategy to learn difficult vocabulary words is the" | 80 | 0 | Informational | SEO snippet target. Short, tactical. Links to Pillar 1. |
+| P1 | Strategies for Learning Difficult Vocabulary WordsTarget: "an appropriate strategy to learn difficult vocabulary words is the" | 80 | 0 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/strategies-difficult-vocabulary-words/`. SEO snippet target. Short, tactical. Links to Pillar 1. |
 | P3 | Vocabulary Learn: Complete Beginner's GuideTarget: "vocabulary learn" | 90 | 61 | Informational | Long-form resource. Covers beginner mistakes. Links to Pillar 1. |
 | P2 | Best Websites to Learn English Vocabulary (Free)Target: "best websites to learn english vocabulary" | 80 | — | Commercial | Comparison piece. Positions your app as #1 for game-first learners. Links to Pillar 7. |
 
@@ -120,7 +134,7 @@ This pillar serves as the strategic hub for vocabulary acquisition methods, addr
 | --- | --- | --- | --- | --- | --- |
 | P1 | Learn Spanish Vocabulary: The Fun Way Target: "learn spanish vocabulary" | 150 | 10 | Transactional | **Blog hub shipped** (EN+ES, Mar 2026) — **Implementation status**; playable demo on-page TBD. Hub for all Spanish content. |
 | P1 | How to Learn Spanish Vocabulary (Without Classes)Target: "how to learn spanish vocabulary" | 60 | 14 | Informational | Self-study guide. Positions games as alternative to courses. Links to Pillar 2. |
-| P1 | Best Way to Learn Spanish Vocabulary for TravelTarget: "best way to learn spanish vocabulary" | 60 | 0 | Informational | Travel-focused. Highlights passport/map mechanic. Links to Pillar 2. |
+| P1 | Best Way to Learn Spanish Vocabulary for TravelTarget: "best way to learn spanish vocabulary" | 60 | 0 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/best-way-to-learn-spanish-vocabulary-travel/`. Travel-focused. Highlights passport/map mechanic. Links to Pillar 2. |
 | P2 | Spanish Food Vocabulary Puzzle (Play Now)Target: "spanish food vocabulary game" | 0 | — | Transactional | Playable category page. Users spell food words from letter bucket. Links to Pillar 2. |
 | P2 | Spanish Travel Vocabulary: 50 Essential WordsTarget: "spanish travel vocabulary" | 150 | 0 | Lead Magnet | Downloadable word list + playable quiz. Captures email. Links to Pillar 2. |
 | P2 | Daily Spanish Vocabulary PuzzleTarget: "daily spanish vocabulary" | 20 | 12 | Transactional | Daily challenge URL with unique content. Fresh every 24h. Links to Pillar 2 and 10. |
@@ -146,7 +160,7 @@ Targets non-native English speakers looking for casual, game-based practice. The
 | Priority | Article | Volume | KD | Type | Notes |
 | --- | --- | --- | --- | --- | --- |
 | P1 | Learn Japanese Vocabulary Through Puzzle Games Target: "learn japanese vocabulary" | 70 | 8 | Transactional | **Blog hub shipped** (EN+ES, Mar 2026) — **Implementation status**; playable demo TBD. |
-| P1 | How to Learn Japanese Vocabulary (The Fun Way)Target: "how to learn japanese vocabulary" | 60 | 1 | Informational | Gamification guide. Emphasizes character recognition. Links to Pillar 4. |
+| P1 | How to Learn Japanese Vocabulary (The Fun Way)Target: "how to learn japanese vocabulary" | 60 | 1 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/how-to-learn-japanese-vocabulary/`. Gamification guide. Emphasizes character recognition. Links to Pillar 4. |
 | P2 | Japanese Food Vocabulary Puzzle (Play Now)Target: "japanese food vocabulary game" | est. | — | Transactional | Playable category page. Sushi, ramen, etc. Links to Pillar 4. |
 | P2 | Japanese Travel Vocabulary: Essential PhrasesTarget: "japanese travel vocabulary" | 20 | 1 | Lead Magnet | Downloadable PDF + playable quiz. Links to Pillar 4. |
 | P2 | Daily Japanese Vocabulary ChallengeTarget: "daily japanese vocabulary" | 10 | — | Transactional | Daily puzzle with rotating categories. Links to Pillar 4 and 10. |
@@ -308,17 +322,17 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 ## Content Calendar
 
 ### Phase 1 — Quick Wins (Month 1–2)
-- **Shipped:** All **ten pillar hub** articles (guides EN+ES) — see **Implementation status**; *next:* playable demos on those URLs + cluster content below.
+- **Shipped:** All **ten pillar hub** articles (guides EN+ES) — see **Implementation status**; **five Phase 1 cluster guides** (EN+ES) — see **Phase 1 cluster / support articles**; *next:* playable demos on pillar URLs + remaining Phase 1 / Phase 2 cluster URLs below.
 - Learn Chinese Vocabulary — Pillar 8 (100 vol, KD 4) — **Hub live**; add playable proof on-page
 - Learn Korean Vocabulary — Pillar 9 (50 vol, KD 3) — **Hub live**; add playable proof on-page
-- How to Learn Vocabulary Fast — Pillar 1 (150 vol, KD 6) — Cluster article driving to Pillar 1
+- How to Learn Vocabulary Fast — Pillar 1 (150 vol, KD 6) — **Cluster live** (EN+ES)
 - Learn German Vocabulary — Pillar 5 (60 vol, KD 7) — **Hub live**; add playable proof on-page
 - Learn Japanese Vocabulary — Pillar 4 (70 vol, KD 8) — **Hub live**; add playable proof on-page
 - Learn Spanish Vocabulary — Pillar 2 (150 vol, KD 10) — **Hub live**; add playable proof on-page
-- Best Way to Learn Vocabulary — Pillar 1 (100 vol, KD 1) — ICP-aligned, conversion-focused
-- How to Learn Japanese Vocabulary — Pillar 4 (60 vol, KD 1) — Tactical support article
-- Strategies for Learning Difficult Vocabulary Words — Pillar 1 (80 vol, KD 0) — Snippet target
-- Best Way to Learn Spanish Vocabulary — Pillar 2 (60 vol, KD 0) — Travel-focused angle
+- Best Way to Learn Vocabulary — Pillar 1 (100 vol, KD 1) — **Cluster live** (EN+ES)
+- How to Learn Japanese Vocabulary — Pillar 4 (60 vol, KD 1) — **Cluster live** (EN+ES)
+- Strategies for Learning Difficult Vocabulary Words — Pillar 1 (80 vol, KD 0) — **Cluster live** (EN+ES)
+- Best Way to Learn Spanish Vocabulary — Pillar 2 (60 vol, KD 0) — **Cluster live** (EN+ES); travel angle (`…/travel/` slug on EN)
 
 ### Phase 2 — Core Content (Month 3–4)
 - How to Learn Spanish Vocabulary — Pillar 2 (60 vol, KD 14) — Cluster support for Spanish hub
