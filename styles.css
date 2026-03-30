@@ -600,6 +600,73 @@ body.body--article {
   color: color-mix(in srgb, var(--lg-fg-primary) 82%, transparent);
 }
 
+.guides-focus-hint {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--lg-fg-primary) 88%, transparent);
+}
+
+.guides-focus-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0 0 1.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--lg-bg-primary) 65%, transparent);
+  border: 1px solid var(--lg-tile-border);
+}
+
+.guides-focus-bar__label {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.guides-focus-bar__select {
+  min-width: min(100%, 16rem);
+  padding: 0.4rem 0.55rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--lg-fg-primary);
+  background: var(--lg-bg-page);
+  border: 1px solid var(--lg-tile-border);
+  border-radius: 0.35rem;
+}
+
+.guides-index__section {
+  margin-top: 2rem;
+}
+
+.article-post > .guides-index__section:first-of-type {
+  margin-top: 0;
+}
+
+.guides-index__lang-wrap {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.guides-index__lang-wrap > .guides-index__section {
+  margin-top: 0;
+}
+
+.guides-index__heading {
+  margin: 0 0 0.35rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.guides-index__section-intro {
+  margin: 0 0 0.5rem;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--lg-fg-primary) 80%, transparent);
+}
+
 .site-footer__extras {
   display: flex;
   flex-wrap: wrap;
