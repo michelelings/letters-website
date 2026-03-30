@@ -1,75 +1,59 @@
-const WORDS = [
-  "Welcome",
-  "Bienvenue",
-  "Willkommen",
-  "Bienvenido",
-  "Benvenuto",
-  "Bem-vindo",
-  "Welkom",
-  "Välkommen",
-  "Velkommen",
-  "Tervetuloa",
-  "Velkomin",
-  "Vítejte",
-  "Witamy",
-  "Üdvözöljük",
-  "Dobrodošli",
-  "Добро пожаловать",
-  "Ласкаво просимо",
-  "Добредојде",
-  "Bine ați venit",
-  "Hoş geldiniz",
-  "Καλώς ήρθατε",
-  "مرحبا",
-  "أهلا",
-  "خوش آمدید",
-  "स्वागत",
-  "স্বাগতম",
-  "സ്വാഗതം",
-  "வரவேற்கிறோம்",
-  "స్వాగతం",
-  "ಸ್ವಾಗತ",
-  "સ્વાગત",
-  "පිළිගනිමු",
-  "ยินดีต้อนรับ",
-  "Chào mừng",
-  "欢迎",
-  "歡迎",
-  "ようこそ",
-  "환영합니다",
-  "Selamat datang",
-  "Maligayang pagdating",
-  "Mabuhay",
-  "Bula",
-  "Talofa",
-  "Kia ora",
-  "Haere mai",
-  "Aloha",
-  "Karibu",
-  "Marhaban",
-  "Barka da zuwa",
-  "Byenvini",
-  "Byenveni",
-  "Sugeng rawuh",
-  "Wilujeng sumping",
-  "Manao ahoana",
-  "Tongasoa",
-  "Kaze neza",
-  "Murakaza neza",
-  "Ongi etorri",
-  "Benvida",
-  "Benvingut",
-  "Fàilte",
-  "Croeso",
-  "Benvengut",
-  "Bainvegni",
-  "Bienvènu",
-  "Bonveni",
-  "Benvignû",
-  "Benvegnû",
-  "Bienvegni",
-  "Bainvegnî",
-];
+const WORDS_BY_LOCALE = {
+  en: [
+    "Welcome",
+    "Hello",
+    "Hi",
+    "Words",
+    "Letters",
+    "Play",
+    "Puzzle",
+    "Game",
+    "Learn",
+    "Spell",
+    "Letters.game",
+    "Wordplay",
+    "Daily",
+    "Fun",
+    "Challenge",
+    "Practice",
+    "Score",
+    "Nice",
+    "Great",
+    "Wow",
+  ],
+  es: [
+    "Bienvenido",
+    "Hola",
+    "Palabras",
+    "Letras",
+    "Jugar",
+    "Juego",
+    "Aprender",
+    "Divertido",
+    "Reto",
+    "Práctica",
+    "Genial",
+    "Vamos",
+    "Súper",
+    "Perfecto",
+    "Letters.game",
+    "Palabra",
+    "Puzle",
+    "Diario",
+    "Nivel",
+    "Gana",
+  ],
+};
+
+function contentLocale() {
+  const lang = (document.documentElement.lang || "en").toLowerCase();
+  if (lang.startsWith("es")) return "es";
+  return "en";
+}
+
+function wordListForLocale() {
+  return WORDS_BY_LOCALE[contentLocale()] || WORDS_BY_LOCALE.en;
+}
 
 /** BuildBoardView.stableRotation — degrees */
 function stableRotationDeg(index) {
@@ -84,7 +68,8 @@ const ENTER_PAD_MS = 80;
 const ENTER_OVERLAP_MS = 160;
 
 function pickWord() {
-  return WORDS[Math.floor(Math.random() * WORDS.length)];
+  const list = wordListForLocale();
+  return list[Math.floor(Math.random() * list.length)];
 }
 
 function prefersReducedMotion() {

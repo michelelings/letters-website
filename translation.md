@@ -34,6 +34,8 @@ Paths use **no prefix** for English. All other locales use a **URL prefix** matc
 
 **Implementation note:** Keep a single config (e.g. `pathPrefixByLocale`) that maps each locale code to `""` for `en` and `"/{code}"` for the rest, so links and sitemap generation stay consistent.
 
+**Marketing site (current):** The static homepage ships **English** at `/` and **Spanish** at `/es/` with matching UI, `hreflang`, and `canonical` per locale. Other locales in the table are planned; add them using the same pattern when you extend the site.
+
 ### Alignment with the topical map (language-specific pillars)
 
 Marquee SEO articles in [topical-map.md](topical-map.md) target learners of specific languages. When you localize those pillars, use these locale codes and path prefixes (same as the table above):

@@ -84,6 +84,10 @@ body {
   right: 0;
   bottom: 0;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
   padding-top: 1rem;
   padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
   padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
@@ -92,6 +96,37 @@ body {
   font-size: 0.875rem;
   color: var(--lg-footer-fg);
   background: var(--lg-bg-page);
+}
+
+.lang-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.6rem;
+  font-size: 0.8125rem;
+}
+
+.lang-switch__sep {
+  color: var(--lg-footer-fg);
+  opacity: 0.45;
+  user-select: none;
+}
+
+.lang-switch a {
+  color: var(--lg-footer-link);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.lang-switch a:hover {
+  text-decoration: underline;
+}
+
+.lang-switch a[aria-current="true"] {
+  opacity: 0.75;
+  pointer-events: none;
+  text-decoration: none;
 }
 
 .beta-cta {
