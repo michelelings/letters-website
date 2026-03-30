@@ -2,7 +2,7 @@
 
 This document defines how we ship and maintain **UI copy** and **SEO/content** across languages. English (`en`) is the **default locale** and **source language** for product and editorial governance.
 
-Editorial SEO priorities (pillars, articles, internal linking) live in **[topical-map.md](topical-map.md)**. Use this file for routes, hreflang, and string workflow; use the topical map for *what* to publish and *how* pages link; together they define *where* each language lives on the site.
+Editorial SEO priorities (pillars, articles, internal linking) and **what is live on the marketing site** live in **[topical-map.md](topical-map.md)** (see **Implementation status** there only). Use *this* file for locale rules, hreflang policy, and string workflow.
 
 ---
 
@@ -34,7 +34,7 @@ Paths use **no prefix** for English. All other locales use a **URL prefix** matc
 
 **Implementation note:** Keep a single config (e.g. `pathPrefixByLocale`) that maps each locale code to `""` for `en` and `"/{code}"` for the rest, so links and sitemap generation stay consistent.
 
-**Marketing site (current):** The static homepage ships **English** at `/` and **Spanish** at `/es/` with matching UI, `hreflang`, and `canonical` per locale. Other locales in the table are planned; add them using the same pattern when you extend the site.
+**Marketing site:** Follow the locale and URL *rules* in this document. **What is deployed** (exact URLs, shipped articles, sitemap contents, homepage behavior) is tracked only in **[topical-map.md](topical-map.md)** under **Implementation status**—update that section when the site changes; do not duplicate deploy state here.
 
 ### Alignment with the topical map (language-specific pillars)
 

@@ -510,6 +510,10 @@ body.body--article {
   font-weight: 600;
 }
 
+.article-post a.beta-cta__btn {
+  color: var(--lg-bg-primary);
+}
+
 .article-post strong {
   font-weight: 700;
 }

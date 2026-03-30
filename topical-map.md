@@ -4,7 +4,7 @@
 
 for letters.game
 
-Companion doc: **[translation.md](translation.md)** defines URL prefixes, hreflang, and how localized pillar pages mirror English slugs (English ships first; non-English pages get a native-keyword pass per locale).
+**[translation.md](translation.md)** is the reference for locale *policy* (path prefixes, hreflang rules, slug rules, UI vs SEO). **This file is the only place that records what is actually live** on letters.game—update **Implementation status** on every ship (date, URLs, tables, Phase 1–4 checklist, internal links). Do not maintain a parallel “shipped” list elsewhere.
 
 ## Strategy Overview
 
@@ -14,6 +14,40 @@ Companion doc: **[translation.md](translation.md)** defines URL prefixes, hrefla
 - **Quick Wins**: 38
 
 This topical map targets casual language-curious adults who prefer game-first experiences over classroom-style learning. The strategy balances playable puzzle pages (transactional) with vocabulary-learning how-tos (informational) to capture both "play now" and "learn better" search intent, then converts users into app installs through low-friction demos and daily puzzle hooks.
+
+## Implementation status (letters.game)
+
+**Maintainers:** Treat this section as the running changelog for the marketing repo. When you add a locale, URL, or article: (1) set **Last updated** below, (2) edit the bullets/tables here, (3) mark **Shipped** on the matching **Content calendar** lines and pillar tables if applicable, (4) update `sitemap.xml` in git. One source of truth—no duplicate shipped lists in other docs.
+
+*Last updated: March 30, 2026.*
+
+### Locales and homepage
+
+- **English** is the default: `https://www.letters.game/` (no prefix), `html lang="en"`, canonical and `x-default` for the homepage pair.
+- **Spanish** mirrors the homepage: `https://www.letters.game/es/` with full UI parity (copy, CTA, footer), **`hreflang`** reciprocity with English, **`og:locale`** / alternate, and footer language switcher.
+- Shared assets: `/styles.css`, `/words.js`, `/favicon.svg`. The tile demo uses **locale-specific word lists** driven by `document.documentElement.lang` (English vs Spanish), not the old global multilingual welcome list.
+- **Analytics:** `dataLayer` pushes `letters_locale: 'en' | 'es'` before `gtag('config', …)`; key clicks can include `locale` (and on article pages, `page_type: 'article'`).
+
+### Discovery files
+
+- **`sitemap.xml`** — homepage EN/ES plus all shipped article URLs (resubmit in Search Console when URLs change).
+- **`robots.txt`** — references the sitemap.
+
+### First Phase 1 article (Pillar 1 hub)
+
+Shipped as informational long-form (metadata + body + CTA); playable demo on-page is still a future enhancement aligned with the map’s “play now” pillar ideal.
+
+| Version | URL | Slug note |
+| --- | --- | --- |
+| English | `https://www.letters.game/blog/best-ways-to-learn-vocabulary/` | Keyword-aligned ASCII slug |
+| Spanish | `https://www.letters.game/es/blog/mejores-formas-aprender-vocabulario/` | Native slug for ES search/UX |
+
+Both include reciprocal **`hreflang`** (`en`, `es`, `x-default` → English article), **self `canonical`**, **Article JSON-LD**, Open Graph/Twitter article metadata, sticky header (Letters + Download), and footer **Home** + language links. The **homepage** footers link here (“Learn vocabulary” / “Aprender vocabulario”) so the site is not only isolated landing pages.
+
+### Not yet in scope
+
+- Remaining Phase 1–4 articles, daily puzzle URLs, and playable embeds on pillar pages per calendar below.
+- Additional locales beyond `en` + `es` on the marketing site (target locale *codes* are listed in [translation.md](translation.md); when one ships, add it **here** first with URLs and behavior).
 
 ## Pillar Overview
 
@@ -51,7 +85,7 @@ Target keyword: "learn vocabulary" · Articles: 11 — Building consistent vocab
 
 | Priority | Article | Volume | KD | Type | Notes |
 | --- | --- | --- | --- | --- | --- |
-| P1 | Best Ways to Learn Vocabulary (Without Flashcards)Target: "best ways to learn vocabulary" | 7,500 | 3 | Informational | Pillar page. Covers spaced repetition, context learning, game-based practice. Links to all cluster articles. |
+| P1 | Best Ways to Learn Vocabulary (Without Flashcards) Target: "best ways to learn vocabulary" | 7,500 | 3 | Informational | Pillar page. **Blog shipped** (EN+ES, Mar 2026) — see **Implementation status**. Covers spaced repetition, context learning, game-based practice. Links to all cluster articles. |
 | P1 | How to Learn Vocabulary Fast: 7 Proven TechniquesTarget: "how to learn vocabulary" | 150 | 6 | Informational | Quick-win guide. Emphasizes short sessions and active recall. Links up to Pillar 1. |
 | P1 | Best Way to Learn Vocabulary for Casual LearnersTarget: "best way to learn vocabulary" | 100 | 1 | Informational | ICP-focused. Positions puzzle games as ideal for non-committal learners. Links to Pillar 1 and 6. |
 | P2 | How to Learn More Vocabulary in 5 Minutes a DayTarget: "how to learn more vocabulary" | 60 | 18 | Informational | Micro-habit guide. Supports daily puzzle hook. Links to Pillar 1 and 10. |
@@ -257,7 +291,7 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 ## Content Calendar
 
 ### Phase 1 — Quick Wins (Month 1–2)
-- Best Ways to Learn Vocabulary — Pillar 1 (7,500 vol, KD 3) — Foundation piece that validates game-based learning
+- **Shipped:** Best Ways to Learn Vocabulary (Without Flashcards) — Pillar 1 (7,500 vol, KD 3) — Foundation piece; live EN + ES (see **Implementation status**). *Next:* optional playable block on-page per map.
 - Learn Chinese Vocabulary — Pillar 8 (100 vol, KD 4) — Playable demo to prove the mechanic works
 - Learn Korean Vocabulary — Pillar 9 (50 vol, KD 3) — Low KD, high ICP fit (K-pop learners)
 - How to Learn Vocabulary Fast — Pillar 1 (150 vol, KD 6) — Cluster article driving to Pillar 1
@@ -335,14 +369,14 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 - Learn Hangul Through Letter Games — Pillar 9 (est. vol) — Alphabet learning
 - Korean Vocabulary for K-Drama Fans — Pillar 9 (est. vol) — Cultural angle
 
-## Next Steps
-
 ## Localization & URLs
 
 - **Publishing order:** Ship English articles on canonical unprefixed URLs first (Phase 1–2); add localized routes under `/es`, `/de`, `/ja`, `/ko`, `/zh-Hans`, etc. only when the full page (metadata, body, playable block) is ready — see [translation.md](translation.md).
 - **Slugs:** English slugs follow the primary keyword in each row; localized slugs are native where search benefits, per translation doc.
 - **Internal links:** When a user is on a prefixed locale, intra-site links should stay in that locale; cross-language links are intentional exceptions (language picker, “also in English”).
 - **UI vs SEO locales:** The translation doc lists more UI locales than this map has language-specific pillars. App UI can ship in `nl`, `fr`, `it`, etc., while marquee SEO pages follow this map’s priorities (ES, DE, JA, KO, ZH, EN + method/game/app pillars).
+
+## Next Steps
 
 This topical map is designed to position letters.game as the definitive puzzle-first language learning platform. The strategy prioritizes playable content over static tutorials—every pillar page should include a functional demo or daily puzzle, not just landing copy. This aligns with how your ICP actually searches: they want to "play now" first, then decide if they'll commit to an app install.
 
