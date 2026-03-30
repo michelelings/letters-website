@@ -37,29 +37,29 @@ This topical map targets casual language-curious adults who prefer game-first ex
 
 | Locale | URL |
 | --- | --- |
-| English | `https://www.letters.game/blog/` |
-| Spanish | `https://www.letters.game/es/blog/` |
+| English | `https://www.letters.game/guides/` |
+| Spanish | `https://www.letters.game/es/guides/` |
 
-### Shipped pillar hub articles (blog, EN + ES)
+### Shipped pillar hub articles (guides, EN + ES)
 
 Each row is the primary **pillar page** from the map, shipped as informational long-form (metadata + body + related links + CTA). **`hreflang` / `canonical` / JSON-LD** match the first pillar article pattern. **Playable demo on-page** is still a follow-up for all of these.
 
 | Pillar | Topic | English URL | Spanish URL |
 | --- | --- | --- | --- |
-| 1 | Vocabulary learning methods | `/blog/best-ways-to-learn-vocabulary/` | `/es/blog/mejores-formas-aprender-vocabulario/` |
-| 2 | Spanish vocabulary games | `/blog/learn-spanish-vocabulary/` | `/es/blog/aprender-vocabulario-espanol/` |
-| 3 | English vocabulary building | `/blog/learn-english-vocabulary/` | `/es/blog/aprender-vocabulario-ingles/` |
-| 4 | Japanese vocabulary practice | `/blog/learn-japanese-vocabulary/` | `/es/blog/aprender-vocabulario-japones/` |
-| 5 | German vocabulary learning | `/blog/learn-german-vocabulary/` | `/es/blog/aprender-vocabulario-aleman/` |
-| 6 | Vocabulary learning games | `/blog/games-to-learn-vocabulary/` | `/es/blog/juegos-aprender-vocabulario/` |
-| 7 | Vocabulary learning apps | `/blog/best-apps-to-learn-vocabulary/` | `/es/blog/mejores-apps-aprender-vocabulario/` |
-| 8 | Chinese vocabulary methods | `/blog/learn-chinese-vocabulary/` | `/es/blog/aprender-vocabulario-chino/` |
-| 9 | Korean vocabulary practice | `/blog/learn-korean-vocabulary/` | `/es/blog/aprender-vocabulario-coreano/` |
-| 10 | Daily vocabulary habits | `/blog/learn-vocabulary-daily/` | `/es/blog/aprender-vocabulario-diario/` |
+| 1 | Vocabulary learning methods | `/guides/best-ways-to-learn-vocabulary/` | `/es/guides/mejores-formas-aprender-vocabulario/` |
+| 2 | Spanish vocabulary games | `/guides/learn-spanish-vocabulary/` | `/es/guides/aprender-vocabulario-espanol/` |
+| 3 | English vocabulary building | `/guides/learn-english-vocabulary/` | `/es/guides/aprender-vocabulario-ingles/` |
+| 4 | Japanese vocabulary practice | `/guides/learn-japanese-vocabulary/` | `/es/guides/aprender-vocabulario-japones/` |
+| 5 | German vocabulary learning | `/guides/learn-german-vocabulary/` | `/es/guides/aprender-vocabulario-aleman/` |
+| 6 | Vocabulary learning games | `/guides/games-to-learn-vocabulary/` | `/es/guides/juegos-aprender-vocabulario/` |
+| 7 | Vocabulary learning apps | `/guides/best-apps-to-learn-vocabulary/` | `/es/guides/mejores-apps-aprender-vocabulario/` |
+| 8 | Chinese vocabulary methods | `/guides/learn-chinese-vocabulary/` | `/es/guides/aprender-vocabulario-chino/` |
+| 9 | Korean vocabulary practice | `/guides/learn-korean-vocabulary/` | `/es/guides/aprender-vocabulario-coreano/` |
+| 10 | Daily vocabulary habits | `/guides/learn-vocabulary-daily/` | `/es/guides/aprender-vocabulario-diario/` |
 
 **Regenerator:** Eight pillar hubs (Pillars 3–7, 8–10 in the table above, excluding Pillar 1 and the Spanish Pillar 2 page) are generated from `scripts/gen_pillar_articles.py`. **Hand-edited in HTML:** Pillar 1 (*best ways*) and Pillar 2 Spanish hub (*learn Spanish*). After changing copy/templates for the generated set, edit the script and run `python3 scripts/gen_pillar_articles.py` (overwrites those eight pairs only).
 
-Internal discovery: **Home** footers include “**All guides**” / “**Todas las guías**” → blog index; each article links related hubs and the index.
+Internal discovery: **Home** footers include “**All guides**” / “**Todas las guías**” → guides index; each article links related hubs and the index.
 
 ### Not yet in scope
 
@@ -308,7 +308,7 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 ## Content Calendar
 
 ### Phase 1 — Quick Wins (Month 1–2)
-- **Shipped:** All **ten pillar hub** articles (blog EN+ES) — see **Implementation status**; *next:* playable demos on those URLs + cluster content below.
+- **Shipped:** All **ten pillar hub** articles (guides EN+ES) — see **Implementation status**; *next:* playable demos on those URLs + cluster content below.
 - Learn Chinese Vocabulary — Pillar 8 (100 vol, KD 4) — **Hub live**; add playable proof on-page
 - Learn Korean Vocabulary — Pillar 9 (50 vol, KD 3) — **Hub live**; add playable proof on-page
 - How to Learn Vocabulary Fast — Pillar 1 (150 vol, KD 6) — Cluster article driving to Pillar 1
@@ -323,8 +323,8 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 ### Phase 2 — Core Content (Month 3–4)
 - How to Learn Spanish Vocabulary — Pillar 2 (60 vol, KD 14) — Cluster support for Spanish hub
 - How to Learn More Vocabulary — Pillar 1 (60 vol, KD 18) — Micro-habit guide linking to daily puzzle
-- Games to Learn Vocabulary — Pillar 6 (80 vol, KD 28) — **Hub blog shipped**; next: playable + clusters
-- Learn English Vocabulary — Pillar 3 (150 vol, KD 28) — **Hub blog shipped**; next: playable + clusters
+- Games to Learn Vocabulary — Pillar 6 (80 vol, KD 28) — **Hub guide shipped**; next: playable + clusters
+- Learn English Vocabulary — Pillar 3 (150 vol, KD 28) — **Hub guide shipped**; next: playable + clusters
 - Learn New Vocabulary — Pillar 1 (70 vol, KD 38) — Daily habit CTA page
 - Spanish Food Vocabulary Puzzle — Pillar 2 (est. vol) — Playable category page
 - Japanese Food Vocabulary Puzzle — Pillar 4 (est. vol) — Playable category page
@@ -341,9 +341,9 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 
 ### Phase 3 — Expansion (Month 5–6)
 - Vocabulary Learn — Pillar 1 (90 vol, KD 61) — Long-form beginner resource
-- Learn Vocabulary — Pillar 10 (200 vol, KD 66) — **Hub blog shipped**; next: daily URLs + depth
+- Learn Vocabulary — Pillar 10 (200 vol, KD 66) — **Hub guide shipped**; next: daily URLs + depth
 - Apps to Learn English Vocabulary — Pillar 7 (80 vol, est. KD) — Commercial intent pillar
-- Best Apps to Learn Vocabulary — Pillar 7 (est. vol) — **Hub blog shipped**; next: ranked list depth + comparisons
+- Best Apps to Learn Vocabulary — Pillar 7 (est. vol) — **Hub guide shipped**; next: ranked list depth + comparisons
 - Best Apps to Learn English Vocabulary — Pillar 3 (70 vol, est. KD) — Language-specific app list
 - Free Apps to Learn English Vocabulary — Pillar 3 (40 vol, est. KD) — Freemium angle
 - Letters.game vs Duolingo — Pillar 7 (est. vol) — Head-to-head comparison

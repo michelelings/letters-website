@@ -69,8 +69,8 @@ def write_en(
     body: str,
     related: list[tuple[str, str]],
 ) -> None:
-    url_en = f"https://www.letters.game/blog/{slug}/"
-    url_es = f"https://www.letters.game/es/blog/{slug_es}/"
+    url_en = f"https://www.letters.game/guides/{slug}/"
+    url_es = f"https://www.letters.game/es/guides/{slug_es}/"
     rel_html = "\n".join(f'          <li><a href="{href}">{label}</a></li>' for href, label in related)
     topbar_home = "/"
     dl = "Download"
@@ -128,7 +128,7 @@ def write_en(
         <h2>{related_heading}</h2>
         <ul>
 {rel_html}
-          <li><a href="/blog/">All guides</a></li>
+          <li><a href="/guides/">All guides</a></li>
         </ul>
       </nav>
       <div class="article-cta-box">
@@ -143,7 +143,7 @@ def write_en(
     <nav class="site-footer__extras" aria-label="{footer_aria}">
       <a href="{topbar_home}">{footer_home}</a>
       <span class="lang-switch__sep" aria-hidden="true">·</span>
-      <a href="/blog/">{footer_guides}</a>
+      <a href="/guides/">{footer_guides}</a>
     </nav>
     <nav class="lang-switch" aria-label="Choose language">
       <a href="{url_en}" hreflang="en" aria-current="true">English</a>
@@ -156,7 +156,7 @@ def write_en(
 </body>
 </html>
 """
-    path = ROOT / "blog" / slug / "index.html"
+    path = ROOT / "guides" / slug / "index.html"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(html, encoding="utf-8")
 
@@ -172,8 +172,8 @@ def write_es(
     body: str,
     related: list[tuple[str, str]],
 ) -> None:
-    url_es = f"https://www.letters.game/es/blog/{slug}/"
-    url_en = f"https://www.letters.game/blog/{slug_en}/"
+    url_es = f"https://www.letters.game/es/guides/{slug}/"
+    url_en = f"https://www.letters.game/guides/{slug_en}/"
     rel_html = "\n".join(f'          <li><a href="{href}">{label}</a></li>' for href, label in related)
     html = f"""<!DOCTYPE html>
 <html lang="es">
@@ -221,7 +221,7 @@ def write_es(
         <h2>Más guías</h2>
         <ul>
 {rel_html}
-          <li><a href="/es/blog/">Todas las guías</a></li>
+          <li><a href="/es/guides/">Todas las guías</a></li>
         </ul>
       </nav>
       <div class="article-cta-box">
@@ -236,7 +236,7 @@ def write_es(
     <nav class="site-footer__extras" aria-label="Sitio">
       <a href="/es/">Inicio</a>
       <span class="lang-switch__sep" aria-hidden="true">·</span>
-      <a href="/es/blog/">Todas las guías</a>
+      <a href="/es/guides/">Todas las guías</a>
     </nav>
     <nav class="lang-switch" aria-label="Elegir idioma">
       <a href="{url_en}" hreflang="en">English</a>
@@ -249,7 +249,7 @@ def write_es(
 </body>
 </html>
 """
-    path = ROOT / "es" / "blog" / slug / "index.html"
+    path = ROOT / "es" / "guides" / slug / "index.html"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(html, encoding="utf-8")
 
@@ -292,14 +292,14 @@ def main() -> None:
       <h2>Letters para quien estudia inglés</h2>
       <p><strong>Letters</strong> ofrece rondas táctiles y breves para repetir a diario sin sentir un curso pesado encima.</p>""",
             "rel_en": [
-                ("/blog/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
-                ("/blog/games-to-learn-vocabulary/", "Games to learn vocabulary"),
-                ("/blog/best-apps-to-learn-vocabulary/", "Best apps to learn vocabulary"),
+                ("/guides/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
+                ("/guides/games-to-learn-vocabulary/", "Games to learn vocabulary"),
+                ("/guides/best-apps-to-learn-vocabulary/", "Best apps to learn vocabulary"),
             ],
             "rel_es": [
-                ("/es/blog/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
-                ("/es/blog/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
-                ("/es/blog/mejores-apps-aprender-vocabulario/", "Mejores apps para aprender vocabulario"),
+                ("/es/guides/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
+                ("/es/guides/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
+                ("/es/guides/mejores-apps-aprender-vocabulario/", "Mejores apps para aprender vocabulario"),
             ],
         },
         {
@@ -338,14 +338,14 @@ def main() -> None:
       <h2>Letters y el japonés</h2>
       <p><strong>Letters</strong> encaja si quieres deletrear con tacto mientras memorizas caracteres.</p>""",
             "rel_en": [
-                ("/blog/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
-                ("/blog/games-to-learn-vocabulary/", "Games to learn vocabulary"),
-                ("/blog/learn-vocabulary-daily/", "Learn vocabulary daily"),
+                ("/guides/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
+                ("/guides/games-to-learn-vocabulary/", "Games to learn vocabulary"),
+                ("/guides/learn-vocabulary-daily/", "Learn vocabulary daily"),
             ],
             "rel_es": [
-                ("/es/blog/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
-                ("/es/blog/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
-                ("/es/blog/aprender-vocabulario-diario/", "Aprender vocabulario a diario"),
+                ("/es/guides/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
+                ("/es/guides/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
+                ("/es/guides/aprender-vocabulario-diario/", "Aprender vocabulario a diario"),
             ],
         },
         {
@@ -384,14 +384,14 @@ def main() -> None:
       <h2>Letters</h2>
       <p><strong>Letters</strong> sirve para bucles deletreo/recuerdo sin derrochar atención.</p>""",
             "rel_en": [
-                ("/blog/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
-                ("/blog/games-to-learn-vocabulary/", "Games to learn vocabulary"),
-                ("/blog/learn-spanish-vocabulary/", "Learn Spanish vocabulary"),
+                ("/guides/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
+                ("/guides/games-to-learn-vocabulary/", "Games to learn vocabulary"),
+                ("/guides/learn-spanish-vocabulary/", "Learn Spanish vocabulary"),
             ],
             "rel_es": [
-                ("/es/blog/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
-                ("/es/blog/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
-                ("/es/blog/aprender-vocabulario-espanol/", "Aprender vocabulario en español"),
+                ("/es/guides/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
+                ("/es/guides/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
+                ("/es/guides/aprender-vocabulario-espanol/", "Aprender vocabulario en español"),
             ],
         },
         {
@@ -430,14 +430,14 @@ def main() -> None:
       <h2>Letters</h2>
       <p><strong>Letters</strong> apuesta por deletrear táctil y sesiones cortas, fáciles de espaciar.</p>""",
             "rel_en": [
-                ("/blog/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
-                ("/blog/best-apps-to-learn-vocabulary/", "Best apps to learn vocabulary"),
-                ("/blog/learn-vocabulary-daily/", "Learn vocabulary daily"),
+                ("/guides/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
+                ("/guides/best-apps-to-learn-vocabulary/", "Best apps to learn vocabulary"),
+                ("/guides/learn-vocabulary-daily/", "Learn vocabulary daily"),
             ],
             "rel_es": [
-                ("/es/blog/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
-                ("/es/blog/mejores-apps-aprender-vocabulario/", "Mejores apps para aprender vocabulario"),
-                ("/es/blog/aprender-vocabulario-diario/", "Aprender vocabulario a diario"),
+                ("/es/guides/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
+                ("/es/guides/mejores-apps-aprender-vocabulario/", "Mejores apps para aprender vocabulario"),
+                ("/es/guides/aprender-vocabulario-diario/", "Aprender vocabulario a diario"),
             ],
         },
         {
@@ -476,14 +476,14 @@ def main() -> None:
       <h2>Dónde encaja Letters</h2>
       <p><strong>Letters</strong> apunta a quien quiere puzles táctiles antes que molienda de gramática.</p>""",
             "rel_en": [
-                ("/blog/learn-english-vocabulary/", "Learn English vocabulary"),
-                ("/blog/games-to-learn-vocabulary/", "Games to learn vocabulary"),
-                ("/blog/learn-vocabulary-daily/", "Learn vocabulary daily"),
+                ("/guides/learn-english-vocabulary/", "Learn English vocabulary"),
+                ("/guides/games-to-learn-vocabulary/", "Games to learn vocabulary"),
+                ("/guides/learn-vocabulary-daily/", "Learn vocabulary daily"),
             ],
             "rel_es": [
-                ("/es/blog/aprender-vocabulario-ingles/", "Aprender vocabulario en inglés"),
-                ("/es/blog/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
-                ("/es/blog/aprender-vocabulario-diario/", "Aprender vocabulario a diario"),
+                ("/es/guides/aprender-vocabulario-ingles/", "Aprender vocabulario en inglés"),
+                ("/es/guides/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
+                ("/es/guides/aprender-vocabulario-diario/", "Aprender vocabulario a diario"),
             ],
         },
         {
@@ -522,14 +522,14 @@ def main() -> None:
       <h2>Letters</h2>
       <p><strong>Letters</strong> refuerza deletreo/recuerdo cuando dominas las letras de tu mazo en pinyin.</p>""",
             "rel_en": [
-                ("/blog/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
-                ("/blog/games-to-learn-vocabulary/", "Games to learn vocabulary"),
-                ("/blog/learn-japanese-vocabulary/", "Learn Japanese vocabulary"),
+                ("/guides/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
+                ("/guides/games-to-learn-vocabulary/", "Games to learn vocabulary"),
+                ("/guides/learn-japanese-vocabulary/", "Learn Japanese vocabulary"),
             ],
             "rel_es": [
-                ("/es/blog/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
-                ("/es/blog/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
-                ("/es/blog/aprender-vocabulario-japones/", "Aprender vocabulario japonés"),
+                ("/es/guides/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
+                ("/es/guides/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
+                ("/es/guides/aprender-vocabulario-japones/", "Aprender vocabulario japonés"),
             ],
         },
         {
@@ -568,14 +568,14 @@ def main() -> None:
       <h2>Letters</h2>
       <p><strong>Letters</strong> apoya deletreo diario cuando las letras te resulten familiares.</p>""",
             "rel_en": [
-                ("/blog/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
-                ("/blog/learn-japanese-vocabulary/", "Learn Japanese vocabulary"),
-                ("/blog/learn-vocabulary-daily/", "Learn vocabulary daily"),
+                ("/guides/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
+                ("/guides/learn-japanese-vocabulary/", "Learn Japanese vocabulary"),
+                ("/guides/learn-vocabulary-daily/", "Learn vocabulary daily"),
             ],
             "rel_es": [
-                ("/es/blog/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
-                ("/es/blog/aprender-vocabulario-japones/", "Aprender vocabulario japonés"),
-                ("/es/blog/aprender-vocabulario-diario/", "Aprender vocabulario a diario"),
+                ("/es/guides/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
+                ("/es/guides/aprender-vocabulario-japones/", "Aprender vocabulario japonés"),
+                ("/es/guides/aprender-vocabulario-diario/", "Aprender vocabulario a diario"),
             ],
         },
         {
@@ -614,14 +614,14 @@ def main() -> None:
       <h2>Letters cada día</h2>
       <p><strong>Letters</strong> está hecho para rondas cortas repetibles — ancla diaria ideal.</p>""",
             "rel_en": [
-                ("/blog/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
-                ("/blog/games-to-learn-vocabulary/", "Games to learn vocabulary"),
-                ("/blog/best-apps-to-learn-vocabulary/", "Best apps to learn vocabulary"),
+                ("/guides/best-ways-to-learn-vocabulary/", "Best ways to learn vocabulary"),
+                ("/guides/games-to-learn-vocabulary/", "Games to learn vocabulary"),
+                ("/guides/best-apps-to-learn-vocabulary/", "Best apps to learn vocabulary"),
             ],
             "rel_es": [
-                ("/es/blog/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
-                ("/es/blog/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
-                ("/es/blog/mejores-apps-aprender-vocabulario/", "Mejores apps para aprender vocabulario"),
+                ("/es/guides/mejores-formas-aprender-vocabulario/", "Mejores formas de aprender vocabulario"),
+                ("/es/guides/juegos-aprender-vocabulario/", "Juegos para aprender vocabulario"),
+                ("/es/guides/mejores-apps-aprender-vocabulario/", "Mejores apps para aprender vocabulario"),
             ],
         },
     ]

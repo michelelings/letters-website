@@ -49,14 +49,14 @@ Marquee SEO articles in [topical-map.md](topical-map.md) target learners of spec
 | Chinese vocabulary methods | `zh-Hans` | `/zh-Hans` |
 | Korean vocabulary practice | `ko` | `/ko` |
 
-Pillars that are **not** tied to one target language (methods, games, apps, daily habits) stay on `en` first; localized versions use the same locale set when you transcreate them (e.g. `/de/blog/...` for a German-audience pillar), with keywords validated per market — not literal translation only.
+Pillars that are **not** tied to one target language (methods, games, apps, daily habits) stay on `en` first; localized versions use the same locale set when you transcreate them (e.g. `/de/guides/...` for a German-audience pillar), with keywords validated per market — not literal translation only.
 
 ---
 
 ## URL & routing rules
 
 1. **Canonical English URLs** live at the site root: `https://www.letters.game/...`
-2. **Localized URLs** mirror the same path structure under the prefix: e.g. `/de/blog/learn-german-vocabulary` parallels `/blog/learn-german-vocabulary` only when that article exists in German—not every English slug needs a translation day one.
+2. **Localized URLs** mirror the same path structure under the prefix: e.g. `/de/guides/learn-german-vocabulary` parallels `/guides/learn-german-vocabulary` only when that article exists in German—not every English slug needs a translation day one.
 3. **Slug policy**
    - **English:** Use ASCII slugs derived from the primary keyword/title (as in the topical map).
    - **Localized:** Prefer **native-language slugs** where search and UX benefit (e.g. German article → German slug). When a locale ships later, add redirects from any interim English slug if you used placeholders.
@@ -135,5 +135,5 @@ The topical map is **English-keyword oriented**. For non-English pages, add a **
 ## Open decisions (to finalize in implementation)
 
 - Static site (current) vs SSG/framework (Next, Astro, etc.) for scalable localized routes.
-- Whether **marketing blog** lives on same origin as app marketing (assumed yes for topical map).
+- Whether **marketing guides** live on same origin as app marketing (assumed yes for topical map).
 - **CMS vs git-based** translations for long-form SEO articles.

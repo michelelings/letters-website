@@ -391,7 +391,7 @@ body {
   }
 }
 
-/* --- Article / blog layout (SEO content) --- */
+/* --- Article / guides layout (SEO content) --- */
 
 body.body--article {
   padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px));
@@ -570,31 +570,31 @@ body.body--article {
   font-weight: 600;
 }
 
-.blog-index__list {
+.guides-index__list {
   list-style: none;
   padding: 0;
   margin: 1.25rem 0 0;
 }
 
-.blog-index__list li {
+.guides-index__list li {
   margin-bottom: 1.1rem;
   padding-bottom: 1.1rem;
   border-bottom: 1px solid var(--lg-tile-border);
 }
 
-.blog-index__list li:last-child {
+.guides-index__list li:last-child {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 
-.blog-index__list a {
+.guides-index__list a {
   font-weight: 800;
   font-size: 1.05rem;
   color: var(--lg-fg-primary);
 }
 
-.blog-index__list p {
+.guides-index__list p {
   margin: 0.35rem 0 0;
   font-size: 0.95rem;
   color: color-mix(in srgb, var(--lg-fg-primary) 82%, transparent);
