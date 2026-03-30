@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <title>Page not found — Letters</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CYNDT2QSQX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ letters_locale: 'en' });
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CYNDT2QSQX');
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="main">
+    <div class="main__stage">
+      <div class="word" id="word" data-static-word="Oops" aria-live="polite"></div>
+    </div>
+    <p class="beta-cta">
+      <a class="beta-cta__btn" href="/">Back home</a>
+    </p>
+  </main>
+  <footer class="site-footer">
+    <nav class="site-footer__extras" aria-label="Site">
+      <a href="/guides/best-ways-to-learn-vocabulary/">Learn vocabulary</a>
+      <span class="lang-switch__sep" aria-hidden="true">·</span>
+      <a href="/guides/">All guides</a>
+    </nav>
+    <nav class="lang-switch" aria-label="Choose language">
+      <a href="/" hreflang="en" aria-current="true">English</a>
+      <span class="lang-switch__sep" aria-hidden="true">·</span>
+      <a href="/es/" hreflang="es">Español</a>
+    </nav>
+    <p>Letters is made by <a href="https://www.ocho.so" target="_blank" rel="noopener noreferrer">Ocho</a></p>
+  </footer>
+  <script src="/words.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      function analyticsEvent(name, params) {
+        if (typeof gtag === 'function') {
+          gtag('event', name, params);
+        }
+      }
+
+      const homeLink = document.querySelector('.beta-cta a');
+      homeLink?.addEventListener('click', () => {
+        analyticsEvent('404_home_click', {
+          link_url: homeLink.href,
+          locale: 'en',
+        });
+      });
+
+      const ochoLink = document.querySelector('.site-footer p a');
+      ochoLink?.addEventListener('click', () => {
+        analyticsEvent('ocho_link_click', { link_url: ochoLink.href, locale: 'en' });
+      });
+    });
+  </script>
+</body>
+</html>

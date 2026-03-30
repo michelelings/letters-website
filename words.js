@@ -222,7 +222,8 @@ function installWord(container, word) {
 function renderInitialWord() {
   const container = document.getElementById("word");
   if (!container) return;
-  const word = pickWord();
+  const staticWord = container.getAttribute("data-static-word");
+  const word = staticWord || pickWord();
   installWord(container, word);
 }
 
@@ -284,9 +285,12 @@ function cycleWords() {
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("word");
   const main = document.querySelector(".main");
+  const isStaticWord = Boolean(container?.getAttribute("data-static-word"));
 
   renderInitialWord();
-  cycleWords();
+  if (!isStaticWord) {
+    cycleWords();
+  }
 
   if (container && main) {
     const refit = () => scheduleWordFit(container);
