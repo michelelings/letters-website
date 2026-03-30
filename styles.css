@@ -543,6 +543,63 @@ body.body--article {
   margin-top: 0.25rem;
 }
 
+.article-related {
+  margin: 2rem 0 0;
+  padding: 1rem 1.1rem;
+  border-radius: min(1rem, 3vw);
+  border: 1px dashed var(--lg-tile-border);
+  background: color-mix(in srgb, var(--lg-bg-primary) 70%, transparent);
+}
+
+.article-related h2 {
+  margin: 0 0 0.6rem !important;
+  font-size: 1rem !important;
+  font-weight: 800;
+}
+
+.article-related ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.article-related li {
+  margin-bottom: 0.3rem;
+}
+
+.article-related a {
+  font-weight: 600;
+}
+
+.blog-index__list {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+}
+
+.blog-index__list li {
+  margin-bottom: 1.1rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--lg-tile-border);
+}
+
+.blog-index__list li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.blog-index__list a {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--lg-fg-primary);
+}
+
+.blog-index__list p {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--lg-fg-primary) 82%, transparent);
+}
+
 .site-footer__extras {
   display: flex;
   flex-wrap: wrap;
