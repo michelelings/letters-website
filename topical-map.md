@@ -19,7 +19,7 @@ This topical map targets casual language-curious adults who prefer game-first ex
 
 **Maintainers:** Treat this section as the running changelog for the marketing repo. When you add a locale, URL, or article: (1) set **Last updated** below, (2) edit the bullets/tables here, (3) mark **Shipped** on the matching **Content calendar** lines and pillar tables if applicable, (4) update `sitemap.xml` in git. One source of truth—no duplicate shipped lists in other docs.
 
-*Last updated: March 30, 2026 (Phase 1 cluster guides added).*
+*Last updated: March 30, 2026 (ten EN+ES cluster / support guides live).*
 
 ### Locales and homepage
 
@@ -61,9 +61,9 @@ Each row is the primary **pillar page** from the map, shipped as informational l
 
 Internal discovery: **Home** footers include “**All guides**” / “**Todas las guías**” → guides index; each article links related hubs and the index.
 
-### Phase 1 cluster / support articles (guides, EN + ES)
+### Cluster / support articles (guides, EN + ES)
 
-Five support articles from the Phase 1 calendar are live with full metadata, `hreflang`, and internal links to pillar hubs. **`sitemap.xml`** includes all URLs below.
+Ten support articles are live (Phase 1 quick wins + early Phase 2 / calendar pulls) with full metadata, `hreflang`, and internal links to pillar hubs. **`sitemap.xml`** includes all URLs below.
 
 | Article (EN title) | English URL | Spanish URL |
 | --- | --- | --- |
@@ -72,12 +72,17 @@ Five support articles from the Phase 1 calendar are live with full metadata, `hr
 | How to Learn Japanese Vocabulary (The Fun Way) | `/guides/how-to-learn-japanese-vocabulary/` | `/es/guides/como-aprender-vocabulario-japones/` |
 | Strategies for Learning Difficult Vocabulary Words | `/guides/strategies-difficult-vocabulary-words/` | `/es/guides/estrategias-vocabulario-dificil/` |
 | Best Way to Learn Spanish Vocabulary for Travel | `/guides/best-way-to-learn-spanish-vocabulary-travel/` | `/es/guides/mejor-forma-vocabulario-espanol-viaje/` |
+| How to Learn Spanish Vocabulary Without Classes | `/guides/how-to-learn-spanish-without-classes/` | `/es/guides/aprender-vocabulario-espanol-sin-clases/` |
+| How to Learn More Vocabulary in 5 Minutes a Day | `/guides/learn-more-vocabulary-in-5-minutes-a-day/` | `/es/guides/aprender-mas-vocabulario-5-minutos/` |
+| Learn New Vocabulary Every Day: A Simple System | `/guides/learn-new-vocabulary-every-day/` | `/es/guides/aprender-vocabulario-nuevo-cada-dia/` |
+| Learn German Vocabulary Without Grammar Drills | `/guides/learn-german-vocabulary-without-grammar-drills/` | `/es/guides/aprender-vocabulario-aleman-sin-gramatica/` |
+| Word Games vs Flashcards for Vocabulary | `/guides/word-games-vs-flashcards-vocabulary/` | `/es/guides/juegos-palabras-vs-fichas-vocabulario/` |
 
-Pillar hubs link to the relevant clusters (e.g. **Best ways…** → three Pillar 1 clusters; **Learn Spanish…** → travel cluster; **Learn Japanese…** → “fun way” cluster).
+Pillar hubs link to relevant clusters (e.g. **Best ways…**, **Learn Spanish…**, **Learn Japanese…**, **Games…**, **Daily…**, **German…**).
 
 ### Not yet in scope
 
-- Cluster articles, daily puzzle URLs, food/travel play pages, and **playable embeds** on these hub pages (per calendar below).
+- Many **remaining** cluster articles from the calendar, **daily puzzle** URLs, food/travel **play** pages, and **playable embeds** on hub pages (per calendar below).
 - Locales beyond `en` + `es` on the marketing site (target locale *codes*: [translation.md](translation.md)).
 
 ## Pillar Overview
@@ -119,9 +124,9 @@ Target keyword: "learn vocabulary" · Articles: 11 — Building consistent vocab
 | P1 | Best Ways to Learn Vocabulary (Without Flashcards) Target: "best ways to learn vocabulary" | 7,500 | 3 | Informational | Pillar page. **Blog shipped** (EN+ES, Mar 2026) — see **Implementation status**. Covers spaced repetition, context learning, game-based practice. Links to all cluster articles. |
 | P1 | How to Learn Vocabulary Fast: 7 Proven TechniquesTarget: "how to learn vocabulary" | 150 | 6 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/how-to-learn-vocabulary-fast/`. Quick-win guide. Emphasizes short sessions and active recall. Links up to Pillar 1. |
 | P1 | Best Way to Learn Vocabulary for Casual LearnersTarget: "best way to learn vocabulary" | 100 | 1 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/best-way-to-learn-vocabulary/`. ICP-focused. Positions puzzle games as ideal for non-committal learners. Links to Pillar 1 and 6. |
-| P2 | How to Learn More Vocabulary in 5 Minutes a DayTarget: "how to learn more vocabulary" | 60 | 18 | Informational | Micro-habit guide. Supports daily puzzle hook. Links to Pillar 1 and 10. |
+| P2 | How to Learn More Vocabulary in 5 Minutes a DayTarget: "how to learn more vocabulary" | 60 | 18 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/learn-more-vocabulary-in-5-minutes-a-day/`. Micro-habit guide. Supports daily puzzle hook. Links to Pillar 1 and 10. |
 | P2 | Why Learn Vocabulary Through Games WorksTarget: "why learn vocabulary" | 60 | — | Informational | Authority-building explainer. Cites cognitive science. Links to Pillar 1 and 6. |
-| P2 | Learn New Vocabulary Every Day: A Simple SystemTarget: "learn new vocabulary" | 70 | 38 | Transactional | CTA to daily puzzle. Includes printable tracker. Links to Pillar 10. |
+| P2 | Learn New Vocabulary Every Day: A Simple SystemTarget: "learn new vocabulary" | 70 | 38 | Transactional | **Blog shipped** (EN+ES, Mar 2026) — `/guides/learn-new-vocabulary-every-day/`. CTA to app / daily hub. Links to Pillar 10. |
 | P1 | Strategies for Learning Difficult Vocabulary WordsTarget: "an appropriate strategy to learn difficult vocabulary words is the" | 80 | 0 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/strategies-difficult-vocabulary-words/`. SEO snippet target. Short, tactical. Links to Pillar 1. |
 | P3 | Vocabulary Learn: Complete Beginner's GuideTarget: "vocabulary learn" | 90 | 61 | Informational | Long-form resource. Covers beginner mistakes. Links to Pillar 1. |
 | P2 | Best Websites to Learn English Vocabulary (Free)Target: "best websites to learn english vocabulary" | 80 | — | Commercial | Comparison piece. Positions your app as #1 for game-first learners. Links to Pillar 7. |
@@ -133,7 +138,7 @@ This pillar serves as the strategic hub for vocabulary acquisition methods, addr
 | Priority | Article | Volume | KD | Type | Notes |
 | --- | --- | --- | --- | --- | --- |
 | P1 | Learn Spanish Vocabulary: The Fun Way Target: "learn spanish vocabulary" | 150 | 10 | Transactional | **Blog hub shipped** (EN+ES, Mar 2026) — **Implementation status**; playable demo on-page TBD. Hub for all Spanish content. |
-| P1 | How to Learn Spanish Vocabulary (Without Classes)Target: "how to learn spanish vocabulary" | 60 | 14 | Informational | Self-study guide. Positions games as alternative to courses. Links to Pillar 2. |
+| P1 | How to Learn Spanish Vocabulary (Without Classes)Target: "how to learn spanish vocabulary" | 60 | 14 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/how-to-learn-spanish-without-classes/`. Self-study guide. Positions games as alternative to courses. Links to Pillar 2. |
 | P1 | Best Way to Learn Spanish Vocabulary for TravelTarget: "best way to learn spanish vocabulary" | 60 | 0 | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/best-way-to-learn-spanish-vocabulary-travel/`. Travel-focused. Highlights passport/map mechanic. Links to Pillar 2. |
 | P2 | Spanish Food Vocabulary Puzzle (Play Now)Target: "spanish food vocabulary game" | 0 | — | Transactional | Playable category page. Users spell food words from letter bucket. Links to Pillar 2. |
 | P2 | Spanish Travel Vocabulary: 50 Essential WordsTarget: "spanish travel vocabulary" | 150 | 0 | Lead Magnet | Downloadable word list + playable quiz. Captures email. Links to Pillar 2. |
@@ -177,7 +182,7 @@ Japanese attracts completionist learners—your passport stamp + character colle
 | P2 | German Travel Vocabulary: 50 Essential WordsTarget: "german travel vocabulary" | 20 | — | Lead Magnet | Downloadable list + playable quiz. Links to Pillar 5. |
 | P2 | Daily German Vocabulary PuzzleTarget: "daily german vocabulary" | 20 | — | Transactional | Daily challenge. Fresh every 24h. Links to Pillar 5 and 10. |
 | P2 | German Compound Words: A Puzzle GuideTarget: "german compound words game" | est. | — | Informational | Explains how bucket spelling teaches word-building. Links to Pillar 5. |
-| P2 | Learn German Vocabulary Without Grammar DrillsTarget: "learn german vocabulary no grammar" | est. | — | Informational | ICP-focused. Games first, grammar optional. Links to Pillar 5. |
+| P2 | Learn German Vocabulary Without Grammar DrillsTarget: "learn german vocabulary no grammar" | est. | — | Informational | **Blog shipped** (EN+ES, Mar 2026) — `/guides/learn-german-vocabulary-without-grammar-drills/`. ICP-focused. Games first, grammar optional. Links to Pillar 5. |
 
 German learners are often motivated by travel or heritage. Compound words and noun genders add challenge—perfect for puzzle mechanics. Emphasize category learning and the "unlock Germany on your map" fantasy.
 
@@ -186,7 +191,7 @@ German learners are often motivated by travel or heritage. Compound words and no
 | Priority | Article | Volume | KD | Type | Notes |
 | --- | --- | --- | --- | --- | --- |
 | P2 | Games to Learn Vocabulary (That Actually Work) Target: "games to learn vocabulary" | 80 | 28 | Transactional | **Blog hub shipped** (EN+ES, Mar 2026) — **Implementation status**; playable demo TBD. |
-| P2 | Word Games vs Flashcards for VocabularyTarget: "word games vocabulary learning" | est. | — | Commercial | Comparison piece. Cites retention studies. Links to Pillar 6. |
+| P2 | Word Games vs Flashcards for VocabularyTarget: "word games vocabulary learning" | est. | — | Commercial | **Blog shipped** (EN+ES, Mar 2026) — `/guides/word-games-vs-flashcards-vocabulary/`. Comparison piece. Cites retention studies. Links to Pillar 6. |
 | P2 | Daily Vocabulary Puzzle Game (Free to Play)Target: "daily vocabulary puzzle" | est. | — | Transactional | Daily hub. Rotating languages. Links to Pillar 6 and 10. |
 | P2 | Best Vocabulary Games for AdultsTarget: "vocabulary games for adults" | 350 | 39 | Commercial | Ranked list. Your app #1 for collection/progression. Links to Pillar 6 and 7. |
 | P2 | Anagram Games for Language LearningTarget: "anagram games vocabulary" | est. | — | Informational | Explains bucket mechanic as anagram variant. Links to Pillar 6. |
@@ -322,7 +327,7 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 ## Content Calendar
 
 ### Phase 1 — Quick Wins (Month 1–2)
-- **Shipped:** All **ten pillar hub** articles (guides EN+ES) — see **Implementation status**; **five Phase 1 cluster guides** (EN+ES) — see **Phase 1 cluster / support articles**; *next:* playable demos on pillar URLs + remaining Phase 1 / Phase 2 cluster URLs below.
+- **Shipped:** All **ten pillar hub** articles (guides EN+ES) — see **Implementation status**; **ten cluster / support guides** (EN+ES) — see **Cluster / support articles**; *next:* playable demos on pillar URLs + remaining calendar URLs below.
 - Learn Chinese Vocabulary — Pillar 8 (100 vol, KD 4) — **Hub live**; add playable proof on-page
 - Learn Korean Vocabulary — Pillar 9 (50 vol, KD 3) — **Hub live**; add playable proof on-page
 - How to Learn Vocabulary Fast — Pillar 1 (150 vol, KD 6) — **Cluster live** (EN+ES)
@@ -335,11 +340,11 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 - Best Way to Learn Spanish Vocabulary — Pillar 2 (60 vol, KD 0) — **Cluster live** (EN+ES); travel angle (`…/travel/` slug on EN)
 
 ### Phase 2 — Core Content (Month 3–4)
-- How to Learn Spanish Vocabulary — Pillar 2 (60 vol, KD 14) — Cluster support for Spanish hub
-- How to Learn More Vocabulary — Pillar 1 (60 vol, KD 18) — Micro-habit guide linking to daily puzzle
+- How to Learn Spanish Vocabulary — Pillar 2 (60 vol, KD 14) — **Cluster live** (EN+ES; self-study / without-classes angle)
+- How to Learn More Vocabulary — Pillar 1 (60 vol, KD 18) — **Cluster live** (EN+ES; five-minute micro-habit)
 - Games to Learn Vocabulary — Pillar 6 (80 vol, KD 28) — **Hub guide shipped**; next: playable + clusters
 - Learn English Vocabulary — Pillar 3 (150 vol, KD 28) — **Hub guide shipped**; next: playable + clusters
-- Learn New Vocabulary — Pillar 1 (70 vol, KD 38) — Daily habit CTA page
+- Learn New Vocabulary — Pillar 1 (70 vol, KD 38) — **Cluster live** (EN+ES; daily system article)
 - Spanish Food Vocabulary Puzzle — Pillar 2 (est. vol) — Playable category page
 - Japanese Food Vocabulary Puzzle — Pillar 4 (est. vol) — Playable category page
 - Chinese Food Vocabulary Puzzle — Pillar 8 (est. vol) — Playable category page
@@ -362,7 +367,7 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 - Free Apps to Learn English Vocabulary — Pillar 3 (40 vol, est. KD) — Freemium angle
 - Letters.game vs Duolingo — Pillar 7 (est. vol) — Head-to-head comparison
 - Best Vocabulary Apps That Feel Like Games — Pillar 7 (est. vol) — ICP-focused comparison
-- Word Games vs Flashcards — Pillar 6 (est. vol) — Method comparison
+- Word Games vs Flashcards — Pillar 6 (est. vol) — **Cluster live** (EN+ES)
 - Best Websites to Learn English Vocabulary — Pillar 1 (80 vol, est. KD) — Comparison piece
 - Spanish Travel Vocabulary: 50 Essential Words — Pillar 2 (est. vol) — Lead magnet PDF
 - Japanese Travel Vocabulary: Essential Phrases — Pillar 4 (est. vol) — Lead magnet PDF
@@ -394,7 +399,7 @@ This pillar targets habit formation—the "I want to do this daily" mindset. It 
 - Spanish Vocabulary Builder: Category-Based Practice — Pillar 2 (est. vol) — Method guide
 - Hiragana Recognition Through Letter Games — Pillar 4 (est. vol) — Character learning
 - German Compound Words: A Puzzle Guide — Pillar 5 (est. vol) — Word-building mechanic
-- Learn German Vocabulary Without Grammar Drills — Pillar 5 (est. vol) — ICP-focused
+- Learn German Vocabulary Without Grammar Drills — Pillar 5 (est. vol) — **Cluster live** (EN+ES)
 - Learn Pinyin Through Letter Games — Pillar 8 (est. vol) — Phonetic learning
 - Chinese Character Recognition Games — Pillar 8 (est. vol) — Visual learning
 - Learn Hangul Through Letter Games — Pillar 9 (est. vol) — Alphabet learning
