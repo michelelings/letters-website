@@ -566,9 +566,13 @@ body.body--article {
 
 /* Optional one-page PDF: secondary pill below primary Download Letters */
 .article-supplement-pdf {
-  margin: 0.65rem 0 0;
+  margin: 0;
   display: flex;
   justify-content: center;
+}
+
+.article-post > .beta-cta + .article-supplement-pdf {
+  margin-top: 1.35rem;
 }
 
 .article-supplement-pdf__btn {
