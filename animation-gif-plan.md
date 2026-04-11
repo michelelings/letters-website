@@ -83,9 +83,9 @@ Keep **`twitter:card`** / **`twitter:image`** aligned with whatever Twitter/X sh
 
 ## File naming suggestion
 
-- `og-poster-1200x630.png` — static fallback / Twitter / first frame  
-- `og-loop.mp4` — animated preview  
-- or `og-animated.apng` / `og-animated.gif` — single animated `og:image`
+- `og-poster-1200x630.png`, static fallback / Twitter / first frame  
+- `og-loop.mp4`, animated preview  
+- or `og-animated.apng` / `og-animated.gif`, single animated `og:image`
 
 ## Summary checklist
 

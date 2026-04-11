@@ -1,0 +1,22 @@
+---
+description: Do not use the em dash (—) in site copy or project text; use commas, colons, or periods instead.
+alwaysApply: true
+---
+
+# No em dash (U+2014)
+
+Do **not** use the em dash character `—` (Unicode U+2014) anywhere in this repo: HTML (titles, meta, body), Markdown, `og:*` / Twitter copy, comments that mirror user-facing tone, or generator scripts that emit page text.
+
+## Use instead
+
+- **Comma** for a light break: `…practice, from Letters` not `…practice — from Letters`
+- **Colon** for title/subtitle or label: `Letters: word game from Ocho` not `Letters — word game…`
+- **Period** + new sentence when the second part could stand alone
+- **Parentheses** if the aside is clearly parenthetical
+
+## Other dashes
+
+- **Hyphen-minus** `-` in code, URLs, and hyphenated words is fine.
+- **En dash** `–` (U+2013) only where already conventional (e.g. numeric ranges like `70–85%`, `Phase 1–4`). Do not use it as a substitute for a banned em dash in running prose unless the project already standardizes that.
+
+When editing or adding copy, grep for `—` before shipping if the change is large.

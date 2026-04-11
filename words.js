@@ -55,7 +55,7 @@ function wordListForLocale() {
   return WORDS_BY_LOCALE[contentLocale()] || WORDS_BY_LOCALE.en;
 }
 
-/** BuildBoardView.stableRotation — degrees */
+/** BuildBoardView.stableRotation, degrees */
 function stableRotationDeg(index) {
   const seed = ((index * 7 + 3) % 11) / 11;
   return (seed - 0.5) * 6;
@@ -126,7 +126,7 @@ function getSizingRoot(container) {
   return container.closest(".letters-word-mount") || container.closest(".main");
 }
 
-/** Box inside padding — space available for the word row */
+/** Box inside padding, space available for the word row */
 function fitInnerSize(root) {
   const box =
     root.querySelector(".main__stage") ||

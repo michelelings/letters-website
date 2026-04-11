@@ -34,7 +34,7 @@ Paths use **no prefix** for English. All other locales use a **URL prefix** matc
 
 **Implementation note:** Keep a single config (e.g. `pathPrefixByLocale`) that maps each locale code to `""` for `en` and `"/{code}"` for the rest, so links and sitemap generation stay consistent.
 
-**Marketing site:** Follow the locale and URL *rules* in this document. **What is deployed** (exact URLs, shipped articles, sitemap contents, homepage behavior) is tracked only in **[topical-map.md](topical-map.md)** under **Implementation status**—update that section when the site changes; do not duplicate deploy state here.
+**Marketing site:** Follow the locale and URL *rules* in this document. **What is deployed** (exact URLs, shipped articles, sitemap contents, homepage behavior) is tracked only in **[topical-map.md](topical-map.md)** under **Implementation status**: update that section when the site changes; do not duplicate deploy state here.
 
 ### Alignment with the topical map (language-specific pillars)
 
@@ -43,20 +43,20 @@ Marquee SEO articles in [topical-map.md](topical-map.md) target learners of spec
 | Topical map pillar (topic) | Locale code | Path prefix |
 | --- | --- | --- |
 | Spanish vocabulary games | `es` | `/es` |
-| English vocabulary building | `en` | *(none — canonical root)* |
+| English vocabulary building | `en` | *(none, canonical root)* |
 | Japanese vocabulary practice | `ja` | `/ja` |
 | German vocabulary learning | `de` | `/de` |
 | Chinese vocabulary methods | `zh-Hans` | `/zh-Hans` |
 | Korean vocabulary practice | `ko` | `/ko` |
 
-Pillars that are **not** tied to one target language (methods, games, apps, daily habits) stay on `en` first; localized versions use the same locale set when you transcreate them (e.g. `/de/guides/...` for a German-audience pillar), with keywords validated per market — not literal translation only.
+Pillars that are **not** tied to one target language (methods, games, apps, daily habits) stay on `en` first; localized versions use the same locale set when you transcreate them (e.g. `/de/guides/...` for a German-audience pillar), with keywords validated per market, not literal translation only.
 
 ---
 
 ## URL & routing rules
 
 1. **Canonical English URLs** live at the site root: `https://www.letters.game/...`
-2. **Localized URLs** mirror the same path structure under the prefix: e.g. `/de/guides/learn-german-vocabulary` parallels `/guides/learn-german-vocabulary` only when that article exists in German—not every English slug needs a translation day one.
+2. **Localized URLs** mirror the same path structure under the prefix: e.g. `/de/guides/learn-german-vocabulary` parallels `/guides/learn-german-vocabulary` only when that article exists in German: not every English slug needs a translation day one.
 3. **Slug policy**
    - **English:** Use ASCII slugs derived from the primary keyword/title (as in the topical map).
    - **Localized:** Prefer **native-language slugs** where search and UX benefit (e.g. German article → German slug). When a locale ships later, add redirects from any interim English slug if you used placeholders.
@@ -127,7 +127,7 @@ The topical map is **English-keyword oriented**. For non-English pages, add a **
 
 - **Phase 1–2** of the topical map: publish **English** first on unprefixed URLs; add **`hreflang`** stubs only where translations exist.
 - When localizing a pillar or cluster page, ship **full page** (metadata + body + playable block) for that locale to avoid thin or duplicate signals.
-- **Daily puzzle URLs:** If content refreshes daily per language, each locale needs its own scheduled URL set and canonical discipline (date in URL vs query param—pick one pattern globally).
+- **Daily puzzle URLs:** If content refreshes daily per language, each locale needs its own scheduled URL set and canonical discipline (date in URL vs query param: pick one pattern globally).
 - **Article titles ↔ slugs:** Primary keywords in the topical map’s tables inform English slugs; localized pages get market-specific keyword research and native slugs per the **Slug policy** bullets under **URL & routing rules**.
 
 ---

@@ -58,7 +58,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0;
-  /* Vertical room so scaled / translated tiles are not clipped (avoid overflow:* on .word — it traps content in a box) */
+  /* Vertical room so scaled / translated tiles are not clipped (avoid overflow:* on .word, it traps content in a box) */
   padding-top: clamp(2.25rem, 6vh, 4rem);
   padding-inline: clamp(0.75rem, 4vw, 2rem);
   /* Keep tiles above the fixed footer (tall wrap + home indicator) */
