@@ -564,29 +564,51 @@ body.body--article {
   margin: 1.15rem 0 0;
 }
 
-/* Optional one-page PDF; always below and visually weaker than .beta-cta__btn */
+/* Optional one-page PDF: secondary pill below primary Download Letters */
 .article-supplement-pdf {
-  margin: 0.5rem 0 0;
-  text-align: center;
+  margin: 0.65rem 0 0;
+  display: flex;
+  justify-content: center;
+}
+
+.article-supplement-pdf__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4375rem 1rem;
   font-size: 0.8125rem;
-  line-height: 1.45;
-  font-weight: 400;
-  color: var(--lg-footer-fg);
+  font-weight: 600;
+  font-family: inherit;
+  line-height: 1.2;
+  text-decoration: none;
+  color: var(--lg-fg-primary);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--lg-fg-primary) 28%, var(--lg-tile-border));
+  border-radius: 9999px;
+  box-shadow: none;
+  transition:
+    background var(--tile-dur) var(--tile-ease-out),
+    border-color var(--tile-dur) var(--tile-ease-out),
+    transform var(--tile-dur) var(--tile-ease-out);
 }
 
-.article-supplement-pdf__pending {
-  display: inline-block;
+.article-supplement-pdf__btn:hover {
+  background: color-mix(in srgb, var(--lg-bg-primary) 55%, transparent);
+  border-color: color-mix(in srgb, var(--lg-fg-primary) 40%, var(--lg-tile-border));
 }
 
-.article-post .article-supplement-pdf__link {
-  font-weight: 500;
-  color: color-mix(in srgb, var(--lg-footer-link) 78%, var(--lg-footer-fg));
-  text-decoration: underline;
-  text-underline-offset: 0.12em;
+.article-supplement-pdf__btn:active {
+  transform: scale(0.98);
 }
 
-.article-post .article-supplement-pdf__link:hover {
-  color: var(--lg-footer-link);
+.article-supplement-pdf__btn:focus-visible {
+  outline: 2px solid var(--lg-fg-primary);
+  outline-offset: 2px;
+}
+
+.article-post a.article-supplement-pdf__btn {
+  color: var(--lg-fg-primary);
+  font-weight: 600;
 }
 
 .article-related {
