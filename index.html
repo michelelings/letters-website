@@ -69,19 +69,12 @@
         }
       }
 
-      const betaLink = document.querySelector('.beta-cta a');
-      betaLink?.addEventListener('click', () => {
-        analyticsEvent('download_beta_click', {
-          link_url: betaLink.href,
-          locale: 'en',
-        });
-      });
-
       const ochoLink = document.querySelector('.site-footer p a');
       ochoLink?.addEventListener('click', () => {
         analyticsEvent('ocho_link_click', { link_url: ochoLink.href, locale: 'en' });
       });
     });
   </script>
+  <script src="/analytics.js" defer></script>
 </body>
 </html>

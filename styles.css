@@ -564,6 +564,31 @@ body.body--article {
   margin: 1.15rem 0 0;
 }
 
+/* Optional one-page PDF; always below and visually weaker than .beta-cta__btn */
+.article-supplement-pdf {
+  margin: 0.5rem 0 0;
+  text-align: center;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--lg-footer-fg);
+}
+
+.article-supplement-pdf__pending {
+  display: inline-block;
+}
+
+.article-post .article-supplement-pdf__link {
+  font-weight: 500;
+  color: color-mix(in srgb, var(--lg-footer-link) 78%, var(--lg-footer-fg));
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.article-post .article-supplement-pdf__link:hover {
+  color: var(--lg-footer-link);
+}
+
 .article-related {
   margin: 2rem 0 0;
   padding: 1rem 1.1rem;
