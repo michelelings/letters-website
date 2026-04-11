@@ -499,12 +499,8 @@ body.body--article {
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: clamp(5.5rem, 22vw, 9rem);
-  padding: clamp(0.75rem, 3vw, 1.25rem) clamp(0.5rem, 3vw, 1rem);
-  background: color-mix(in srgb, var(--lg-bg-primary) 88%, var(--lg-bg-page));
-  border-radius: 1rem;
-  border: 1px solid var(--lg-tile-border);
-  box-shadow: var(--lg-tile-shadow);
+  min-height: clamp(4.5rem, 18vw, 7.5rem);
+  padding: 0.35rem 0;
   overflow: visible;
 }
 
