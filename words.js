@@ -121,9 +121,17 @@ function getOrCreateFit(container) {
   return el;
 }
 
-/** Box inside padding — space available for the word row (main stage if present) */
-function mainContentInnerSize(main) {
-  const box = main.querySelector(".main__stage") || main;
+/** Root used for measuring available space (.main homepage or .letters-word-mount in articles) */
+function getSizingRoot(container) {
+  return container.closest(".letters-word-mount") || container.closest(".main");
+}
+
+/** Box inside padding — space available for the word row */
+function fitInnerSize(root) {
+  const box =
+    root.querySelector(".main__stage") ||
+    root.querySelector(".letters-word-mount__stage") ||
+    root;
   const st = getComputedStyle(box);
   const padX =
     (parseFloat(st.paddingLeft) || 0) + (parseFloat(st.paddingRight) || 0);
@@ -150,21 +158,23 @@ function measureFitContentSize(fit) {
   };
 }
 
-let wordFitRaf = 0;
+const wordFitRafByContainer = new WeakMap();
 
 function scheduleWordFit(container) {
   if (!container) return;
-  cancelAnimationFrame(wordFitRaf);
-  wordFitRaf = requestAnimationFrame(() => {
-    wordFitRaf = 0;
+  const prev = wordFitRafByContainer.get(container);
+  if (prev) cancelAnimationFrame(prev);
+  const id = requestAnimationFrame(() => {
+    wordFitRafByContainer.delete(container);
     applyWordFit(container);
   });
+  wordFitRafByContainer.set(container, id);
 }
 
 function applyWordFit(container) {
-  const main = container.closest(".main");
+  const root = getSizingRoot(container);
   const fit = container.querySelector(":scope > .word__fit");
-  if (!main || !fit) return;
+  if (!root || !fit) return;
 
   container.style.setProperty("--word-fit-scale", "1");
   void container.offsetHeight;
@@ -172,7 +182,7 @@ function applyWordFit(container) {
   const { w: naturalW, h: naturalH } = measureFitContentSize(fit);
   if (!naturalW || !naturalH) return;
 
-  const { w: availW, h: availH } = mainContentInnerSize(main);
+  const { w: availW, h: availH } = fitInnerSize(root);
   const pad = 2;
   const scaleW = (availW - pad) / naturalW;
   const scaleH = (availH - pad) / naturalH;
@@ -219,32 +229,65 @@ function installWord(container, word) {
   scheduleWordFit(container);
 }
 
-function renderInitialWord() {
-  const container = document.getElementById("word");
-  if (!container) return;
-  const staticWord = container.getAttribute("data-static-word");
-  const word = staticWord || pickWord();
-  installWord(container, word);
+function parseWordsAttr(value) {
+  if (!value || !String(value).trim()) return [];
+  return String(value)
+    .split(/[,|]/u)
+    .map((s) => s.trim())
+    .filter(Boolean);
 }
 
-function cycleWords() {
-  const container = document.getElementById("word");
-  if (!container) return;
+function cycleIntervalMs(container) {
+  const raw = container.getAttribute("data-letters-interval");
+  if (raw) {
+    const n = Number.parseInt(raw, 10);
+    if (Number.isFinite(n) && n >= 800) return n;
+  }
+  return WORD_CYCLE_MS;
+}
 
-  window.setTimeout(() => {
+function makeWordPicker(container, list) {
+  if (!list.length) {
+    return () => pickWord();
+  }
+  if (list.length === 1) {
+    return () => list[0];
+  }
+  const mode = (container.getAttribute("data-letters-rotate") || "sequential")
+    .toLowerCase()
+    .trim();
+  if (mode === "random") {
+    return () => list[Math.floor(Math.random() * list.length)];
+  }
+  let i = 0;
+  return () => {
+    const w = list[i % list.length];
+    i += 1;
+    return w;
+  };
+}
+
+function shouldCycle(container, list, staticWord) {
+  if (staticWord) return false;
+  if (!list.length) return true;
+  return list.length > 1;
+}
+
+function cycleWordsForContainer(container, pickWordFn) {
+  const delayMs = cycleIntervalMs(container);
+  window.setTimeout(function tick() {
     const fit = getOrCreateFit(container);
     const active = fit.querySelector(".word-layer:last-of-type");
     const nTiles = active?.querySelectorAll(".tile").length ?? 0;
 
     if (nTiles === 0) {
-      window.setTimeout(() => cycleWords(), WORD_CYCLE_MS);
+      window.setTimeout(tick, delayMs);
       return;
     }
 
     if (prefersReducedMotion()) {
-      const word = pickWord();
-      installWord(container, word);
-      cycleWords();
+      installWord(container, pickWordFn());
+      window.setTimeout(tick, delayMs);
       return;
     }
 
@@ -253,7 +296,7 @@ function cycleWords() {
 
     container.classList.add("word--crossfade");
 
-    const word = pickWord();
+    const word = pickWordFn();
     const inLayer = buildLayerElement(word);
     inLayer.classList.add("word-layer--in");
     inLayer.style.setProperty(
@@ -277,29 +320,48 @@ function cycleWords() {
       inLayer.classList.remove("word-layer--in");
       inLayer.style.removeProperty("--enter-overlap");
       scheduleWordFit(container);
-      cycleWords();
+      window.setTimeout(tick, delayMs);
     }, cleanupMs);
-  }, WORD_CYCLE_MS);
+  }, delayMs);
+}
+
+function observeResize(container) {
+  const root = getSizingRoot(container);
+  if (!container || !root) return;
+  const refit = () => scheduleWordFit(container);
+  if (document.fonts?.ready) {
+    void document.fonts.ready.then(refit);
+  }
+  window.addEventListener("resize", refit, { passive: true });
+  const observeEl =
+    root.querySelector(".main__stage") ||
+    root.querySelector(".letters-word-mount__stage") ||
+    root;
+  if (typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(refit).observe(observeEl);
+  }
+}
+
+function initWordContainer(container) {
+  if (!container || !container.classList.contains("word")) return;
+
+  const staticWord = container.getAttribute("data-static-word");
+  if (staticWord) {
+    installWord(container, staticWord);
+    observeResize(container);
+    return;
+  }
+
+  const list = parseWordsAttr(container.getAttribute("data-letters-words"));
+  const picker = makeWordPicker(container, list);
+  installWord(container, picker());
+
+  if (shouldCycle(container, list, null)) {
+    cycleWordsForContainer(container, picker);
+  }
+  observeResize(container);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("word");
-  const main = document.querySelector(".main");
-  const isStaticWord = Boolean(container?.getAttribute("data-static-word"));
-
-  renderInitialWord();
-  if (!isStaticWord) {
-    cycleWords();
-  }
-
-  if (container && main) {
-    const refit = () => scheduleWordFit(container);
-    if (document.fonts?.ready) {
-      void document.fonts.ready.then(refit);
-    }
-    window.addEventListener("resize", refit, { passive: true });
-    if (typeof ResizeObserver !== "undefined") {
-      new ResizeObserver(refit).observe(main);
-    }
-  }
+  document.querySelectorAll(".word").forEach(initWordContainer);
 });
