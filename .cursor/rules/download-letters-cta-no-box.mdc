@@ -1,0 +1,12 @@
+---
+description: Keep the Download/Descargar Letters button (beta-cta) outside the article-cta-box; the box is for copy only.
+alwaysApply: true
+---
+
+# Download Letters CTA: not inside the CTA box
+
+- **`article-cta-box`** is only for the **text** CTA line (e.g. “Try Letters: …”). It uses the bordered/card styling in `styles.css`.
+- **`<p class="beta-cta">` with `.beta-cta__btn`** must be a **sibling after** the closing `</div>` of `article-cta-box`, never nested inside it.
+- If there is no copy line, **omit `article-cta-box`** and use only `<p class="beta-cta">…</p>`.
+- Article analytics should target **`.article-post .beta-cta__btn`** (with `.article-topbar__cta`), not `.article-cta-box .beta-cta__btn`.
+- When regenerating guides, keep the same structure as in `scripts/gen_pillar_articles.py`.

@@ -86,10 +86,10 @@
 
       <div class="article-cta-box">
         <p><strong>Prueba Letters</strong>: un juego de palabras de Ocho. Sesiones cortas y fichas táctiles, pensado para quien quiere jugar antes que agobiarse.</p>
-        <p class="beta-cta">
-          <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">Descargar Letters</a>
-        </p>
       </div>
+      <p class="beta-cta">
+        <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">Descargar Letters</a>
+      </p>
     </article>
   </main>
   <footer class="site-footer">
@@ -110,7 +110,7 @@
       function analyticsEvent(name, params) {
         if (typeof gtag === 'function') gtag('event', name, params);
       }
-      document.querySelectorAll('.article-topbar__cta, .article-cta-box .beta-cta__btn').forEach((el) => {
+      document.querySelectorAll('.article-topbar__cta, .article-post .beta-cta__btn').forEach((el) => {
         el.addEventListener('click', () => {
           analyticsEvent('download_beta_click', { link_url: el.href, locale: 'es', page_type: 'article' });
         });

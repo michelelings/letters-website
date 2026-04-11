@@ -13,7 +13,7 @@ EN_FOOTER_SCRIPT = """
       function analyticsEvent(name, params) {
         if (typeof gtag === 'function') gtag('event', name, params);
       }
-      document.querySelectorAll('.article-topbar__cta, .article-cta-box .beta-cta__btn').forEach((el) => {
+      document.querySelectorAll('.article-topbar__cta, .article-post .beta-cta__btn').forEach((el) => {
         el.addEventListener('click', () => {
           analyticsEvent('download_beta_click', { link_url: el.href, locale: '__LOCALE__', page_type: 'article' });
         });
@@ -133,10 +133,10 @@ def write_en(
       </nav>
       <div class="article-cta-box">
         <p><strong>{cta_title}</strong>: {cta_p}</p>
-        <p class="beta-cta">
-          <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">{cta_btn}</a>
-        </p>
       </div>
+      <p class="beta-cta">
+        <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">{cta_btn}</a>
+      </p>
     </article>
   </main>
   <footer class="site-footer">
@@ -226,10 +226,10 @@ def write_es(
       </nav>
       <div class="article-cta-box">
         <p><strong>Prueba Letters</strong>: puzles de palabras de Ocho; juega primero.</p>
-        <p class="beta-cta">
-          <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">Descargar Letters</a>
-        </p>
       </div>
+      <p class="beta-cta">
+        <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">Descargar Letters</a>
+      </p>
     </article>
   </main>
   <footer class="site-footer">

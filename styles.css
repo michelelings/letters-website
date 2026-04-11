@@ -560,12 +560,8 @@ body.body--article {
   margin-bottom: 0;
 }
 
-.article-cta-box .beta-cta {
-  margin-top: 0;
-}
-
-.article-cta-box .beta-cta__btn {
-  margin-top: 0.25rem;
+.article-post > .beta-cta {
+  margin: 1.15rem 0 0;
 }
 
 .article-related {

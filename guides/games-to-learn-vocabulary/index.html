@@ -78,10 +78,10 @@
       </nav>
       <div class="article-cta-box">
         <p><strong>Try Letters</strong>: short word puzzles from Ocho. Play first, pressure second.</p>
-        <p class="beta-cta">
-          <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">Download Letters</a>
-        </p>
       </div>
+      <p class="beta-cta">
+        <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">Download Letters</a>
+      </p>
     </article>
   </main>
   <footer class="site-footer">
@@ -103,7 +103,7 @@
       function analyticsEvent(name, params) {
         if (typeof gtag === 'function') gtag('event', name, params);
       }
-      document.querySelectorAll('.article-topbar__cta, .article-cta-box .beta-cta__btn').forEach((el) => {
+      document.querySelectorAll('.article-topbar__cta, .article-post .beta-cta__btn').forEach((el) => {
         el.addEventListener('click', () => {
           analyticsEvent('download_beta_click', { link_url: el.href, locale: 'en', page_type: 'article' });
         });
