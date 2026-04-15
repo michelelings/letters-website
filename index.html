@@ -128,6 +128,7 @@
         overlapMs: 180,
         nextDelayMs: 180,
       };
+      const MOVE_ANIMATION_MS = 220;
 
       const cardDemoEl = document.getElementById('card-demo');
       const clueEl = document.getElementById('card-clue');
@@ -148,6 +149,7 @@
         bank: [],
         slotShapes: [],
         isLocked: false,
+        isTransitioning: false,
         advanceTimer: null,
       };
 
@@ -211,6 +213,28 @@
         });
 
         return ((tiles.length - 1) * tileStep) + tileDuration;
+      }
+
+      function animateGhostToRect(ghost, targetRect) {
+        if (!ghost || !targetRect || prefersReducedMotionLocal()) {
+          return Promise.resolve();
+        }
+        const from = ghost.getBoundingClientRect();
+        const dx = targetRect.left - from.left;
+        const dy = targetRect.top - from.top;
+        ghost.style.transform = 'none';
+        const anim = ghost.animate(
+          [
+            { transform: 'translate3d(0, 0, 0)' },
+            { transform: `translate3d(${dx}px, ${dy}px, 0)` },
+          ],
+          {
+            duration: MOVE_ANIMATION_MS,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            fill: 'forwards',
+          }
+        );
+        return anim.finished.catch(() => {});
       }
 
       function feedbackForGuess(guess) {
@@ -330,7 +354,7 @@
       }
 
       function onTapTile(event) {
-        if (state.isLocked) return;
+        if (state.isLocked || state.isTransitioning) return;
         if (Date.now() < ignoreTapUntil) return;
         const tile = event.target.closest('.card-demo__tile');
         if (!tile) return;
@@ -358,7 +382,7 @@
       let ignoreTapUntil = 0;
 
       function startDrag(event) {
-        if (state.isLocked) return;
+        if (state.isLocked || state.isTransitioning) return;
         const tile = event.target.closest('.card-demo__tile');
         if (!tile) return;
         if (event.pointerType === 'mouse' && event.button !== 0) return;
@@ -380,6 +404,7 @@
           pointerId: event.pointerId,
           offsetX: event.clientX - rect.left,
           offsetY: event.clientY - rect.top,
+          sourceRect: rect,
           startX: event.clientX,
           startY: event.clientY,
           moved: false,
@@ -401,8 +426,10 @@
         if (!dragState || event.pointerId !== dragState.pointerId) return;
 
         const ghost = dragState.ghost;
+        const wasTap = !dragState.moved;
+        let destinationRect = null;
+        let didMutate = false;
         const origin = document.querySelector('.is-drag-origin');
-        origin?.classList.remove('is-drag-origin');
 
         const dropTarget = document.elementFromPoint(event.clientX, event.clientY);
         const slotTarget = dropTarget?.closest('.card-demo__slot');
@@ -413,18 +440,53 @@
           if (Number.isFinite(targetIndex)) {
             if (dragState.source === 'bank') {
               placeFromBank(dragState.index, targetIndex);
+              destinationRect = slotTarget.getBoundingClientRect();
+              didMutate = true;
             } else if (dragState.source === 'slot') {
               moveFromSlot(dragState.index, targetIndex);
+              destinationRect = slotTarget.getBoundingClientRect();
+              didMutate = true;
             }
           }
         } else if (bankTarget && dragState.source === 'slot') {
+          const firstOpenBank = state.bank.findIndex((item) => item === null);
           returnToBank(dragState.index);
+          const targetBank = bankEl.querySelector(`.card-demo__bank-slot[data-bank-index="${firstOpenBank}"]`);
+          destinationRect = targetBank?.getBoundingClientRect() || null;
+          didMutate = true;
+        } else if (wasTap) {
+          if (dragState.source === 'bank') {
+            const firstOpen = state.slots.findIndex((slot) => slot === null);
+            if (firstOpen >= 0) {
+              const targetSlot = slotsEl.querySelector(`.card-demo__slot[data-slot-index="${firstOpen}"]`);
+              placeFromBank(dragState.index, firstOpen);
+              destinationRect = targetSlot?.getBoundingClientRect() || null;
+              didMutate = true;
+            }
+          } else if (dragState.source === 'slot') {
+            const firstOpenBank = state.bank.findIndex((item) => item === null);
+            const targetBank = bankEl.querySelector(`.card-demo__bank-slot[data-bank-index="${firstOpenBank}"]`);
+            returnToBank(dragState.index);
+            destinationRect = targetBank?.getBoundingClientRect() || null;
+            didMutate = true;
+          }
         }
 
-        if (dragState.moved) {
+        if (dragState.moved || wasTap) {
           ignoreTapUntil = Date.now() + 250;
         }
-
+        if (didMutate && destinationRect) {
+          state.isTransitioning = true;
+          animateGhostToRect(ghost, destinationRect).finally(() => {
+            origin?.classList.remove('is-drag-origin');
+            ghost.remove();
+            dragState = null;
+            state.isTransitioning = false;
+            render();
+          });
+          return;
+        }
+        origin?.classList.remove('is-drag-origin');
         ghost.remove();
         dragState = null;
         render();
