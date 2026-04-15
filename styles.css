@@ -133,6 +133,7 @@ body {
 
 .card-demo__slot {
   position: relative;
+  z-index: var(--slot-z, 1);
   width: var(--tile-w);
   height: var(--tile-h);
   flex: 0 0 auto;
@@ -205,6 +206,8 @@ body {
 }
 
 .card-demo__tile {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;

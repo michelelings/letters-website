@@ -311,10 +311,12 @@
           slot.dataset.slotIndex = String(slotIndex);
           slot.setAttribute('aria-label', `Answer slot ${slotIndex + 1}`);
           slot.style.setProperty('--tilt', `${rotationFor(slotIndex)}deg`);
+          slot.style.setProperty('--slot-z', String(slotIndex + 1));
 
           const letter = state.slots[slotIndex];
           if (letter) {
             slot.classList.add('is-filled');
+            slot.style.setProperty('--slot-z', String(100 + slotIndex));
             const tile = document.createElement('span');
             tile.className = 'card-demo__tile';
             tile.dataset.source = 'slot';
@@ -435,7 +437,23 @@
         const slotTarget = dropTarget?.closest('.card-demo__slot');
         const bankTarget = dropTarget?.closest('.card-demo__bank');
 
-        if (slotTarget) {
+        if (wasTap) {
+          if (dragState.source === 'bank') {
+            const firstOpen = state.slots.findIndex((slot) => slot === null);
+            if (firstOpen >= 0) {
+              const targetSlot = slotsEl.querySelector(`.card-demo__slot[data-slot-index="${firstOpen}"]`);
+              placeFromBank(dragState.index, firstOpen);
+              destinationRect = targetSlot?.getBoundingClientRect() || null;
+              didMutate = true;
+            }
+          } else if (dragState.source === 'slot') {
+            const firstOpenBank = state.bank.findIndex((item) => item === null);
+            const targetBank = bankEl.querySelector(`.card-demo__bank-slot[data-bank-index="${firstOpenBank}"]`);
+            returnToBank(dragState.index);
+            destinationRect = targetBank?.getBoundingClientRect() || null;
+            didMutate = true;
+          }
+        } else if (slotTarget) {
           const targetIndex = Number.parseInt(slotTarget.dataset.slotIndex || '', 10);
           if (Number.isFinite(targetIndex)) {
             if (dragState.source === 'bank') {
@@ -454,22 +472,6 @@
           const targetBank = bankEl.querySelector(`.card-demo__bank-slot[data-bank-index="${firstOpenBank}"]`);
           destinationRect = targetBank?.getBoundingClientRect() || null;
           didMutate = true;
-        } else if (wasTap) {
-          if (dragState.source === 'bank') {
-            const firstOpen = state.slots.findIndex((slot) => slot === null);
-            if (firstOpen >= 0) {
-              const targetSlot = slotsEl.querySelector(`.card-demo__slot[data-slot-index="${firstOpen}"]`);
-              placeFromBank(dragState.index, firstOpen);
-              destinationRect = targetSlot?.getBoundingClientRect() || null;
-              didMutate = true;
-            }
-          } else if (dragState.source === 'slot') {
-            const firstOpenBank = state.bank.findIndex((item) => item === null);
-            const targetBank = bankEl.querySelector(`.card-demo__bank-slot[data-bank-index="${firstOpenBank}"]`);
-            returnToBank(dragState.index);
-            destinationRect = targetBank?.getBoundingClientRect() || null;
-            didMutate = true;
-          }
         }
 
         if (dragState.moved || wasTap) {
