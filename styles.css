@@ -245,7 +245,6 @@ body {
   margin: 0;
   z-index: 9999;
   pointer-events: none;
-  transform: scale(1.02);
   box-shadow: var(--lg-tile-hover-drop);
 }
 

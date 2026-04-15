@@ -356,6 +356,9 @@
       }
 
       function onTapTile(event) {
+        // Keep click handling for keyboard activation only.
+        // Pointer/touch taps are already handled in the pointer lifecycle.
+        if (event.detail !== 0) return;
         if (state.isLocked || state.isTransitioning) return;
         if (Date.now() < ignoreTapUntil) return;
         const tile = event.target.closest('.card-demo__tile');
@@ -398,11 +401,13 @@
         ghost.classList.add('card-demo__tile--ghost');
         ghost.style.width = `${rect.width}px`;
         ghost.style.height = `${rect.height}px`;
+        ghost.style.visibility = 'hidden';
         document.body.appendChild(ghost);
 
         dragState = {
           source,
           index,
+          originEl: tile,
           pointerId: event.pointerId,
           offsetX: event.clientX - rect.left,
           offsetY: event.clientY - rect.top,
@@ -413,7 +418,6 @@
           ghost,
         };
 
-        tile.classList.add('is-drag-origin');
         tile.setPointerCapture(event.pointerId);
         positionGhost(event.clientX, event.clientY);
       }
@@ -431,7 +435,7 @@
         const wasTap = !dragState.moved;
         let destinationRect = null;
         let didMutate = false;
-        const origin = document.querySelector('.is-drag-origin');
+        const origin = dragState.originEl;
 
         const dropTarget = document.elementFromPoint(event.clientX, event.clientY);
         const slotTarget = dropTarget?.closest('.card-demo__slot');
@@ -475,9 +479,15 @@
         }
 
         if (dragState.moved || wasTap) {
-          ignoreTapUntil = Date.now() + 250;
+          ignoreTapUntil = Date.now() + Math.max(250, MOVE_ANIMATION_MS + 80);
         }
         if (didMutate && destinationRect) {
+          if (!dragState.moved) {
+            origin?.classList.add('is-drag-origin');
+            ghost.style.visibility = 'visible';
+            ghost.style.left = `${dragState.sourceRect.left}px`;
+            ghost.style.top = `${dragState.sourceRect.top}px`;
+          }
           state.isTransitioning = true;
           animateGhostToRect(ghost, destinationRect).finally(() => {
             origin?.classList.remove('is-drag-origin');
@@ -498,13 +508,17 @@
         if (!dragState || event.pointerId !== dragState.pointerId) return;
         const movedX = Math.abs(event.clientX - dragState.startX);
         const movedY = Math.abs(event.clientY - dragState.startY);
-        if (movedX + movedY > 6) dragState.moved = true;
+        if (!dragState.moved && movedX + movedY > 6) {
+          dragState.moved = true;
+          dragState.originEl?.classList.add('is-drag-origin');
+          dragState.ghost.style.visibility = 'visible';
+        }
         positionGhost(event.clientX, event.clientY);
       }
 
       function cancelDrag(event) {
         if (!dragState || event.pointerId !== dragState.pointerId) return;
-        const origin = document.querySelector('.is-drag-origin');
+        const origin = dragState.originEl;
         origin?.classList.remove('is-drag-origin');
         dragState.ghost.remove();
         dragState = null;
