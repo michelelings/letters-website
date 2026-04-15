@@ -39,9 +39,17 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <main class="main">
+  <main class="main main--interactive">
     <div class="main__stage">
-      <div class="word" id="word" aria-live="polite"></div>
+      <section class="card-demo" id="card-demo" aria-label="Letters prototype">
+        <h1 class="card-demo__clue" id="card-clue">Learn</h1>
+
+        <div class="card-demo__slots" id="card-slots" aria-label="Answer slots"></div>
+        <div class="card-demo__bank" id="card-bank" aria-label="Letter bank"></div>
+
+        <p class="card-demo__feedback" id="card-feedback" aria-live="polite"></p>
+        <button class="card-demo__reset" id="card-reset" type="button">Reset</button>
+      </section>
     </div>
     <p class="beta-cta">
       <a class="beta-cta__btn" href="https://testflight.apple.com/join/3jNtcz3K" target="_blank" rel="noopener noreferrer">Download Letters</a>
@@ -61,6 +69,402 @@
     <p>Letters is made by <a href="https://www.ocho.so" target="_blank" rel="noopener noreferrer">Ocho</a></p>
   </footer>
   <script src="/words.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      function localeCode() {
+        const lang = (document.documentElement.lang || 'en').toLowerCase();
+        return lang.startsWith('es') ? 'es' : 'en';
+      }
+
+      function wordsFromWebsiteData() {
+        if (typeof wordListForLocale === 'function') {
+          return wordListForLocale();
+        }
+        if (typeof WORDS_BY_LOCALE !== 'undefined') {
+          const byLocale = WORDS_BY_LOCALE[localeCode()] || WORDS_BY_LOCALE.en || [];
+          return Array.isArray(byLocale) ? byLocale : [];
+        }
+        return [];
+      }
+
+      function clueFromWebsiteData(word) {
+        if (typeof clueForWord === 'function') {
+          return clueForWord(word, localeCode());
+        }
+        return localeCode() === 'es' ? 'Adivina la palabra' : 'Guess the word';
+      }
+
+      function shuffledLetters(word) {
+        const letters = [...word.toUpperCase()];
+        for (let i = letters.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [letters[i], letters[j]] = [letters[j], letters[i]];
+        }
+        return letters;
+      }
+
+      function shuffledWords(words) {
+        const copy = [...words];
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function rotationFor(index) {
+        if (typeof stableRotationDeg === 'function') {
+          return stableRotationDeg(index);
+        }
+        const seed = ((index * 7 + 3) % 11) / 11;
+        return (seed - 0.5) * 6;
+      }
+
+      const shapeCycle = ['square', 'circle', 'diamond', 'pentagon', 'diamond'];
+      const SUCCESS_ANIMATION = {
+        jumpMs: 170,
+        flipMs: 260,
+        settleMs: 120,
+        overlapMs: 180,
+        nextDelayMs: 180,
+      };
+
+      const cardDemoEl = document.getElementById('card-demo');
+      const clueEl = document.getElementById('card-clue');
+      const slotsEl = document.getElementById('card-slots');
+      const bankEl = document.getElementById('card-bank');
+      const feedbackEl = document.getElementById('card-feedback');
+      const resetEl = document.getElementById('card-reset');
+
+      const preferredWord = localeCode() === 'es' ? 'Juego' : 'Learn';
+      const puzzleWords = wordsFromWebsiteData().filter((word) => /^[\p{L}]{5}$/u.test(word));
+      const sequence = puzzleWords.length ? shuffledWords(puzzleWords) : [preferredWord];
+      let wordIndex = 0;
+
+      const state = {
+        clue: '',
+        solution: '',
+        slots: [],
+        bank: [],
+        slotShapes: [],
+        isLocked: false,
+        advanceTimer: null,
+      };
+
+      function setRound(word) {
+        state.clue = clueFromWebsiteData(word);
+        state.solution = word.toUpperCase();
+        state.slots = Array(state.solution.length).fill(null);
+        state.bank = shuffledLetters(word);
+        state.slotShapes = Array.from(
+          { length: state.solution.length },
+          (_, i) => shapeCycle[i % shapeCycle.length]
+        );
+        state.isLocked = false;
+        state.advanceTimer = null;
+        if (clueEl) clueEl.textContent = state.clue;
+        cardDemoEl?.style.setProperty('--card-cols', String(state.solution.length));
+      }
+
+      function currentWord() {
+        return sequence[wordIndex % sequence.length];
+      }
+
+      function advanceToNextWord() {
+        wordIndex = (wordIndex + 1) % sequence.length;
+        setRound(currentWord());
+        render();
+      }
+
+      function prefersReducedMotionLocal() {
+        if (typeof prefersReducedMotion === 'function') {
+          return prefersReducedMotion();
+        }
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      }
+
+      function playSuccessAnimation() {
+        const tiles = Array.from(slotsEl.querySelectorAll('.card-demo__slot .card-demo__tile'));
+        if (!tiles.length || prefersReducedMotionLocal()) return 0;
+
+        const tileDuration = SUCCESS_ANIMATION.jumpMs + SUCCESS_ANIMATION.flipMs + SUCCESS_ANIMATION.settleMs;
+        const tileStep = Math.max(20, tileDuration - SUCCESS_ANIMATION.overlapMs);
+
+        tiles.forEach((tile, idx) => {
+          const delay = idx * tileStep;
+          window.setTimeout(() => {
+            tile.animate(
+              [
+                { transform: 'translateY(0) rotateY(0deg)' },
+                { offset: 0.24, transform: 'translateY(-13px) rotateY(0deg)' },
+                { offset: 0.42, transform: 'translateY(0) rotateY(0deg)' },
+                { offset: 0.86, transform: 'translateY(-1px) rotateY(360deg)' },
+                { transform: 'translateY(0) rotateY(360deg)' },
+              ],
+              {
+                duration: tileDuration,
+                easing: 'cubic-bezier(0.33, 1, 0.68, 1)',
+                fill: 'none',
+              }
+            );
+          }, delay);
+        });
+
+        return ((tiles.length - 1) * tileStep) + tileDuration;
+      }
+
+      function feedbackForGuess(guess) {
+        if (guess === state.solution) return 'Nice, that is correct.';
+        let rightSpot = 0;
+        for (let i = 0; i < guess.length; i += 1) {
+          if (guess[i] === state.solution[i]) rightSpot += 1;
+        }
+        if (rightSpot > 0) return 'Some letters are in the wrong place.';
+        return 'Good try. Keep moving letters.';
+      }
+
+      function updateFeedback() {
+        if (state.slots.some((item) => item === null)) {
+          feedbackEl.textContent = '';
+          return;
+        }
+        const guess = state.slots.join('');
+        const message = feedbackForGuess(guess);
+        feedbackEl.textContent = message;
+        if (guess === state.solution && !state.isLocked) {
+          state.isLocked = true;
+          if (state.advanceTimer) {
+            window.clearTimeout(state.advanceTimer);
+          }
+          const successMs = playSuccessAnimation();
+          state.advanceTimer = window.setTimeout(() => {
+            state.advanceTimer = null;
+            advanceToNextWord();
+          }, successMs + SUCCESS_ANIMATION.nextDelayMs);
+        }
+      }
+
+      function placeFromBank(bankIndex, slotIndex) {
+        if (!state.bank[bankIndex]) return;
+        const incoming = state.bank[bankIndex];
+        state.bank[bankIndex] = null;
+        const outgoing = state.slots[slotIndex];
+        state.slots[slotIndex] = incoming;
+        if (outgoing) {
+          const firstOpenBank = state.bank.findIndex((item) => item === null);
+          if (firstOpenBank >= 0) {
+            state.bank[firstOpenBank] = outgoing;
+          }
+        }
+      }
+
+      function moveFromSlot(slotIndex, nextSlotIndex) {
+        const incoming = state.slots[slotIndex];
+        if (!incoming) return;
+        const outgoing = state.slots[nextSlotIndex];
+        state.slots[nextSlotIndex] = incoming;
+        state.slots[slotIndex] = outgoing;
+      }
+
+      function returnToBank(slotIndex) {
+        const letter = state.slots[slotIndex];
+        if (!letter) return;
+        state.slots[slotIndex] = null;
+        const firstOpenBank = state.bank.findIndex((item) => item === null);
+        if (firstOpenBank >= 0) {
+          state.bank[firstOpenBank] = letter;
+        }
+      }
+
+      function render() {
+        slotsEl.replaceChildren();
+        bankEl.replaceChildren();
+
+        state.slotShapes.forEach((shape, slotIndex) => {
+          const slot = document.createElement('button');
+          slot.type = 'button';
+          slot.className = 'card-demo__slot';
+          slot.dataset.slotIndex = String(slotIndex);
+          slot.setAttribute('aria-label', `Answer slot ${slotIndex + 1}`);
+          slot.style.setProperty('--tilt', `${rotationFor(slotIndex)}deg`);
+
+          const letter = state.slots[slotIndex];
+          if (letter) {
+            slot.classList.add('is-filled');
+            const tile = document.createElement('span');
+            tile.className = 'card-demo__tile';
+            tile.dataset.source = 'slot';
+            tile.dataset.index = String(slotIndex);
+            tile.textContent = letter;
+            slot.appendChild(tile);
+          } else {
+            const marker = document.createElement('span');
+            marker.className = `card-demo__shape card-demo__shape--${shape}`;
+            marker.setAttribute('aria-hidden', 'true');
+            slot.appendChild(marker);
+          }
+          slotsEl.appendChild(slot);
+        });
+
+        state.bank.forEach((letter, bankIndex) => {
+          const bankSlot = document.createElement('div');
+          bankSlot.className = 'card-demo__bank-slot';
+          bankSlot.dataset.bankIndex = String(bankIndex);
+          bankSlot.style.setProperty('--tilt', `${rotationFor(bankIndex + 7)}deg`);
+
+          if (letter) {
+            const bankTile = document.createElement('button');
+            bankTile.type = 'button';
+            bankTile.className = 'card-demo__tile card-demo__tile--bank';
+            bankTile.dataset.source = 'bank';
+            bankTile.dataset.index = String(bankIndex);
+            bankTile.setAttribute('aria-label', `Letter ${letter}`);
+            bankTile.textContent = letter;
+            bankSlot.appendChild(bankTile);
+          }
+
+          bankEl.appendChild(bankSlot);
+        });
+
+        updateFeedback();
+      }
+
+      function onTapTile(event) {
+        if (state.isLocked) return;
+        if (Date.now() < ignoreTapUntil) return;
+        const tile = event.target.closest('.card-demo__tile');
+        if (!tile) return;
+
+        const source = tile.dataset.source;
+        const index = Number.parseInt(tile.dataset.index || '', 10);
+        if (!Number.isFinite(index)) return;
+
+        if (source === 'bank') {
+          const firstOpen = state.slots.findIndex((slot) => slot === null);
+          if (firstOpen >= 0) {
+            placeFromBank(index, firstOpen);
+            render();
+          }
+          return;
+        }
+
+        if (source === 'slot') {
+          returnToBank(index);
+          render();
+        }
+      }
+
+      let dragState = null;
+      let ignoreTapUntil = 0;
+
+      function startDrag(event) {
+        if (state.isLocked) return;
+        const tile = event.target.closest('.card-demo__tile');
+        if (!tile) return;
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+        const source = tile.dataset.source;
+        const index = Number.parseInt(tile.dataset.index || '', 10);
+        if (!source || !Number.isFinite(index)) return;
+
+        const rect = tile.getBoundingClientRect();
+        const ghost = tile.cloneNode(true);
+        ghost.classList.add('card-demo__tile--ghost');
+        ghost.style.width = `${rect.width}px`;
+        ghost.style.height = `${rect.height}px`;
+        document.body.appendChild(ghost);
+
+        dragState = {
+          source,
+          index,
+          pointerId: event.pointerId,
+          offsetX: event.clientX - rect.left,
+          offsetY: event.clientY - rect.top,
+          startX: event.clientX,
+          startY: event.clientY,
+          moved: false,
+          ghost,
+        };
+
+        tile.classList.add('is-drag-origin');
+        tile.setPointerCapture(event.pointerId);
+        positionGhost(event.clientX, event.clientY);
+      }
+
+      function positionGhost(x, y) {
+        if (!dragState) return;
+        dragState.ghost.style.left = `${x - dragState.offsetX}px`;
+        dragState.ghost.style.top = `${y - dragState.offsetY}px`;
+      }
+
+      function endDrag(event) {
+        if (!dragState || event.pointerId !== dragState.pointerId) return;
+
+        const ghost = dragState.ghost;
+        const origin = document.querySelector('.is-drag-origin');
+        origin?.classList.remove('is-drag-origin');
+
+        const dropTarget = document.elementFromPoint(event.clientX, event.clientY);
+        const slotTarget = dropTarget?.closest('.card-demo__slot');
+        const bankTarget = dropTarget?.closest('.card-demo__bank');
+
+        if (slotTarget) {
+          const targetIndex = Number.parseInt(slotTarget.dataset.slotIndex || '', 10);
+          if (Number.isFinite(targetIndex)) {
+            if (dragState.source === 'bank') {
+              placeFromBank(dragState.index, targetIndex);
+            } else if (dragState.source === 'slot') {
+              moveFromSlot(dragState.index, targetIndex);
+            }
+          }
+        } else if (bankTarget && dragState.source === 'slot') {
+          returnToBank(dragState.index);
+        }
+
+        if (dragState.moved) {
+          ignoreTapUntil = Date.now() + 250;
+        }
+
+        ghost.remove();
+        dragState = null;
+        render();
+      }
+
+      function moveDrag(event) {
+        if (!dragState || event.pointerId !== dragState.pointerId) return;
+        const movedX = Math.abs(event.clientX - dragState.startX);
+        const movedY = Math.abs(event.clientY - dragState.startY);
+        if (movedX + movedY > 6) dragState.moved = true;
+        positionGhost(event.clientX, event.clientY);
+      }
+
+      function cancelDrag(event) {
+        if (!dragState || event.pointerId !== dragState.pointerId) return;
+        const origin = document.querySelector('.is-drag-origin');
+        origin?.classList.remove('is-drag-origin');
+        dragState.ghost.remove();
+        dragState = null;
+      }
+
+      resetEl?.addEventListener('click', () => {
+        if (state.advanceTimer) {
+          window.clearTimeout(state.advanceTimer);
+          state.advanceTimer = null;
+        }
+        setRound(currentWord());
+        render();
+      });
+
+      document.addEventListener('click', onTapTile);
+      document.addEventListener('pointerdown', startDrag);
+      document.addEventListener('pointermove', moveDrag);
+      document.addEventListener('pointerup', endDrag);
+      document.addEventListener('pointercancel', cancelDrag);
+
+      setRound(currentWord());
+      render();
+    });
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       function analyticsEvent(name, params) {

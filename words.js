@@ -45,6 +45,52 @@ const WORDS_BY_LOCALE = {
   ],
 };
 
+const WORD_CLUES_BY_LOCALE = {
+  en: {
+    welcome: "A friendly greeting when someone arrives",
+    hello: "A simple greeting",
+    hi: "A very short greeting",
+    words: "Units of language you read and write",
+    letters: "Alphabet pieces used to spell words",
+    play: "Have fun in a game",
+    puzzle: "A brain-teasing challenge",
+    game: "An activity with rules and goals",
+    learn: "Build knowledge or a new skill",
+    spell: "Put letters in the correct order",
+    "letters.game": "The website name",
+    wordplay: "Fun with language and meanings",
+    daily: "Happening every day",
+    fun: "Enjoyable and playful",
+    challenge: "Something that tests your skill",
+    practice: "Repeat to get better",
+    score: "Points you earn in a game",
+    nice: "Kind or pleasant",
+    great: "Really good",
+    wow: "Reaction of surprise",
+  },
+  es: {
+    bienvenido: "Saludo para recibir a alguien",
+    hola: "Saludo comun",
+    palabras: "Unidades del lenguaje",
+    letras: "Piezas del alfabeto",
+    jugar: "Pasarlo bien en un juego",
+    juego: "Actividad con reglas",
+    aprender: "Adquirir conocimiento",
+    divertido: "Que causa alegria",
+    reto: "Algo que pone a prueba",
+    "práctica": "Repeticion para mejorar",
+    genial: "Muy bueno",
+    vamos: "Invitacion para empezar",
+    "súper": "Excelente o muy bueno",
+    perfecto: "Sin errores",
+    palabra: "Conjunto de letras con significado",
+    puzle: "Rompecabezas",
+    diario: "Que ocurre cada dia",
+    nivel: "Etapa o grado",
+    gana: "Consigue la victoria",
+  },
+};
+
 function contentLocale() {
   const lang = (document.documentElement.lang || "en").toLowerCase();
   if (lang.startsWith("es")) return "es";
@@ -53,6 +99,22 @@ function contentLocale() {
 
 function wordListForLocale() {
   return WORDS_BY_LOCALE[contentLocale()] || WORDS_BY_LOCALE.en;
+}
+
+function clueMapForLocale(locale = contentLocale()) {
+  return WORD_CLUES_BY_LOCALE[locale] || WORD_CLUES_BY_LOCALE.en;
+}
+
+function clueForWord(word, locale = contentLocale()) {
+  const key = String(word || "").trim().toLowerCase();
+  if (!key) return locale === "es" ? "Adivina la palabra" : "Guess the word";
+  const localeMap = clueMapForLocale(locale);
+  const fallbackMap = WORD_CLUES_BY_LOCALE.en;
+  return (
+    localeMap[key] ||
+    fallbackMap[key] ||
+    (locale === "es" ? "Adivina la palabra" : "Guess the word")
+  );
 }
 
 /** BuildBoardView.stableRotation, degrees */
