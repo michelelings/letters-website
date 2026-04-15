@@ -78,6 +78,205 @@ body {
   width: 100%;
 }
 
+.main--interactive {
+  justify-content: flex-start;
+  gap: 1.25rem;
+  padding-top: clamp(2.5rem, 7vh, 4.25rem);
+}
+
+.main--interactive .beta-cta {
+  margin-top: 0;
+}
+
+.card-demo {
+  --card-cols: 5;
+  --card-overlap: var(--answer-overlap);
+  width: min(100%, 24rem);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  user-select: none;
+}
+
+.card-demo__clue {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(2.1rem, 9vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  font-family: "SF Pro Rounded", ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.card-demo__status {
+  margin: 0;
+  min-height: 1.3rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--lg-fg-primary) 62%, transparent);
+  font-family: "SF Pro Rounded", ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.card-demo__slots,
+.card-demo__bank {
+  width: auto;
+  max-width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  overflow: visible;
+}
+
+.card-demo__slot {
+  position: relative;
+  width: var(--tile-w);
+  height: var(--tile-h);
+  flex: 0 0 auto;
+  border-radius: 1rem;
+  border: 2px dashed color-mix(in srgb, var(--lg-fg-primary) 10%, transparent);
+  background: color-mix(in srgb, var(--lg-bg-page) 85%, var(--lg-bg-primary));
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(var(--tilt, 0deg));
+  transform-origin: center center;
+}
+
+.card-demo__slot.is-filled {
+  border-color: transparent;
+  background: transparent;
+}
+
+.card-demo__slot + .card-demo__slot {
+  margin-inline-start: calc(-1 * var(--tile-w) * var(--card-overlap));
+}
+
+.card-demo__slot:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--lg-fg-primary) 70%, transparent);
+  outline-offset: 2px;
+}
+
+.card-demo__shape {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: color-mix(in srgb, var(--lg-fg-primary) 20%, transparent);
+  opacity: 0.9;
+}
+
+.card-demo__shape--square {
+  border-radius: 0.24rem;
+}
+
+.card-demo__shape--circle {
+  border-radius: 999px;
+}
+
+.card-demo__shape--diamond {
+  transform: rotate(45deg);
+  border-radius: 0.2rem;
+}
+
+.card-demo__shape--pentagon {
+  clip-path: polygon(50% 0%, 95% 35%, 80% 88%, 20% 88%, 5% 35%);
+}
+
+.card-demo__bank {
+  margin-top: 1.15rem;
+  min-height: var(--tile-h);
+  align-items: start;
+}
+
+.card-demo__bank-slot {
+  width: var(--tile-w);
+  height: var(--tile-h);
+  flex: 0 0 auto;
+  transform: rotate(var(--tilt, 0deg));
+  transform-origin: center center;
+}
+
+.card-demo__bank-slot + .card-demo__bank-slot {
+  margin-inline-start: calc(-1 * var(--tile-w) * var(--card-overlap));
+}
+
+.card-demo__tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--lg-tile-border);
+  border-radius: 1rem;
+  background: var(--lg-bg-primary);
+  box-shadow: var(--lg-tile-shadow);
+  font-size: clamp(1.65rem, 7vw, 2.6rem);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--lg-fg-primary);
+  font-family: "SF Pro Rounded", ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  cursor: grab;
+  touch-action: none;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform var(--tile-dur) var(--tile-ease-out), box-shadow var(--tile-dur) var(--tile-ease-out);
+}
+
+.card-demo__tile--bank {
+  width: 100%;
+  height: 100%;
+}
+
+.card-demo__tile.is-drag-origin {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card-demo__tile--ghost {
+  position: fixed;
+  margin: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transform: scale(1.02);
+  box-shadow: var(--lg-tile-hover-drop);
+}
+
+.card-demo__feedback {
+  margin: 0.25rem 0 0;
+  min-height: 1.35rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--lg-fg-primary) 60%, transparent);
+  font-family: "SF Pro Rounded", ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.card-demo__reset {
+  display: none;
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--lg-fg-primary) 12%, transparent);
+  color: var(--lg-fg-primary);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+}
+
+.card-demo__reset:hover {
+  background: color-mix(in srgb, var(--lg-fg-primary) 20%, transparent);
+}
+
+.card-demo__reset:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--lg-fg-primary) 75%, transparent);
+  outline-offset: 2px;
+}
+
 .site-footer {
   position: fixed;
   left: 0;
