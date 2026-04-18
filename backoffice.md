@@ -176,7 +176,7 @@ If you prefer two repositories later, move `backoffice/` out; the plan stays val
 
 ## 12. Open decisions
 
-- **Monorepo script location:** `scripts/generate-pages-manifest.mjs` at repo root vs inside `backoffice/tools/`.
+- **Monorepo script location:** generator lives in `backoffice/scripts/`; repo root [`scripts/generate-pages-manifest.mjs`](scripts/generate-pages-manifest.mjs) delegates for one-command use from the marketing repo.
 - **Commit manifest vs generate on build:** committing gives reproducible deploys; generating on build always matches HEAD but needs repo access in CI (Vercel can clone full repo).
 - **Framework:** Vite SPA vs Next.js (if you want API routes in the same repo folder without a separate functions layout).
 
@@ -200,8 +200,8 @@ This plan can be implemented incrementally; each phase adds value without blocki
 
 ## 14. Implementation (shipped in repo)
 
-- **App:** `backoffice/` (Vite, React, TypeScript). Imports root [`styles.css`](styles.css) and adds [`backoffice/src/backoffice.css`](backoffice/src/backoffice.css).
-- **Manifest:** [`scripts/generate-pages-manifest.mjs`](scripts/generate-pages-manifest.mjs) writes `backoffice/public/pages-manifest.json` (gitignored; regenerated on `npm run dev` / `npm run build`).
+- **App:** `backoffice/` (Vite, React, TypeScript). Resolves marketing [`styles.css`](styles.css) via `@letters-site` (monorepo parent, `vendor/letters-website`, or `LETTERS_WEBSITE_ROOT`). Adds [`backoffice/src/backoffice.css`](backoffice/src/backoffice.css).
+- **Manifest:** [`backoffice/scripts/generate-pages-manifest.mjs`](backoffice/scripts/generate-pages-manifest.mjs) writes `backoffice/public/pages-manifest.json`. Monorepo wrapper: [`scripts/generate-pages-manifest.mjs`](scripts/generate-pages-manifest.mjs). **Standalone repo:** see [`backoffice/README.md`](backoffice/README.md).
 - **Metrics (GA4, GSC, Ahrefs, Semrush):** Vercel serverless routes under [`backoffice/api/`](backoffice/api/) (`/api/health`, `/api/ga-summary`, `/api/gsc-summary`, `/api/seo-summary`). Secrets only in Vercel env (or `.env.local` for `vercel dev`). See [`backoffice/.env.example`](backoffice/.env.example).
 - **Vercel:** Create a project with **Root Directory** `backoffice`, **Framework Preset** Vite (or Other with `npm run build` and output `dist`). Use Deployment Protection for staff-only access.
 - **Local UI only:** `cd backoffice && npm install && npm run dev` (manifest + Vite; `/api/*` is not served).
