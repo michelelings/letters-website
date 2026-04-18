@@ -1,0 +1,17 @@
+{
+  "installCommand": "npm install --prefix backoffice",
+  "buildCommand": "npm run build --prefix backoffice",
+  "outputDirectory": "backoffice/dist",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    }
+  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
