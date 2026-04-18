@@ -198,9 +198,11 @@ This plan can be implemented incrementally; each phase adds value without blocki
 
 ---
 
-## 14. Implementation (phase 1 shipped in repo)
+## 14. Implementation (shipped in repo)
 
 - **App:** `backoffice/` (Vite, React, TypeScript). Imports root [`styles.css`](styles.css) and adds [`backoffice/src/backoffice.css`](backoffice/src/backoffice.css).
 - **Manifest:** [`scripts/generate-pages-manifest.mjs`](scripts/generate-pages-manifest.mjs) writes `backoffice/public/pages-manifest.json` (gitignored; regenerated on `npm run dev` / `npm run build`).
+- **Metrics (GA4, GSC, Ahrefs, Semrush):** Vercel serverless routes under [`backoffice/api/`](backoffice/api/) (`/api/health`, `/api/ga-summary`, `/api/gsc-summary`, `/api/seo-summary`). Secrets only in Vercel env (or `.env.local` for `vercel dev`). See [`backoffice/.env.example`](backoffice/.env.example).
 - **Vercel:** Create a project with **Root Directory** `backoffice`, **Framework Preset** Vite (or Other with `npm run build` and output `dist`). Use Deployment Protection for staff-only access.
-- **Local:** `cd backoffice && npm install && npm run dev` (opens the UI with a fresh manifest).
+- **Local UI only:** `cd backoffice && npm install && npm run dev` (manifest + Vite; `/api/*` is not served).
+- **Local UI + APIs:** `cd backoffice && npm install && npx vercel dev` (or `npm run dev:vercel` after linking the project), with env vars loaded from Vercel or `.env.local`.
