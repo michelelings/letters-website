@@ -32,6 +32,8 @@ Create a **second Vercel project** that deploys only the React application, for 
 
 The public site keeps its current deployment (static files only). The backoffice project uses a **different root directory** and **different build command**. No shared runtime with the static site.
 
+**Critical:** Do **not** add a `vercel.json` at the **repository root**. If the marketing site’s Vercel project uses the repo root as its project root, that file applies to **production** and can replace the entire static site with the backoffice app. Scope Vercel config to [`backoffice/vercel.json`](backoffice/vercel.json) and set **Root Directory** to `backoffice` only on the backoffice Vercel project.
+
 ### 3.2 React stack on Vercel
 
 - **Vite + React + TypeScript** is a good default: fast local dev, static output suitable for SPA hosting on Vercel, optional **Vercel Serverless Functions** or **Edge Config** later for secrets and API proxies.
