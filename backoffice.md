@@ -206,3 +206,14 @@ This plan can be implemented incrementally; each phase adds value without blocki
 - **Vercel:** Create a project with **Root Directory** `backoffice`, **Framework Preset** Vite (or Other with `npm run build` and output `dist`). Use Deployment Protection for staff-only access.
 - **Local UI only:** `cd backoffice && npm install && npm run dev` (manifest + Vite; `/api/*` is not served).
 - **Local UI + APIs:** `cd backoffice && npm install && npx vercel dev` (or `npm run dev:vercel` after linking the project), with env vars loaded from Vercel or `.env.local`.
+
+### 15. Production URL does not update after `git push`
+
+The Vercel project for this app must use **Root Directory** `backoffice` (not the repository root). If it is empty or `.`, installs and output will not match this Vite app, or builds can fail and Vercel will keep serving the last **successful** deployment (often an older bundle).
+
+1. In Vercel: **Project** → **Settings** → **General** → **Root Directory** → set to `backoffice` → save.
+2. **Git**: confirm the project is connected to the same GitHub repo and branch you push to (for example `main`).
+3. **Deployments**: open the latest deployment. If it is **Error**, open **Build Logs** and fix the reported issue, then **Redeploy**.
+4. Confirm the new HTML: **View Source** and look for `<!-- vercel-git: <full sha> -->` after `</title>` (injected at build time on Vercel). It should match the commit you expect on GitHub.
+
+The marketing site should stay on a **separate** Vercel project (typically root directory `.` and static output) so a root `vercel.json` here does not steal that deploy.
