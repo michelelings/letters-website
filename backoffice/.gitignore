@@ -1,6 +1,0 @@
-.vercel
-node_modules
-dist
-public/pages-manifest.json
-vendor/letters-website
-.letters-site

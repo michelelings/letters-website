@@ -2,8 +2,3 @@
 node_modules
 dist
 *.local
-
-# Backoffice (Vite): generated at build time
-backoffice/node_modules
-backoffice/dist
-backoffice/public/pages-manifest.json
