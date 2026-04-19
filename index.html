@@ -122,11 +122,11 @@
 
       const shapeCycle = ['square', 'circle', 'diamond', 'pentagon', 'diamond'];
       const SUCCESS_ANIMATION = {
-        jumpMs: 170,
-        flipMs: 260,
-        settleMs: 120,
-        overlapMs: 180,
-        nextDelayMs: 180,
+        jumpMs: 204,
+        flipMs: 420,
+        settleMs: 144,
+        tileStepMs: 60,
+        nextDelayMs: 216,
       };
       const MOVE_ANIMATION_MS = 220;
 
@@ -190,7 +190,7 @@
         if (!tiles.length || prefersReducedMotionLocal()) return 0;
 
         const tileDuration = SUCCESS_ANIMATION.jumpMs + SUCCESS_ANIMATION.flipMs + SUCCESS_ANIMATION.settleMs;
-        const tileStep = Math.max(20, tileDuration - SUCCESS_ANIMATION.overlapMs);
+        const tileStep = SUCCESS_ANIMATION.tileStepMs;
 
         tiles.forEach((tile, idx) => {
           const delay = idx * tileStep;
@@ -200,7 +200,7 @@
                 { transform: 'translateY(0) rotateY(0deg)' },
                 { offset: 0.24, transform: 'translateY(-13px) rotateY(0deg)' },
                 { offset: 0.42, transform: 'translateY(0) rotateY(0deg)' },
-                { offset: 0.86, transform: 'translateY(-1px) rotateY(360deg)' },
+                { offset: 0.90, transform: 'translateY(-1px) rotateY(360deg)' },
                 { transform: 'translateY(0) rotateY(360deg)' },
               ],
               {
