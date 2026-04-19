@@ -41,7 +41,7 @@
 <body>
   <main class="main main--interactive">
     <div class="main__stage">
-      <section class="card-demo" id="card-demo" aria-label="Letters prototype">
+      <section class="card-demo" id="card-demo" aria-label="Letters prototype. Type letter keys to fill slots. Backspace removes the last letter.">
         <h1 class="card-demo__clue" id="card-clue">Learn</h1>
 
         <div class="card-demo__slots" id="card-slots" aria-label="Answer slots"></div>
@@ -300,6 +300,61 @@
         }
       }
 
+      function isTypingInFormField(target) {
+        if (!target || !(target instanceof Element)) return false;
+        const tag = target.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
+        return Boolean(target.isContentEditable);
+      }
+
+      function lastFilledSlotIndex() {
+        for (let i = state.slots.length - 1; i >= 0; i -= 1) {
+          if (state.slots[i]) return i;
+        }
+        return -1;
+      }
+
+      function letterFromKeyboardKey(key) {
+        if (typeof key !== 'string' || key.length !== 1) return null;
+        const upper = key.toUpperCase();
+        return /\p{L}/u.test(upper) ? upper : null;
+      }
+
+      function bankIndexForTypedLetter(letter) {
+        return state.bank.findIndex((item) => item != null && item.toUpperCase() === letter);
+      }
+
+      function onKeyDown(event) {
+        if (state.isLocked || state.isTransitioning) return;
+        if (event.defaultPrevented) return;
+        if (isTypingInFormField(event.target)) return;
+        if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+        if (event.key === 'Backspace') {
+          const slotIndex = lastFilledSlotIndex();
+          if (slotIndex < 0) return;
+          event.preventDefault();
+          returnToBank(slotIndex);
+          render();
+          return;
+        }
+
+        if (event.repeat) return;
+
+        const letter = letterFromKeyboardKey(event.key);
+        if (!letter) return;
+
+        const firstOpen = state.slots.findIndex((slot) => slot === null);
+        if (firstOpen < 0) return;
+
+        const bankIndex = bankIndexForTypedLetter(letter);
+        if (bankIndex < 0) return;
+
+        event.preventDefault();
+        placeFromBank(bankIndex, firstOpen);
+        render();
+      }
+
       function render() {
         slotsEl.replaceChildren();
         bankEl.replaceChildren();
@@ -538,6 +593,7 @@
       document.addEventListener('pointermove', moveDrag);
       document.addEventListener('pointerup', endDrag);
       document.addEventListener('pointercancel', cancelDrag);
+      window.addEventListener('keydown', onKeyDown);
 
       setRound(currentWord());
       render();
