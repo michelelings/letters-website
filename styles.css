@@ -705,6 +705,15 @@ body.body--article {
   overflow: visible;
 }
 
+.letters-word-mount__stage--card-demo {
+  min-height: clamp(11rem, 38vw, 17rem);
+  padding: 0.5rem 0;
+}
+
+.article-post .letters-word-mount .card-demo__clue {
+  font-size: clamp(1.35rem, 5.5vw, 2.35rem);
+}
+
 .article-post .letters-word-mount + p,
 .article-post .letters-word-mount + h2 {
   margin-top: 0.25rem;
