@@ -44,8 +44,16 @@
       <p class="article-lead">Core words for talking about relatives, learn the nouns, then plug them into simple sentences you can reuse.</p>
 
       <div class="letters-word-mount">
-        <div class="letters-word-mount__stage">
-          <div class="word word--inline" data-letters-words="hermana,madre,padre,hermano,abuela,abuelo" data-letters-interval="3000" aria-live="polite"></div>
+        <div class="letters-word-mount__stage letters-word-mount__stage--card-demo">
+          <section class="card-demo" id="card-demo" data-letters-card-words="hermana,madre,padre,hermano,abuela,abuelo" data-letters-clue-locale="en" aria-label="Spanish family word puzzle. Type letter keys to fill slots. Backspace removes the last letter.">
+            <p class="card-demo__clue" id="card-clue">Guess the word</p>
+
+            <div class="card-demo__slots" id="card-slots" aria-label="Answer slots"></div>
+            <div class="card-demo__bank" id="card-bank" aria-label="Letter bank"></div>
+
+            <p class="card-demo__feedback" id="card-feedback" aria-live="polite"></p>
+            <button class="card-demo__reset" id="card-reset" type="button">Reset</button>
+          </section>
         </div>
       </div>
 
