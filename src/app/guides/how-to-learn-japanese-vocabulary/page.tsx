@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "How to Learn Japanese Vocabulary (The Fun Way)",
         description: "How to learn Japanese vocabulary the fun way: stabilize hiragana, use themed sets, force recall, and build habits, puzzle-friendly tips from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/how-to-learn-japanese-vocabulary/",
+        es: "/es/guides/como-aprender-vocabulario-japones/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/how-to-learn-japanese-vocabulary/", label: "How to Learn Japanese Vocabulary (The Fun Way)" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/how-to-learn-japanese-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/como-aprender-vocabulario-japones/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">How to Learn Japanese Vocabulary (The Fun Way)</h1>

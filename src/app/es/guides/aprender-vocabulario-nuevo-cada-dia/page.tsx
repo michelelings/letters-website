@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Aprender vocabulario nuevo cada día: un sistema sencillo",
         description: "Aprende vocabulario nuevo cada día: límite de altas, ritmo de repaso, captura rápida y recuperación lúdica, Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/learn-new-vocabulary-every-day/",
+        es: "/es/guides/aprender-vocabulario-nuevo-cada-dia/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/aprender-vocabulario-nuevo-cada-dia/", label: "Aprender vocabulario nuevo cada día: un sistema sencillo" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/learn-new-vocabulary-every-day/", hreflang: "en", label: "English" },
-          { href: "/es/guides/aprender-vocabulario-nuevo-cada-dia/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Aprender vocabulario nuevo cada día: un sistema sencillo</h1>

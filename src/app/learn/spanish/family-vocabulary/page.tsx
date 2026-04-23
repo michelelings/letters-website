@@ -26,6 +26,14 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/learn/spanish/family-vocabulary/",
+        headline: "Spanish family vocabulary",
+        description: "Spanish family vocabulary: mother, father, sister, brother, grandparents, with example sentences and audio-friendly study tips.",
+      }}
+      i18nAlternates={{
+        en: "/learn/spanish/family-vocabulary/",
+      }}
         locale="en"
         pageType="article"
         extras={[

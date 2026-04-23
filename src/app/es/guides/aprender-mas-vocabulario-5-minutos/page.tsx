@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Cómo aprender más vocabulario en 5 minutos al día",
         description: "Cómo aprender más vocabulario en 5 minutos al día: micro-sesiones, una meta clara, recuperación primero y hábito anclado, Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/learn-more-vocabulary-in-5-minutes-a-day/",
+        es: "/es/guides/aprender-mas-vocabulario-5-minutos/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/aprender-mas-vocabulario-5-minutos/", label: "Cómo aprender más vocabulario en 5 minutos al día" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/learn-more-vocabulary-in-5-minutes-a-day/", hreflang: "en", label: "English" },
-          { href: "/es/guides/aprender-mas-vocabulario-5-minutos/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Cómo aprender más vocabulario en 5 minutos al día</h1>

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Best Way to Learn Spanish Vocabulary for Travel",
         description: "Best way to learn Spanish vocabulary for travel: situational phrases, restaurant and transport clusters, polite routines, and recall habits, from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/best-way-to-learn-spanish-vocabulary-travel/",
+        es: "/es/guides/mejor-forma-vocabulario-espanol-viaje/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/best-way-to-learn-spanish-vocabulary-travel/", label: "Best Way to Learn Spanish Vocabulary for Travel" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/best-way-to-learn-spanish-vocabulary-travel/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/mejor-forma-vocabulario-espanol-viaje/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Best Way to Learn Spanish Vocabulary for Travel</h1>

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Juegos de vocabulario en inglés para adultos",
         description: "Juegos de vocabulario en inglés para adultos: por qué el estilo puzle vence apps infantiles, qué buscar y cómo encajar rondas cortas, Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/english-vocabulary-games-for-adults/",
+        es: "/es/guides/juegos-vocabulario-ingles-adultos/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/juegos-vocabulario-ingles-adultos/", label: "Juegos de vocabulario en inglés para adultos" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/english-vocabulary-games-for-adults/", hreflang: "en", label: "English" },
-          { href: "/es/guides/juegos-vocabulario-ingles-adultos/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Juegos de vocabulario en inglés para adultos</h1>

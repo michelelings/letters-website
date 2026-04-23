@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Why Learn Vocabulary Through Games Works",
         description: "Why learning vocabulary through games works: retrieval practice, motivation, spacing in disguise, and skills that transfer, science-friendly take from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/why-learn-vocabulary-through-games/",
+        es: "/es/guides/por-que-aprender-vocabulario-con-juegos/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/why-learn-vocabulary-through-games/", label: "Why Learn Vocabulary Through Games Works" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/why-learn-vocabulary-through-games/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/por-que-aprender-vocabulario-con-juegos/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Why Learn Vocabulary Through Games Works</h1>

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Aprender vocabulario alemán con práctica diaria tipo puzle",
         description: "Aprende vocabulario alemán: palabras compuestas, viaje y práctica en microdosis tipo puzle, Letters.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/learn-german-vocabulary/",
+        es: "https://www.letters.game/es/guides/aprender-vocabulario-aleman/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/aprender-vocabulario-aleman/", label: "Aprender vocabulario alemán con práctica diaria tipo puzle" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/learn-german-vocabulary/", hreflang: "en", label: "English" },
-          { href: "https://www.letters.game/es/guides/aprender-vocabulario-aleman/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Aprender vocabulario alemán con práctica diaria tipo puzle</h1>

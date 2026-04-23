@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Best Apps to Learn Vocabulary (Ranked 2026)",
         description: "How to pick the best apps to learn vocabulary when you want games, not grammar homework, framework for 2026.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/best-apps-to-learn-vocabulary/",
+        es: "https://www.letters.game/es/guides/mejores-apps-aprender-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/best-apps-to-learn-vocabulary/", label: "Best Apps to Learn Vocabulary (Ranked 2026)" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/best-apps-to-learn-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "https://www.letters.game/es/guides/mejores-apps-aprender-vocabulario/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Best Apps to Learn Vocabulary (Ranked 2026)</h1>

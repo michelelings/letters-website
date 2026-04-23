@@ -22,6 +22,16 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/how-to-say/sister-in-spanish/",
+        headline: "How to say “sister” in Spanish",
+        description: "Sister in Spanish is hermana, when to use it, pronunciation, and related words.",
+      }}
+      i18nAlternates={{
+        en: "/how-to-say/sister-in-spanish/",
+        nl: "/hoe-zeg-je/zus-in-het-spaans/",
+        de: "/wie-sagt-man/schwester-auf-spanisch/",
+      }}
 
         locale="en"
         pageType="article"

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Learn New Vocabulary Every Day: A Simple System",
         description: "Learn new vocabulary every day with a simple system: daily cap, review rhythm, capture habit, and playful recall, from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/learn-new-vocabulary-every-day/",
+        es: "/es/guides/aprender-vocabulario-nuevo-cada-dia/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-new-vocabulary-every-day/", label: "Learn New Vocabulary Every Day: A Simple System" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/learn-new-vocabulary-every-day/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/aprender-vocabulario-nuevo-cada-dia/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Learn New Vocabulary Every Day: A Simple System</h1>

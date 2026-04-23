@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "La mejor forma de aprender vocabulario (estudiantes casuales)",
         description: "La mejor forma de aprender vocabulario para estudiantes casuales: hábitos sin presión, práctica lúdica y recuperación que encaja en la vida real.",
       }}
+      i18nAlternates={{
+        en: "/guides/best-way-to-learn-vocabulary/",
+        es: "/es/guides/mejor-forma-aprender-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/mejor-forma-aprender-vocabulario/", label: "La mejor forma de aprender vocabulario (estudiantes casuales)" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/best-way-to-learn-vocabulary/", hreflang: "en", label: "English" },
-          { href: "/es/guides/mejor-forma-aprender-vocabulario/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">La mejor forma de aprender vocabulario (para estudiantes casuales)</h1>

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Aprender vocabulario chino con juegos de palabras",
         description: "Aprende vocabulario chino con pinyin, caracteres y temas, enfoque tipo puzle.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/learn-chinese-vocabulary/",
+        es: "https://www.letters.game/es/guides/aprender-vocabulario-chino/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/aprender-vocabulario-chino/", label: "Aprender vocabulario chino con juegos de palabras" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/learn-chinese-vocabulary/", hreflang: "en", label: "English" },
-          { href: "https://www.letters.game/es/guides/aprender-vocabulario-chino/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Aprender vocabulario chino con juegos de palabras</h1>

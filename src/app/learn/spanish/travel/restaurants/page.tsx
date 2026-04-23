@@ -26,6 +26,14 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/learn/spanish/travel/restaurants/",
+        headline: "Spanish for travel: restaurants",
+        description: "Spanish for eating out while traveling: ordering, the bill, dietary needs, and useful restaurant phrases.",
+      }}
+      i18nAlternates={{
+        en: "/learn/spanish/travel/restaurants/",
+      }}
         locale="en"
         pageType="article"
         extras={[

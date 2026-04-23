@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Learn German Vocabulary with Daily Puzzle Practice",
         description: "Learn German vocabulary with compounds, travel themes, and bite-sized puzzle-style practice, from Letters.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/learn-german-vocabulary/",
+        es: "https://www.letters.game/es/guides/aprender-vocabulario-aleman/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-german-vocabulary/", label: "Learn German Vocabulary with Daily Puzzle Practice" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/learn-german-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "https://www.letters.game/es/guides/aprender-vocabulario-aleman/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Learn German Vocabulary with Daily Puzzle Practice</h1>

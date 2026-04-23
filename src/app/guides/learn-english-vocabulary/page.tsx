@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Learn English Vocabulary: Games vs Flashcards",
         description: "Learn English vocabulary with games instead of flashcard marathons, for non-native speakers who want low-pressure practice.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/learn-english-vocabulary/",
+        es: "https://www.letters.game/es/guides/aprender-vocabulario-ingles/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-english-vocabulary/", label: "Learn English Vocabulary: Games vs Flashcards" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/learn-english-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "https://www.letters.game/es/guides/aprender-vocabulario-ingles/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Learn English Vocabulary: Games vs Flashcards</h1>

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Games to Learn Vocabulary (That Actually Work)",
         description: "What makes vocabulary games effective: retrieval, spacing, and meaningful challenge, and what to avoid.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/games-to-learn-vocabulary/",
+        es: "https://www.letters.game/es/guides/juegos-aprender-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/games-to-learn-vocabulary/", label: "Games to Learn Vocabulary (That Actually Work)" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/games-to-learn-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "https://www.letters.game/es/guides/juegos-aprender-vocabulario/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Games to Learn Vocabulary (That Actually Work)</h1>

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Learn Chinese Vocabulary Through Puzzle Games",
         description: "Learn Chinese vocabulary with pinyin grounding, character recognition, and themed sets, puzzle-friendly approach.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/learn-chinese-vocabulary/",
+        es: "https://www.letters.game/es/guides/aprender-vocabulario-chino/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-chinese-vocabulary/", label: "Learn Chinese Vocabulary Through Puzzle Games" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/learn-chinese-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "https://www.letters.game/es/guides/aprender-vocabulario-chino/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Learn Chinese Vocabulary Through Puzzle Games</h1>

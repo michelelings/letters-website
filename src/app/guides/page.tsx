@@ -1,3 +1,4 @@
+import { guidesIndexBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage } from "@/components/article";
 import { GuidesIndexBody } from "@/components/guides/GuidesIndexBody";
@@ -16,13 +17,14 @@ export const metadata: Metadata = pageMetadata({
 export default function GuidesIndexPage() {
   return (
     <ArticlePage
+      i18nAlternates={{
+        en: "/guides/",
+        es: "/es/guides/",
+      }}
+      breadcrumb={guidesIndexBreadcrumb("en", "/guides/", "Vocabulary guides")}
       locale="en"
       pageType="article"
       extras={[{ href: "/", label: "Home" }]}
-      langs={[
-        { href: "/guides/", hreflang: "en", label: "English", current: true },
-        { href: "/es/guides/", hreflang: "es", label: "Español" },
-      ]}
     >
       <GuidesIndexBody data={guidesIndexEn} />
     </ArticlePage>

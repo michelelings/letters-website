@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Mejores formas de aprender vocabulario (sin fichas)",
         description: "Repaso espaciado, contexto, recuperación activa y práctica lúdica, formas prácticas de recordar palabras sin quemarte con las fichas. Del equipo detrás de Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/best-ways-to-learn-vocabulary/",
+        es: "/es/guides/mejores-formas-aprender-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/mejores-formas-aprender-vocabulario/", label: "Mejores formas de aprender vocabulario (sin fichas)" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/best-ways-to-learn-vocabulary/", hreflang: "en", label: "English" },
-          { href: "/es/guides/mejores-formas-aprender-vocabulario/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Mejores formas de aprender vocabulario (sin fichas)</h1>

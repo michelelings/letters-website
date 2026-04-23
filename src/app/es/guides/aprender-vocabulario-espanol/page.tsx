@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, Lead, RelatedLinks } from "@/components/article";
 import { pageMetadata } from "@/lib/seo";
@@ -26,6 +27,11 @@ export default function Page() {
         description:
           "Aprende vocabulario en español de forma divertida: categorías, viaje y práctica tipo puzle para estudiantes casuales, Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/learn-spanish-vocabulary/",
+        es: "/es/guides/aprender-vocabulario-espanol/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/aprender-vocabulario-espanol/", label: "Aprender vocabulario en español de forma divertida" })}
         locale="es"
         pageType="article"
         madeByLabel="Letters es de"
@@ -33,10 +39,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/learn-spanish-vocabulary/", hreflang: "en", label: "English" },
-          { href: "/es/guides/aprender-vocabulario-espanol/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Aprender vocabulario en español de forma divertida</h1>

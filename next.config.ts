@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   poweredByHeader: false,
   images: {
+    // Export as static assets; no Image Optimization API in this deployment path.
     unoptimized: true,
   },
 };

@@ -1,3 +1,4 @@
+import { guidesIndexBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage } from "@/components/article";
 import { GuidesIndexBody } from "@/components/guides/GuidesIndexBody";
@@ -17,16 +18,17 @@ export default function SpanishGuidesIndexPage() {
   return (
     <ArticlePage
       topbar={{ brand: "Letters", ctaLabel: "Descargar" }}
+      i18nAlternates={{
+        en: "/guides/",
+        es: "/es/guides/",
+      }}
+      breadcrumb={guidesIndexBreadcrumb("es", "/es/guides/", "Guías de vocabulario")}
       locale="es"
       pageType="article"
       madeByLabel="Letters es de"
       extrasAriaLabel="Sitio"
       langAriaLabel="Elegir idioma"
       extras={[{ href: "/es/", label: "Inicio" }]}
-      langs={[
-        { href: "/guides/", hreflang: "en", label: "English" },
-        { href: "/es/guides/", hreflang: "es", label: "Español", current: true },
-      ]}
     >
       <GuidesIndexBody data={guidesIndexEs} />
     </ArticlePage>

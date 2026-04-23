@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "How to Learn More Vocabulary in 5 Minutes a Day",
         description: "How to learn more vocabulary in 5 minutes a day: micro-sessions, one clear target, active recall, and stacking the habit, from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/learn-more-vocabulary-in-5-minutes-a-day/",
+        es: "/es/guides/aprender-mas-vocabulario-5-minutos/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-more-vocabulary-in-5-minutes-a-day/", label: "How to Learn More Vocabulary in 5 Minutes a Day" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/learn-more-vocabulary-in-5-minutes-a-day/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/aprender-mas-vocabulario-5-minutos/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">How to Learn More Vocabulary in 5 Minutes a Day</h1>

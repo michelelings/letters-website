@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Cómo aprender vocabulario en español sin clases",
         description: "Cómo aprender vocabulario en español sin clases: temas prácticos, input que te guste, hablar pronto y recuperación tipo juego, Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/how-to-learn-spanish-without-classes/",
+        es: "/es/guides/aprender-vocabulario-espanol-sin-clases/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/aprender-vocabulario-espanol-sin-clases/", label: "Cómo aprender vocabulario en español sin clases" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/how-to-learn-spanish-without-classes/", hreflang: "en", label: "English" },
-          { href: "/es/guides/aprender-vocabulario-espanol-sin-clases/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Cómo aprender vocabulario en español sin clases</h1>

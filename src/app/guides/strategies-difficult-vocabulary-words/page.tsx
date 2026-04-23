@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Strategies for Learning Difficult Vocabulary Words",
         description: "Strategies for learning difficult vocabulary words: mnemonics, chunking, contrastive pairs, pronunciation first, and retrieval spacing, from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/strategies-difficult-vocabulary-words/",
+        es: "/es/guides/estrategias-vocabulario-dificil/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/strategies-difficult-vocabulary-words/", label: "Strategies for Learning Difficult Vocabulary Words" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/strategies-difficult-vocabulary-words/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/estrategias-vocabulario-dificil/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Strategies for Learning Difficult Vocabulary Words</h1>

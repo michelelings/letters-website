@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "How to Learn Chinese Vocabulary (The Fun Way)",
         description: "How to learn Chinese vocabulary the fun way: pinyin and tones, themed words, characters on your schedule, and recall that feels like play, from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/how-to-learn-chinese-vocabulary/",
+        es: "/es/guides/como-aprender-vocabulario-chino/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/how-to-learn-chinese-vocabulary/", label: "How to Learn Chinese Vocabulary (The Fun Way)" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/how-to-learn-chinese-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/como-aprender-vocabulario-chino/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">How to Learn Chinese Vocabulary (The Fun Way)</h1>

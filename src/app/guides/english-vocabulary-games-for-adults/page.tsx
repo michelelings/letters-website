@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "English Vocabulary Games for Adults",
         description: "English vocabulary games for adults: why puzzle-style beats kid apps, what to look for, and how to stack short daily rounds, from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/english-vocabulary-games-for-adults/",
+        es: "/es/guides/juegos-vocabulario-ingles-adultos/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/english-vocabulary-games-for-adults/", label: "English Vocabulary Games for Adults" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/english-vocabulary-games-for-adults/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/juegos-vocabulario-ingles-adultos/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">English Vocabulary Games for Adults</h1>

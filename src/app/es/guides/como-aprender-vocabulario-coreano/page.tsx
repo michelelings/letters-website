@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Cómo aprender vocabulario coreano (de forma divertida)",
         description: "Cómo aprender vocabulario coreano de forma divertida: Hangul rápido, temas de interés, cortesía sin miedo y hábitos sostenibles, Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/how-to-learn-korean-vocabulary/",
+        es: "/es/guides/como-aprender-vocabulario-coreano/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/como-aprender-vocabulario-coreano/", label: "Cómo aprender vocabulario coreano (de forma divertida)" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/how-to-learn-korean-vocabulary/", hreflang: "en", label: "English" },
-          { href: "/es/guides/como-aprender-vocabulario-coreano/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Cómo aprender vocabulario coreano (de forma divertida)</h1>

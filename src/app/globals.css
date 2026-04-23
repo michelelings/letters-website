@@ -674,6 +674,50 @@ body.body--article {
   line-height: 1.65;
 }
 
+.article-breadcrumb {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--lg-fg-primary) 72%, transparent);
+}
+
+.article-breadcrumb__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.article-breadcrumb__item:not(:last-child)::after {
+  content: "/";
+  color: color-mix(in srgb, var(--lg-fg-primary) 50%, transparent);
+  font-weight: 400;
+}
+
+.article-breadcrumb a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.article-breadcrumb a:hover {
+  color: var(--lg-fg-primary);
+}
+
+.article-breadcrumb__current {
+  font-weight: 600;
+  color: var(--lg-fg-primary);
+}
+
 .article-post h1 {
   margin: 0 0 0.85rem;
   font-size: clamp(1.65rem, 4.5vw, 2.1rem);

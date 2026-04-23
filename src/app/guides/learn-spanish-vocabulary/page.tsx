@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, Lead, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,15 +27,16 @@ export default function Page() {
         description:
           "Learn Spanish vocabulary the fun way: categories, travel sets, and puzzle-style practice for casual learners, from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/learn-spanish-vocabulary/",
+        es: "/es/guides/aprender-vocabulario-espanol/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-spanish-vocabulary/", label: "Learn Spanish Vocabulary the Fun Way" })}
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/learn-spanish-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/aprender-vocabulario-espanol/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Learn Spanish Vocabulary the Fun Way</h1>

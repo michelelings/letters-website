@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "convert:legacy": "node scripts/convert-legacy-html.mjs",
-    "content:jsonld": "node scripts/add-article-jsonld.mjs"
+    "content:jsonld": "node scripts/add-article-jsonld.mjs",
+    "content:nonguide-jsonld": "node scripts/add-nonguide-article-jsonld.mjs",
+    "test:smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "next": "^16.2.4",

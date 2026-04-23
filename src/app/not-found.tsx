@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LettersWord } from "@/components/LettersWord";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LocaleEffect } from "@/components/LocaleEffect";
+import { footerLanguageLinks } from "@/lib/languages";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -35,10 +36,7 @@ export default function NotFound() {
           { href: "/guides/best-ways-to-learn-vocabulary/", label: "Learn vocabulary" },
           { href: "/guides/", label: "All guides" },
         ]}
-        langs={[
-          { href: "/", hreflang: "en", label: "English", current: true },
-          { href: "/es/", hreflang: "es", label: "Español" },
-        ]}
+        langs={footerLanguageLinks("en", { en: "/", es: "/es/" })}
       />
     </>
   );

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Learn Japanese Vocabulary Through Puzzle Games",
         description: "Learn Japanese vocabulary with hiragana-friendly recall, short sessions, and gamified repetition, from Letters.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/learn-japanese-vocabulary/",
+        es: "https://www.letters.game/es/guides/aprender-vocabulario-japones/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-japanese-vocabulary/", label: "Learn Japanese Vocabulary Through Puzzle Games" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/learn-japanese-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "https://www.letters.game/es/guides/aprender-vocabulario-japones/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Learn Japanese Vocabulary Through Puzzle Games</h1>

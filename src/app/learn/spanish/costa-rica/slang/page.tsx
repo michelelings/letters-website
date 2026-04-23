@@ -20,6 +20,14 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/learn/spanish/costa-rica/slang/",
+        headline: "Costa Rican Spanish slang",
+        description: "Common Costa Rican Spanish slang: pura vida, mae, tuanis, tico, and more, with meanings, register, and example lines.",
+      }}
+      i18nAlternates={{
+        en: "/learn/spanish/costa-rica/slang/",
+      }}
 
         locale="en"
         pageType="article"

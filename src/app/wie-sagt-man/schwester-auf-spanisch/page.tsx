@@ -21,6 +21,15 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/wie-sagt-man/schwester-auf-spanisch/",
+        headline: "Wie sagt man Schwester auf Spanisch?",
+        description: "Wie sagt man Schwester auf Spanisch? Das spanische Wort ist hermana, Bedeutung und Beispiele.",
+      }}
+      i18nAlternates={{
+        en: "/how-to-say/sister-in-spanish/",
+        de: "/wie-sagt-man/schwester-auf-spanisch/",
+      }}
 
         locale="de"
         pageType="article"

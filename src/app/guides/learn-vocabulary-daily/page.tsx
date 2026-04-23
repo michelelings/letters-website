@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Learn Vocabulary Daily: A Simple System",
         description: "Build a daily vocabulary habit with tiny sessions, streak psychology, and realistic anchors, from Letters.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/learn-vocabulary-daily/",
+        es: "https://www.letters.game/es/guides/aprender-vocabulario-diario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-vocabulary-daily/", label: "Learn Vocabulary Daily: A Simple System" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/learn-vocabulary-daily/", hreflang: "en", label: "English", current: true },
-          { href: "https://www.letters.game/es/guides/aprender-vocabulario-diario/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Learn Vocabulary Daily: A Simple System</h1>

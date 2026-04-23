@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Best Way to Learn Vocabulary (for Casual Learners)",
         description: "The best way to learn vocabulary for casual learners: low-pressure habits, game-friendly practice, and recall that fits real life, not guilt-driven cramming.",
       }}
+      i18nAlternates={{
+        en: "/guides/best-way-to-learn-vocabulary/",
+        es: "/es/guides/mejor-forma-aprender-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/best-way-to-learn-vocabulary/", label: "Best Way to Learn Vocabulary (for Casual Learners)" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/best-way-to-learn-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/mejor-forma-aprender-vocabulario/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Best Way to Learn Vocabulary (for Casual Learners)</h1>

@@ -26,6 +26,14 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/learn/spanish/phrase/buenos-dias/",
+        headline: "buenos días (good morning)",
+        description: "buenos días means good morning in Spanish, when to use it and what to say later in the day.",
+      }}
+      i18nAlternates={{
+        en: "/learn/spanish/phrase/buenos-dias/",
+      }}
 
         locale="en"
         pageType="article"

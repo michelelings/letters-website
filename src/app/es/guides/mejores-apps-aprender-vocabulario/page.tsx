@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Mejores apps para aprender vocabulario (ranking 2026)",
         description: "Cómo elegir las mejores apps de vocabulario si buscas juego, no solo tareas de gramática.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/best-apps-to-learn-vocabulary/",
+        es: "https://www.letters.game/es/guides/mejores-apps-aprender-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/mejores-apps-aprender-vocabulario/", label: "Mejores apps para aprender vocabulario (ranking 2026)" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/best-apps-to-learn-vocabulary/", hreflang: "en", label: "English" },
-          { href: "https://www.letters.game/es/guides/mejores-apps-aprender-vocabulario/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Mejores apps para aprender vocabulario (ranking 2026)</h1>

@@ -21,6 +21,15 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/translate/spanish-to-dutch/hermana/",
+        headline: "hermana in Dutch (zus)",
+        description: "Spanish hermana in Dutch is zus, meaning, pronunciation, and example sentences.",
+      }}
+      i18nAlternates={{
+        en: "/translate/spanish-to-dutch/hermana/",
+        nl: "/hoe-zeg-je/zus-in-het-spaans/",
+      }}
 
         locale="en"
         pageType="article"

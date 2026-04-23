@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Aprender vocabulario coreano: juego de palabras diario",
         description: "Aprende vocabulario coreano con hangul, cultura y microsesiones diarias, Letters.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/learn-korean-vocabulary/",
+        es: "https://www.letters.game/es/guides/aprender-vocabulario-coreano/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/aprender-vocabulario-coreano/", label: "Aprender vocabulario coreano: juego de palabras diario" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/learn-korean-vocabulary/", hreflang: "en", label: "English" },
-          { href: "https://www.letters.game/es/guides/aprender-vocabulario-coreano/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Aprender vocabulario coreano: juego de palabras diario</h1>

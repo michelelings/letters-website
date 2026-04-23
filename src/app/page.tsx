@@ -3,6 +3,7 @@ import { CardDemo } from "@/components/CardDemo";
 import { DownloadCta } from "@/components/DownloadCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LocaleEffect } from "@/components/LocaleEffect";
+import { footerLanguageLinks } from "@/lib/languages";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -30,10 +31,7 @@ export default function HomePage() {
           { href: "/guides/best-ways-to-learn-vocabulary/", label: "Learn vocabulary" },
           { href: "/guides/", label: "All guides" },
         ]}
-        langs={[
-          { href: "/", hreflang: "en", label: "English", current: true },
-          { href: "/es/", hreflang: "es", label: "Español" },
-        ]}
+        langs={footerLanguageLinks("en", { en: "/", es: "/es/" })}
       />
     </>
   );

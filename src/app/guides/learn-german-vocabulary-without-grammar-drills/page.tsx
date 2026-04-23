@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Learn German Vocabulary Without Grammar Drills",
         description: "Learn German vocabulary without grammar drills first: chunks, compounds, themed sets, and playful recall, game-friendly advice from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/learn-german-vocabulary-without-grammar-drills/",
+        es: "/es/guides/aprender-vocabulario-aleman-sin-gramatica/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/learn-german-vocabulary-without-grammar-drills/", label: "Learn German Vocabulary Without Grammar Drills" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/learn-german-vocabulary-without-grammar-drills/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/aprender-vocabulario-aleman-sin-gramatica/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Learn German Vocabulary Without Grammar Drills</h1>

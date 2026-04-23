@@ -5,9 +5,10 @@ import { useEffect } from "react";
 import { OCHO_URL } from "@/lib/site";
 import type { Locale } from "@/lib/site";
 import { installOchoLinkTracking } from "@/lib/analytics";
-import { LanguageSwitch, type LanguageLink } from "@/components/LanguageSwitch";
+import { LanguageSwitch } from "@/components/LanguageSwitch";
+import type { LanguageLink } from "@/lib/languages";
 
-export type { LanguageLink } from "@/components/LanguageSwitch";
+export type { LanguageLink } from "@/lib/languages";
 
 interface ExtraLink {
   href: string;

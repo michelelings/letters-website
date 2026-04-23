@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Best Vocabulary Games for Adults (What to Play)",
         description: "Best vocabulary games for adults: what to prioritize, session length, retrieval depth, tone, languages, plus why Letters fits the list.",
       }}
+      i18nAlternates={{
+        en: "/guides/best-vocabulary-games-for-adults/",
+        es: "/es/guides/mejores-juegos-vocabulario-adultos/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/best-vocabulary-games-for-adults/", label: "Best Vocabulary Games for Adults (What to Play)" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/best-vocabulary-games-for-adults/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/mejores-juegos-vocabulario-adultos/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Best Vocabulary Games for Adults (What to Play)</h1>

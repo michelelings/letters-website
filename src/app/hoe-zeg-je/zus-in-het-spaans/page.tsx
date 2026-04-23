@@ -21,6 +21,15 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/hoe-zeg-je/zus-in-het-spaans/",
+        headline: "Hoe zeg je zus in het Spaans?",
+        description: "Hoe zeg je zus in het Spaans? Het Spaanse woord is hermana, uitleg en voorbeelden.",
+      }}
+      i18nAlternates={{
+        en: "/how-to-say/sister-in-spanish/",
+        nl: "/hoe-zeg-je/zus-in-het-spaans/",
+      }}
 
         locale="nl"
         pageType="article"

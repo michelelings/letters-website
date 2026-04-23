@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Word Games vs Flashcards for Vocabulary",
         description: "Word games vs flashcards for vocabulary: retrieval depth, context, motivation, and when each tool wins, comparison from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/word-games-vs-flashcards-vocabulary/",
+        es: "/es/guides/juegos-palabras-vs-fichas-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/word-games-vs-flashcards-vocabulary/", label: "Word Games vs Flashcards for Vocabulary" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/word-games-vs-flashcards-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/juegos-palabras-vs-fichas-vocabulario/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Word Games vs Flashcards for Vocabulary</h1>

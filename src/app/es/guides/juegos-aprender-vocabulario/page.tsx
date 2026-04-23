@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Juegos para aprender vocabulario (que sí funcionan)",
         description: "Qué hace efectivos los juegos de vocabulario: recuperación, espaciado y reto con sentido, y qué evitar.",
       }}
+      i18nAlternates={{
+        en: "https://www.letters.game/guides/games-to-learn-vocabulary/",
+        es: "https://www.letters.game/es/guides/juegos-aprender-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/juegos-aprender-vocabulario/", label: "Juegos para aprender vocabulario (que sí funcionan)" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "https://www.letters.game/guides/games-to-learn-vocabulary/", hreflang: "en", label: "English" },
-          { href: "https://www.letters.game/es/guides/juegos-aprender-vocabulario/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Juegos para aprender vocabulario (que sí funcionan)</h1>

@@ -1,13 +1,6 @@
 "use client";
 
-import type { Locale } from "@/lib/site";
-
-export type LanguageLink = {
-  href: string;
-  hreflang: Locale;
-  label: string;
-  current?: boolean;
-};
+import type { LanguageLink } from "@/lib/languages";
 
 export function LanguageSwitch({
   langs,

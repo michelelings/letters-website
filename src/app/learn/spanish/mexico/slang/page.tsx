@@ -20,6 +20,14 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/learn/spanish/mexico/slang/",
+        headline: "Mexican Spanish slang",
+        description: "Common Mexican Spanish slang: chido, güey, qué onda, neta, and more, with meanings, register, and example lines.",
+      }}
+      i18nAlternates={{
+        en: "/learn/spanish/mexico/slang/",
+      }}
 
         locale="en"
         pageType="article"

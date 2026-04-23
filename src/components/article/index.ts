@@ -2,6 +2,7 @@ export { ArticleCta } from "./ArticleCta";
 export { ArticleJsonLd } from "./ArticleJsonLd";
 export { ArticlePage } from "./ArticlePage";
 export type { ArticlePageProps } from "./ArticlePage";
+export type { BreadcrumbItem } from "@/lib/breadcrumb";
 export { ExampleSentence } from "./ExampleSentence";
 export { Lead } from "./Lead";
 export { PrintableDownload } from "./PrintableDownload";

@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "How to Learn Vocabulary Fast: 7 Proven Techniques",
         description: "Seven practical ways to learn vocabulary fast: short sessions, spacing, recall, chunks, mixing practice modes, tiny wins, and habits that stick, from Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/how-to-learn-vocabulary-fast/",
+        es: "/es/guides/aprender-vocabulario-rapido/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/how-to-learn-vocabulary-fast/", label: "How to Learn Vocabulary Fast: 7 Proven Techniques" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/how-to-learn-vocabulary-fast/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/aprender-vocabulario-rapido/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">How to Learn Vocabulary Fast: 7 Proven Techniques</h1>

@@ -20,6 +20,14 @@ export const metadata: Metadata = pageMetadata({
 export default function Page() {
   return (
     <ArticlePage
+      articleJsonLd={{
+        path: "/translate/spanish-to-english/hermana/",
+        headline: "hermana in English (sister)",
+        description: "Spanish hermana in English is sister, meaning and links to learn more.",
+      }}
+      i18nAlternates={{
+        en: "/translate/spanish-to-english/hermana/",
+      }}
 
         locale="en"
         pageType="article"

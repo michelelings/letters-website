@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Juegos de palabras vs fichas para vocabulario",
         description: "Juegos de palabras vs fichas para vocabulario: motivación, profundidad de recuperación y cuándo conviene cada herramienta, Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/word-games-vs-flashcards-vocabulary/",
+        es: "/es/guides/juegos-palabras-vs-fichas-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/juegos-palabras-vs-fichas-vocabulario/", label: "Juegos de palabras vs fichas para vocabulario" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/word-games-vs-flashcards-vocabulary/", hreflang: "en", label: "English" },
-          { href: "/es/guides/juegos-palabras-vs-fichas-vocabulario/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Juegos de palabras vs fichas para vocabulario</h1>

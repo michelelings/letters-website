@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -27,6 +28,11 @@ export default function Page() {
         headline: "Cómo aprender vocabulario rápido: 7 técnicas comprobadas",
         description: "Cómo aprender vocabulario rápido: 7 técnicas prácticas, sesiones cortas, espaciado, recuperación activa, chunks y hábitos que sí se mantienen. Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/how-to-learn-vocabulary-fast/",
+        es: "/es/guides/aprender-vocabulario-rapido/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "es", path: "/es/guides/aprender-vocabulario-rapido/", label: "Cómo aprender vocabulario rápido: 7 técnicas comprobadas" })}
 
         locale="es"
         pageType="article"
@@ -35,10 +41,6 @@ export default function Page() {
         extras={[
           { href: "/es/", label: "Inicio" },
           { href: "/es/guides/", label: "Todas las guías" },
-        ]}
-        langs={[
-          { href: "/guides/how-to-learn-vocabulary-fast/", hreflang: "en", label: "English" },
-          { href: "/es/guides/aprender-vocabulario-rapido/", hreflang: "es", label: "Español", current: true },
         ]}
     >
       <h1 itemProp="headline">Cómo aprender vocabulario rápido: 7 técnicas comprobadas</h1>

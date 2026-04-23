@@ -3,6 +3,7 @@ import { LettersWord } from "@/components/LettersWord";
 import { DownloadCta } from "@/components/DownloadCta";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LocaleEffect } from "@/components/LocaleEffect";
+import { footerLanguageLinks } from "@/lib/languages";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -33,10 +34,7 @@ export default function SpanishHomePage() {
           { href: "/es/guides/mejores-formas-aprender-vocabulario/", label: "Aprender vocabulario" },
           { href: "/es/guides/", label: "Todas las guías" },
         ]}
-        langs={[
-          { href: "/", hreflang: "en", label: "English" },
-          { href: "/es/", hreflang: "es", label: "Español", current: true },
-        ]}
+        langs={footerLanguageLinks("es", { en: "/", es: "/es/" })}
       />
     </>
   );

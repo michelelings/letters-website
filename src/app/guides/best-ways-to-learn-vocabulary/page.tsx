@@ -1,3 +1,4 @@
+import { guideArticleBreadcrumb } from "@/lib/guideBreadcrumb";
 import type { Metadata } from "next";
 import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
@@ -26,16 +27,17 @@ export default function Page() {
         headline: "Best Ways to Learn Vocabulary (Without Flashcards)",
         description: "Spaced repetition, context, active recall, and game-based practice, practical ways to remember words without flashcard burnout. From the team behind Letters.",
       }}
+      i18nAlternates={{
+        en: "/guides/best-ways-to-learn-vocabulary/",
+        es: "/es/guides/mejores-formas-aprender-vocabulario/",
+      }}
+      breadcrumb={guideArticleBreadcrumb({ locale: "en", path: "/guides/best-ways-to-learn-vocabulary/", label: "Best Ways to Learn Vocabulary (Without Flashcards)" })}
 
         locale="en"
         pageType="article"
         extras={[
           { href: "/", label: "Home" },
           { href: "/guides/", label: "All guides" },
-        ]}
-        langs={[
-          { href: "/guides/best-ways-to-learn-vocabulary/", hreflang: "en", label: "English", current: true },
-          { href: "/es/guides/mejores-formas-aprender-vocabulario/", hreflang: "es", label: "Español" },
         ]}
     >
       <h1 itemProp="headline">Best Ways to Learn Vocabulary (Without Flashcards)</h1>
