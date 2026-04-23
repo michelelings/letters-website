@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArticleTopbar } from "@/components/ArticleTopbar";
-import { ArticleBodyClass } from "@/components/ArticleBodyClass";
-import { SiteFooter } from "@/components/SiteFooter";
-import { LocaleEffect } from "@/components/LocaleEffect";
+import {
+  ArticlePage,
+  ArticleCta,
+  Lead,
+  PrintableDownload,
+  RelatedLinks,
+  VocabList,
+} from "@/components/article";
 import { CardDemo } from "@/components/CardDemo";
-import { DownloadCta } from "@/components/DownloadCta";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -23,64 +25,74 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <>
-      <LocaleEffect locale="en" />
-      <ArticleBodyClass />
-      <ArticleTopbar />
-      <main id="main" className="article-wrap">
-        <article className="article-post">
-      <h1>Spanish family vocabulary</h1>
-      <p className="article-lead">Core words for talking about relatives, learn the nouns, then plug them into simple sentences you can reuse.</p>
-
-      <CardDemo embedded words={["hermana","madre","padre","hermano","abuela","abuelo"]} clueLocale="en" initialClue="Guess the word" />
-
-      <h2>Vocabulary</h2>
-      <ul>
-        <li><strong>madre</strong> → mother</li>
-        <li><strong>padre</strong> → father</li>
-        <li><strong><Link href="/learn/spanish/word/hermana/">hermana</Link></strong> → sister</li>
-        <li><strong>hermano</strong> → brother</li>
-        <li><strong>abuela</strong> → grandmother</li>
-        <li><strong>abuelo</strong> → grandfather</li>
-      </ul>
-
-      <h2>Example sentences</h2>
-      <p>Mi <strong>hermana</strong> vive en Madrid., My sister lives in Madrid.</p>
-      <p>Visito a mis <strong>padres</strong> los domingos., I visit my parents on Sundays.</p>
-
-      <h2>Audio</h2>
-      <p>Hearing each word in a short sentence helps lock in stress and vowel sounds. Listen to native audio where you can, then say the line out loud.</p>
-
-      <h2>Practice</h2>
-      <p>Review this list in short bursts: cover the English, recall the Spanish, then try writing or spelling the words from memory. <strong>Letters</strong> is built for that kind of quick rehearsal.</p>
-
-      <nav className="article-related" aria-label="Related pages">
-        <h2>Related</h2>
-        <ul>
-          <li><Link href="/learn/spanish/phrase/buenos-dias/"><em>buenos días</em></Link></li>
-          <li><Link href="/learn/spanish/travel/restaurants/">Spanish for restaurants (travel)</Link></li>
-          <li><Link href="/learn/spanish/">Learn Spanish</Link></li>
-          <li><Link href="/spanish/">Spanish hub</Link></li>
-        </ul>
-      </nav>
-
-      <div className="article-cta-box">
-        <p><strong>Letters</strong>, practice these words in quick rounds.</p>
-      </div>
-      <DownloadCta label="Download Letters" />
-      <p className="article-supplement-pdf">
-        <Link href="/downloads/learn/spanish/family-vocabulary/cheat-sheet.pdf" className="article-supplement-pdf__btn" download>Printable PDF</Link>
-      </p>
-    </article>
-      </main>
-      <SiteFooter
+    <ArticlePage
         locale="en"
         pageType="article"
         extras={[
           { href: "/learn/spanish/", label: "Learn Spanish" },
           { href: "/guides/", label: "Guides" },
         ]}
+    >
+      <h1>Spanish family vocabulary</h1>
+      <Lead>Core words for talking about relatives, learn the nouns, then plug them into simple sentences you can reuse.</Lead>
+      
+      <CardDemo embedded words={["hermana","madre","padre","hermano","abuela","abuelo"]} clueLocale="en" initialClue="Guess the word" />
+      
+      <h2>Vocabulary</h2>
+      <VocabList
+        items={[
+          { term: "madre", gloss: "mother", termLang: "es" },
+          { term: "padre", gloss: "father", termLang: "es" },
+          {
+            term: "hermana",
+            gloss: "sister",
+            href: "/learn/spanish/word/hermana/",
+            termLang: "es",
+          },
+          { term: "hermano", gloss: "brother", termLang: "es" },
+          { term: "abuela", gloss: "grandmother", termLang: "es" },
+          { term: "abuelo", gloss: "grandfather", termLang: "es" },
+        ]}
       />
-    </>
+      
+      <h2>Example sentences</h2>
+      <p>Mi <strong>hermana</strong> vive en Madrid., My sister lives in Madrid.</p>
+      <p>Visito a mis <strong>padres</strong> los domingos., I visit my parents on Sundays.</p>
+      
+      <h2>Audio</h2>
+      <p>Hearing each word in a short sentence helps lock in stress and vowel sounds. Listen to native audio where you can, then say the line out loud.</p>
+      
+      <h2>Practice</h2>
+      <p>Review this list in short bursts: cover the English, recall the Spanish, then try writing or spelling the words from memory. <strong>Letters</strong> is built for that kind of quick rehearsal.</p>
+      
+      <RelatedLinks
+      ariaLabel="Related pages"
+      heading="Related"
+      items={[
+      {
+      href: "/learn/spanish/phrase/buenos-dias/",
+      label: <><em>buenos días</em></>,
+      },
+      {
+      href: "/learn/spanish/travel/restaurants/",
+      label: <>Spanish for restaurants (travel)</>,
+      },
+      {
+      href: "/learn/spanish/",
+      label: <>Learn Spanish</>,
+      },
+      {
+      href: "/spanish/",
+      label: <>Spanish hub</>,
+      }
+      ]}
+      />
+      
+      <ArticleCta label="Download Letters">
+      <p><strong>Letters</strong>, practice these words in quick rounds.</p>
+      </ArticleCta>
+      <PrintableDownload href="/downloads/learn/spanish/family-vocabulary/cheat-sheet.pdf" />
+      
+    </ArticlePage>
   );
 }

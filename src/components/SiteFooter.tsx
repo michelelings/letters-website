@@ -5,13 +5,9 @@ import { useEffect } from "react";
 import { OCHO_URL } from "@/lib/site";
 import type { Locale } from "@/lib/site";
 import { installOchoLinkTracking } from "@/lib/analytics";
+import { LanguageSwitch, type LanguageLink } from "@/components/LanguageSwitch";
 
-interface LangLink {
-  href: string;
-  hreflang: Locale;
-  label: string;
-  current?: boolean;
-}
+export type { LanguageLink } from "@/components/LanguageSwitch";
 
 interface ExtraLink {
   href: string;
@@ -25,7 +21,7 @@ export interface SiteFooterProps {
   madeByLabel?: string;
   ochoLabel?: string;
   extras?: ExtraLink[];
-  langs?: LangLink[];
+  langs?: LanguageLink[];
   langAriaLabel?: string;
   extrasAriaLabel?: string;
   locale: Locale;
@@ -67,24 +63,7 @@ export function SiteFooter({
         </nav>
       )}
       {langs && langs.length > 0 && (
-        <nav className="lang-switch" aria-label={langAriaLabel}>
-          {langs.map((l, i) => (
-            <span key={l.href}>
-              <a
-                href={l.href}
-                hrefLang={l.hreflang}
-                aria-current={l.current ? "true" : undefined}
-              >
-                {l.label}
-              </a>
-              {i < langs.length - 1 && (
-                <span className="lang-switch__sep mx-[0.3rem]" aria-hidden="true">
-                  ·
-                </span>
-              )}
-            </span>
-          ))}
-        </nav>
+        <LanguageSwitch langs={langs} ariaLabel={langAriaLabel} />
       )}
       <p>
         {madeByLabel}{" "}

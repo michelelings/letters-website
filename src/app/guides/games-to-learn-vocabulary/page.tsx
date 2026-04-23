@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
+import { ArticlePage, ArticleCta, RelatedLinks } from "@/components/article";
 import Link from "next/link";
-import { ArticleTopbar } from "@/components/ArticleTopbar";
-import { ArticleBodyClass } from "@/components/ArticleBodyClass";
-import { SiteFooter } from "@/components/SiteFooter";
-import { LocaleEffect } from "@/components/LocaleEffect";
-import { DownloadCta } from "@/components/DownloadCta";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -23,44 +19,9 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <>
-      <LocaleEffect locale="en" />
-      <ArticleBodyClass />
-      <ArticleTopbar />
-      <main id="main" className="article-wrap">
-        <article className="article-post" itemScope itemType="https://schema.org/Article">
-      <h1 itemProp="headline">Games to Learn Vocabulary (That Actually Work)</h1>
-      <p className="article-lead" itemProp="description">The best <strong>games to learn vocabulary</strong> force <strong>retrieval</strong>, respect <strong>spacing</strong>, and attach words to <strong>meaning</strong>. Pretty graphics alone do not build memory.</p>
+    <ArticlePage
+      schemaArticle
 
-      <h2>Retrieval over passive matching</h2>
-      <p>Tap-to-reveal matching is easy; producing the word is what sticks.</p>
-      <h2>Challenge, not chaos</h2>
-      <p>Optimal difficulty keeps you successful ~70–85% of the time, stretch, not demoralize.</p>
-      <h2>Spacing and revisits</h2>
-      <p>Good games bring words back before you forget, not only once.</p>
-      <h2>Meaning and story</h2>
-      <p>Themes, levels, or narratives beat raw alphabetized lists.</p>
-      <h2>Letters</h2>
-      <p><strong>Letters</strong> focuses tactile spelling and short sessions suited to spaced, repeatable play.</p>
-      <nav className="article-related" aria-label="Related guides">
-        <h2>Related guides</h2>
-        <ul>
-          <li><Link href="/guides/best-ways-to-learn-vocabulary/">Best ways to learn vocabulary</Link></li>
-          <li><Link href="/guides/word-games-vs-flashcards-vocabulary/">Word games vs flashcards</Link></li>
-          <li><Link href="/guides/best-apps-to-learn-vocabulary/">Best apps to learn vocabulary</Link></li>
-          <li><Link href="/guides/best-vocabulary-games-for-adults/">Best vocabulary games for adults</Link></li>
-          <li><Link href="/guides/english-vocabulary-games-for-adults/">English vocabulary games for adults</Link></li>
-          <li><Link href="/guides/learn-vocabulary-daily/">Learn vocabulary daily</Link></li>
-          <li><Link href="/guides/">All guides</Link></li>
-        </ul>
-      </nav>
-      <div className="article-cta-box">
-        <p><strong>Try Letters</strong>: short word puzzles from Ocho. Play first, pressure second.</p>
-      </div>
-      <DownloadCta label="Download Letters" />
-    </article>
-      </main>
-      <SiteFooter
         locale="en"
         pageType="article"
         extras={[
@@ -71,7 +32,58 @@ export default function Page() {
           { href: "https://www.letters.game/guides/games-to-learn-vocabulary/", hreflang: "en", label: "English", current: true },
           { href: "https://www.letters.game/es/guides/juegos-aprender-vocabulario/", hreflang: "es", label: "Español" },
         ]}
+    >
+      <h1 itemProp="headline">Games to Learn Vocabulary (That Actually Work)</h1>
+      <p className="article-lead" itemProp="description">The best <strong>games to learn vocabulary</strong> force <strong>retrieval</strong>, respect <strong>spacing</strong>, and attach words to <strong>meaning</strong>. Pretty graphics alone do not build memory.</p>
+      
+      <h2>Retrieval over passive matching</h2>
+      <p>Tap-to-reveal matching is easy; producing the word is what sticks.</p>
+      <h2>Challenge, not chaos</h2>
+      <p>Optimal difficulty keeps you successful ~70–85% of the time, stretch, not demoralize.</p>
+      <h2>Spacing and revisits</h2>
+      <p>Good games bring words back before you forget, not only once.</p>
+      <h2>Meaning and story</h2>
+      <p>Themes, levels, or narratives beat raw alphabetized lists.</p>
+      <h2>Letters</h2>
+      <p><strong>Letters</strong> focuses tactile spelling and short sessions suited to spaced, repeatable play.</p>
+      <RelatedLinks
+      ariaLabel="Related guides"
+      heading="Related guides"
+      items={[
+      {
+      href: "/guides/best-ways-to-learn-vocabulary/",
+      label: <>Best ways to learn vocabulary</>,
+      },
+      {
+      href: "/guides/word-games-vs-flashcards-vocabulary/",
+      label: <>Word games vs flashcards</>,
+      },
+      {
+      href: "/guides/best-apps-to-learn-vocabulary/",
+      label: <>Best apps to learn vocabulary</>,
+      },
+      {
+      href: "/guides/best-vocabulary-games-for-adults/",
+      label: <>Best vocabulary games for adults</>,
+      },
+      {
+      href: "/guides/english-vocabulary-games-for-adults/",
+      label: <>English vocabulary games for adults</>,
+      },
+      {
+      href: "/guides/learn-vocabulary-daily/",
+      label: <>Learn vocabulary daily</>,
+      },
+      {
+      href: "/guides/",
+      label: <>All guides</>,
+      }
+      ]}
       />
-    </>
+      <ArticleCta label="Download Letters">
+      <p><strong>Try Letters</strong>: short word puzzles from Ocho. Play first, pressure second.</p>
+      </ArticleCta>
+      
+    </ArticlePage>
   );
 }

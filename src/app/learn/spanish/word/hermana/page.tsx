@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import {
+  ArticlePage,
+  ArticleCta,
+  ExampleSentence,
+  Lead,
+  RelatedLinks,
+  Term,
+} from "@/components/article";
 import Link from "next/link";
-import { ArticleTopbar } from "@/components/ArticleTopbar";
-import { ArticleBodyClass } from "@/components/ArticleBodyClass";
-import { SiteFooter } from "@/components/SiteFooter";
-import { LocaleEffect } from "@/components/LocaleEffect";
 import { LettersWordInline } from "@/components/LettersWord";
-import { DownloadCta } from "@/components/DownloadCta";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -23,56 +26,67 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <>
-      <LocaleEffect locale="en" />
-      <ArticleBodyClass />
-      <ArticleTopbar />
-      <main id="main" className="article-wrap">
-        <article className="article-post">
-      <h1><span lang="es">hermana</span></h1>
-      <p className="article-lead">Common noun for a female sibling, essential in family conversations and beginner Spanish.</p>
+    <ArticlePage
 
-      <LettersWordInline words={["hermana","hermano","hermanastra","cuñada"]} intervalMs={3200} ariaLive="polite" />
-
-      <p><strong>English:</strong> sister (female sibling)</p>
-      <p><strong>Pronunciation:</strong> err-MAH-nah (stress on the second syllable)</p>
-
-      <h2>Example sentence</h2>
-      <p lang="es">Tengo una hermana menor.</p>
-      <p>I have a younger sister.</p>
-
-      <h2>Related words</h2>
-      <ul>
-        <li><span lang="es">hermano</span> → brother</li>
-        <li><span lang="es">hermanastra</span> → stepsister</li>
-        <li><span lang="es">cuñada</span> → sister-in-law</li>
-      </ul>
-
-      <nav className="article-related" aria-label="Related">
-        <h2>Related</h2>
-        <ul>
-          <li><Link href="/learn/spanish/family-vocabulary/">Family vocabulary</Link></li>
-          <li><Link href="/guides/learn-spanish-vocabulary/">Learn Spanish vocabulary (guide)</Link></li>
-          <li><Link href="/translate/spanish-to-dutch/hermana/"><span lang="es">hermana</span> in Dutch</Link></li>
-          <li><Link href="/translate/spanish-to-english/hermana/"><span lang="es">hermana</span> in English</Link></li>
-          <li><Link href="/spanish/">Spanish hub</Link></li>
-        </ul>
-      </nav>
-
-      <div className="article-cta-box">
-        <p>Drill spelling and recall with <strong>Letters</strong>.</p>
-      </div>
-      <DownloadCta label="Download Letters" />
-    </article>
-      </main>
-      <SiteFooter
         locale="en"
         pageType="article"
         extras={[
           { href: "/learn/spanish/", label: "Learn Spanish" },
           { href: "/guides/", label: "Guides" },
         ]}
+    >
+      <h1><Term lang="es">hermana</Term></h1>
+      <Lead>Common noun for a female sibling, essential in family conversations and beginner Spanish.</Lead>
+      
+      <LettersWordInline words={["hermana","hermano","hermanastra","cuñada"]} intervalMs={3200} ariaLive="polite" />
+      
+      <p><strong>English:</strong> sister (female sibling)</p>
+      <p><strong>Pronunciation:</strong> err-MAH-nah (stress on the second syllable)</p>
+      
+      <h2>Example sentence</h2>
+      <ExampleSentence
+        source={<>Tengo una hermana menor.</>}
+        translation={<>I have a younger sister.</>}
       />
-    </>
+      
+      <h2>Related words</h2>
+      <ul>
+      <li><Term lang="es">hermano</Term> → brother</li>
+      <li><Term lang="es">hermanastra</Term> → stepsister</li>
+      <li><Term lang="es">cuñada</Term> → sister-in-law</li>
+      </ul>
+      
+      <RelatedLinks
+      ariaLabel="Related"
+      heading="Related"
+      items={[
+      {
+      href: "/learn/spanish/family-vocabulary/",
+      label: <>Family vocabulary</>,
+      },
+      {
+      href: "/guides/learn-spanish-vocabulary/",
+      label: <>Learn Spanish vocabulary (guide)</>,
+      },
+      {
+      href: "/translate/spanish-to-dutch/hermana/",
+      label: <><Term lang="es">hermana</Term> in Dutch</>,
+      },
+      {
+      href: "/translate/spanish-to-english/hermana/",
+      label: <><Term lang="es">hermana</Term> in English</>,
+      },
+      {
+      href: "/spanish/",
+      label: <>Spanish hub</>,
+      }
+      ]}
+      />
+      
+      <ArticleCta label="Download Letters">
+      <p>Drill spelling and recall with <strong>Letters</strong>.</p>
+      </ArticleCta>
+      
+    </ArticlePage>
   );
 }

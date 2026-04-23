@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArticleTopbar } from "@/components/ArticleTopbar";
-import { ArticleBodyClass } from "@/components/ArticleBodyClass";
-import { SiteFooter } from "@/components/SiteFooter";
-import { LocaleEffect } from "@/components/LocaleEffect";
+import {
+  ArticlePage,
+  ArticleCta,
+  Lead,
+  PrintableDownload,
+  RelatedLinks,
+  VocabList,
+} from "@/components/article";
 import { LettersWordInline } from "@/components/LettersWord";
-import { DownloadCta } from "@/components/DownloadCta";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -23,52 +25,58 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <>
-      <LocaleEffect locale="en" />
-      <ArticleBodyClass />
-      <ArticleTopbar />
-      <main id="main" className="article-wrap">
-        <article className="article-post">
-      <h1>Spanish for travel: restaurants</h1>
-      <p className="article-lead">High-utility words and phrases for sitting down, ordering politely, and closing the check.</p>
-
-      <LettersWordInline words={["la cuenta","menú","restaurante","agua con gas","por favor"]} intervalMs={3000} ariaLive="polite" />
-
-      <h2>Vocabulary</h2>
-      <ul>
-        <li><span lang="es">la cuenta</span> → the bill</li>
-        <li><span lang="es">sin gluten</span> → gluten-free</li>
-        <li><span lang="es">agua con gas</span> → sparkling water</li>
-        <li><span lang="es">restaurante</span> → restaurant</li>
-      </ul>
-      <h2>Useful phrases</h2>
-      <p lang="es">¿Me trae el menú, por favor?</p>
-      <p>Could you bring the menu, please?</p>
-      <h2>Audio and practice</h2>
-      <p>Listen to how questions rise in intonation, then repeat the phrase until it feels automatic. Short daily practice in <strong>Letters</strong> helps you retain the spelling and rhythm.</p>
-      <nav className="article-related" aria-label="Related">
-        <h2>Related</h2>
-        <ul>
-          <li><Link href="/guides/best-way-to-learn-spanish-vocabulary-travel/">Best way to learn Spanish vocabulary for travel</Link></li>
-          <li><Link href="/learn/spanish/">Learn Spanish overview</Link></li>
-          <li><Link href="/spanish/">Spanish hub</Link></li>
-          <li><Link href="/learn/spanish/family-vocabulary/">Family vocabulary</Link></li>
-        </ul>
-      </nav>
-      <DownloadCta label="Download Letters" />
-      <p className="article-supplement-pdf">
-        <Link href="/downloads/learn/spanish/travel/restaurants/cheat-sheet.pdf" className="article-supplement-pdf__btn" download>Printable PDF</Link>
-      </p>
-    </article>
-      </main>
-      <SiteFooter
+    <ArticlePage
         locale="en"
         pageType="article"
         extras={[
           { href: "/learn/spanish/", label: "Learn Spanish" },
           { href: "/guides/", label: "Guides" },
         ]}
+    >
+      <h1>Spanish for travel: restaurants</h1>
+      <Lead>High-utility words and phrases for sitting down, ordering politely, and closing the check.</Lead>
+      
+      <LettersWordInline words={["la cuenta","menú","restaurante","agua con gas","por favor"]} intervalMs={3000} ariaLive="polite" />
+      
+      <h2>Vocabulary</h2>
+      <VocabList
+        items={[
+          { term: "la cuenta", gloss: "the bill", termLang: "es" },
+          { term: "sin gluten", gloss: "gluten-free", termLang: "es" },
+          { term: "agua con gas", gloss: "sparkling water", termLang: "es" },
+          { term: "restaurante", gloss: "restaurant", termLang: "es" },
+        ]}
       />
-    </>
+      <h2>Useful phrases</h2>
+      <p lang="es">¿Me trae el menú, por favor?</p>
+      <p>Could you bring the menu, please?</p>
+      <h2>Audio and practice</h2>
+      <p>Listen to how questions rise in intonation, then repeat the phrase until it feels automatic. Short daily practice in <strong>Letters</strong> helps you retain the spelling and rhythm.</p>
+      <RelatedLinks
+      ariaLabel="Related"
+      heading="Related"
+      items={[
+      {
+      href: "/guides/best-way-to-learn-spanish-vocabulary-travel/",
+      label: <>Best way to learn Spanish vocabulary for travel</>,
+      },
+      {
+      href: "/learn/spanish/",
+      label: <>Learn Spanish overview</>,
+      },
+      {
+      href: "/spanish/",
+      label: <>Spanish hub</>,
+      },
+      {
+      href: "/learn/spanish/family-vocabulary/",
+      label: <>Family vocabulary</>,
+      }
+      ]}
+      />
+      <ArticleCta label="Download Letters" />
+      <PrintableDownload href="/downloads/learn/spanish/travel/restaurants/cheat-sheet.pdf" />
+      
+    </ArticlePage>
   );
 }

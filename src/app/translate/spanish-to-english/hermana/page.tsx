@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
+import { ArticlePage, ArticleCta, Lead, RelatedLinks, Term } from "@/components/article";
 import Link from "next/link";
-import { ArticleTopbar } from "@/components/ArticleTopbar";
-import { ArticleBodyClass } from "@/components/ArticleBodyClass";
-import { SiteFooter } from "@/components/SiteFooter";
-import { LocaleEffect } from "@/components/LocaleEffect";
 import { LettersWordInline } from "@/components/LettersWord";
-import { DownloadCta } from "@/components/DownloadCta";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -23,34 +19,35 @@ export const metadata: Metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <>
-      <LocaleEffect locale="en" />
-      <ArticleBodyClass />
-      <ArticleTopbar />
-      <main id="main" className="article-wrap">
-        <article className="article-post">
-      <h1><span lang="es">hermana</span> in English</h1>
-      <p className="article-lead"><strong><span lang="es">hermana</span></strong> means <strong>sister</strong>, a female sibling.</p>
+    <ArticlePage
 
-      <LettersWordInline words={["hermana","sister","hermano","brother"]} intervalMs={3000} ariaLive="polite" />
-
-      <nav className="article-related" aria-label="Related">
-        <h2>Related</h2>
-        <ul>
-          <li><Link href="/learn/spanish/word/hermana/"><span lang="es">hermana</span>, full word entry</Link></li>
-          <li><Link href="/learn/spanish/family-vocabulary/">Family vocabulary</Link></li>
-        </ul>
-      </nav>
-      <DownloadCta label="Download Letters" />
-    </article>
-      </main>
-      <SiteFooter
         locale="en"
         pageType="article"
         extras={[
           { href: "/spanish/", label: "Spanish hub" },
         ]}
+    >
+      <h1><Term lang="es">hermana</Term> in English</h1>
+      <Lead><strong><Term lang="es">hermana</Term></strong> means <strong>sister</strong>, a female sibling.</Lead>
+      
+      <LettersWordInline words={["hermana","sister","hermano","brother"]} intervalMs={3000} ariaLive="polite" />
+      
+      <RelatedLinks
+      ariaLabel="Related"
+      heading="Related"
+      items={[
+      {
+      href: "/learn/spanish/word/hermana/",
+      label: <><Term lang="es">hermana</Term>, full word entry</>,
+      },
+      {
+      href: "/learn/spanish/family-vocabulary/",
+      label: <>Family vocabulary</>,
+      }
+      ]}
       />
-    </>
+      <ArticleCta label="Download Letters"  />
+      
+    </ArticlePage>
   );
 }
