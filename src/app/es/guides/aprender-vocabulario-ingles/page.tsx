@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-ingles/",
+        headline: "Aprender vocabulario en inglés: juegos vs fichas",
+        description: "Aprende vocabulario en inglés con juegos en lugar de maratones de fichas, práctica sin presión para no nativos.",
+      }}
 
         locale="es"
         pageType="article"

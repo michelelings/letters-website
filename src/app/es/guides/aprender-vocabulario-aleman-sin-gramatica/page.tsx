@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-aleman-sin-gramatica/",
+        headline: "Aprender vocabulario alemán sin ejercicios de gramática",
+        description: "Aprende vocabulario alemán sin fregar con la gramática al principio: frases hechas, compuestos, temas y juego, Letters.",
+      }}
 
         locale="es"
         pageType="article"

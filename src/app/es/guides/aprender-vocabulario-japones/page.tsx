@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-japones/",
+        headline: "Aprender vocabulario japonés con juegos de palabras",
+        description: "Aprende vocabulario japonés con hiragana, sesiones cortas y repetición gamificada, Letters.",
+      }}
 
         locale="es"
         pageType="article"

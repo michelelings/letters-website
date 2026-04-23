@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/juegos-aprender-vocabulario/",
+        headline: "Juegos para aprender vocabulario (que sí funcionan)",
+        description: "Qué hace efectivos los juegos de vocabulario: recuperación, espaciado y reto con sentido, y qué evitar.",
+      }}
 
         locale="es"
         pageType="article"

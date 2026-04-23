@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/how-to-learn-korean-vocabulary/",
+        headline: "How to Learn Korean Vocabulary (The Fun Way)",
+        description: "How to learn Korean vocabulary the fun way: Hangul ease, themed sets, honorifics without fear, and habits that stick, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

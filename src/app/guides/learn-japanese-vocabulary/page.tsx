@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/learn-japanese-vocabulary/",
+        headline: "Learn Japanese Vocabulary Through Puzzle Games",
+        description: "Learn Japanese vocabulary with hiragana-friendly recall, short sessions, and gamified repetition, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

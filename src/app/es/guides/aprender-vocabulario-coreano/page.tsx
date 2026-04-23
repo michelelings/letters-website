@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-coreano/",
+        headline: "Aprender vocabulario coreano: juego de palabras diario",
+        description: "Aprende vocabulario coreano con hangul, cultura y microsesiones diarias, Letters.",
+      }}
 
         locale="es"
         pageType="article"

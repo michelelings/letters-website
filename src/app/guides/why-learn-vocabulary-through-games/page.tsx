@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/why-learn-vocabulary-through-games/",
+        headline: "Why Learn Vocabulary Through Games Works",
+        description: "Why learning vocabulary through games works: retrieval practice, motivation, spacing in disguise, and skills that transfer, science-friendly take from Letters.",
+      }}
 
         locale="en"
         pageType="article"

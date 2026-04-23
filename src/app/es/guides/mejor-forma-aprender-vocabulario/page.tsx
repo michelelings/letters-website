@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/mejor-forma-aprender-vocabulario/",
+        headline: "La mejor forma de aprender vocabulario (estudiantes casuales)",
+        description: "La mejor forma de aprender vocabulario para estudiantes casuales: hábitos sin presión, práctica lúdica y recuperación que encaja en la vida real.",
+      }}
 
         locale="es"
         pageType="article"

@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/learn-korean-vocabulary/",
+        headline: "Learn Korean Vocabulary: Daily Puzzle Game",
+        description: "Learn Korean vocabulary with Hangul fluency, pop-culture hooks, and daily micro-sessions, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

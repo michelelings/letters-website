@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/english-vocabulary-games-for-adults/",
+        headline: "English Vocabulary Games for Adults",
+        description: "English vocabulary games for adults: why puzzle-style beats kid apps, what to look for, and how to stack short daily rounds, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

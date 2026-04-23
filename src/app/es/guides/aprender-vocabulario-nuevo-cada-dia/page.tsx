@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-nuevo-cada-dia/",
+        headline: "Aprender vocabulario nuevo cada día: un sistema sencillo",
+        description: "Aprende vocabulario nuevo cada día: límite de altas, ritmo de repaso, captura rápida y recuperación lúdica, Letters.",
+      }}
 
         locale="es"
         pageType="article"

@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/mejores-formas-aprender-vocabulario/",
+        headline: "Mejores formas de aprender vocabulario (sin fichas)",
+        description: "Repaso espaciado, contexto, recuperación activa y práctica lúdica, formas prácticas de recordar palabras sin quemarte con las fichas. Del equipo detrás de Letters.",
+      }}
 
         locale="es"
         pageType="article"

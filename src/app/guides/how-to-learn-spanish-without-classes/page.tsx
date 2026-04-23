@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/how-to-learn-spanish-without-classes/",
+        headline: "How to Learn Spanish Vocabulary Without Classes",
+        description: "How to learn Spanish vocabulary without classes: themed practice, input you enjoy, speaking early, and game-style recall, a self-study path from Letters.",
+      }}
 
         locale="en"
         pageType="article"

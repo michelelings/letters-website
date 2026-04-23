@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-rapido/",
+        headline: "Cómo aprender vocabulario rápido: 7 técnicas comprobadas",
+        description: "Cómo aprender vocabulario rápido: 7 técnicas prácticas, sesiones cortas, espaciado, recuperación activa, chunks y hábitos que sí se mantienen. Letters.",
+      }}
 
         locale="es"
         pageType="article"

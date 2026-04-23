@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/juegos-vocabulario-ingles-adultos/",
+        headline: "Juegos de vocabulario en inglés para adultos",
+        description: "Juegos de vocabulario en inglés para adultos: por qué el estilo puzle vence apps infantiles, qué buscar y cómo encajar rondas cortas, Letters.",
+      }}
 
         locale="es"
         pageType="article"

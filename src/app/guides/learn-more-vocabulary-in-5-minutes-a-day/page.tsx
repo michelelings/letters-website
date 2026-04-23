@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/learn-more-vocabulary-in-5-minutes-a-day/",
+        headline: "How to Learn More Vocabulary in 5 Minutes a Day",
+        description: "How to learn more vocabulary in 5 minutes a day: micro-sessions, one clear target, active recall, and stacking the habit, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

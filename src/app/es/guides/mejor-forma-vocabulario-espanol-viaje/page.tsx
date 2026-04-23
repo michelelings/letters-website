@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/mejor-forma-vocabulario-espanol-viaje/",
+        headline: "La mejor forma de aprender vocabulario en español para viajar",
+        description: "La mejor forma de aprender vocabulario en español para viajar: frases por situación, cortesía, bloques temáticos y repaso móvil, Letters.",
+      }}
 
         locale="es"
         pageType="article"

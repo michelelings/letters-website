@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/estrategias-vocabulario-dificil/",
+        headline: "Estrategias para aprender palabras de vocabulario difíciles",
+        description: "Estrategias para aprender palabras de vocabulario difíciles: contraste, anclajes visuales, pronunciación+ortografía, morfología y repaso espaciado, Letters.",
+      }}
 
         locale="es"
         pageType="article"

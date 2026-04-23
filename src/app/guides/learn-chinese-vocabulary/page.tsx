@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/learn-chinese-vocabulary/",
+        headline: "Learn Chinese Vocabulary Through Puzzle Games",
+        description: "Learn Chinese vocabulary with pinyin grounding, character recognition, and themed sets, puzzle-friendly approach.",
+      }}
 
         locale="en"
         pageType="article"

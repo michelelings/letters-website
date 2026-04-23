@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/games-to-learn-vocabulary/",
+        headline: "Games to Learn Vocabulary (That Actually Work)",
+        description: "What makes vocabulary games effective: retrieval, spacing, and meaningful challenge, and what to avoid.",
+      }}
 
         locale="en"
         pageType="article"

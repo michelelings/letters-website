@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/best-ways-to-learn-vocabulary/",
+        headline: "Best Ways to Learn Vocabulary (Without Flashcards)",
+        description: "Spaced repetition, context, active recall, and game-based practice, practical ways to remember words without flashcard burnout. From the team behind Letters.",
+      }}
 
         locale="en"
         pageType="article"

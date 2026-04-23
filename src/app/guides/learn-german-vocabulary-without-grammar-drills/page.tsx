@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/learn-german-vocabulary-without-grammar-drills/",
+        headline: "Learn German Vocabulary Without Grammar Drills",
+        description: "Learn German vocabulary without grammar drills first: chunks, compounds, themed sets, and playful recall, game-friendly advice from Letters.",
+      }}
 
         locale="en"
         pageType="article"

@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/best-way-to-learn-vocabulary/",
+        headline: "Best Way to Learn Vocabulary (for Casual Learners)",
+        description: "The best way to learn vocabulary for casual learners: low-pressure habits, game-friendly practice, and recall that fits real life, not guilt-driven cramming.",
+      }}
 
         locale="en"
         pageType="article"

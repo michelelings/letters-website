@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/por-que-aprender-vocabulario-con-juegos/",
+        headline: "Por qué aprender vocabulario con juegos funciona",
+        description: "Por qué aprender vocabulario con juegos funciona: práctica de recuperación, motivación, repetición espaciada disfrazada, enfoque cercano a la ciencia, Letters.",
+      }}
 
         locale="es"
         pageType="article"

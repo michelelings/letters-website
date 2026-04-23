@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-chino/",
+        headline: "Aprender vocabulario chino con juegos de palabras",
+        description: "Aprende vocabulario chino con pinyin, caracteres y temas, enfoque tipo puzle.",
+      }}
 
         locale="es"
         pageType="article"

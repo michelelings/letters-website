@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/how-to-learn-vocabulary-fast/",
+        headline: "How to Learn Vocabulary Fast: 7 Proven Techniques",
+        description: "Seven practical ways to learn vocabulary fast: short sessions, spacing, recall, chunks, mixing practice modes, tiny wins, and habits that stick, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

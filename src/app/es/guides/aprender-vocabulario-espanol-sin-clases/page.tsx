@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-espanol-sin-clases/",
+        headline: "Cómo aprender vocabulario en español sin clases",
+        description: "Cómo aprender vocabulario en español sin clases: temas prácticos, input que te guste, hablar pronto y recuperación tipo juego, Letters.",
+      }}
 
         locale="es"
         pageType="article"

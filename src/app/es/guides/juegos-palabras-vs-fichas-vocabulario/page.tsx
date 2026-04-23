@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/juegos-palabras-vs-fichas-vocabulario/",
+        headline: "Juegos de palabras vs fichas para vocabulario",
+        description: "Juegos de palabras vs fichas para vocabulario: motivación, profundidad de recuperación y cuándo conviene cada herramienta, Letters.",
+      }}
 
         locale="es"
         pageType="article"

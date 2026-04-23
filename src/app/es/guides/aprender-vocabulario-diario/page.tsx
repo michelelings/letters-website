@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-diario/",
+        headline: "Aprender vocabulario a diario: un sistema sencillo",
+        description: "Hábito diario de vocabulario: sesiones pequeñas, anclas realistas y constancia, Letters.",
+      }}
 
         locale="es"
         pageType="article"

@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/learn-english-vocabulary/",
+        headline: "Learn English Vocabulary: Games vs Flashcards",
+        description: "Learn English vocabulary with games instead of flashcard marathons, for non-native speakers who want low-pressure practice.",
+      }}
 
         locale="en"
         pageType="article"

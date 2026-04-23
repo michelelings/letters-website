@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/mejores-apps-aprender-vocabulario/",
+        headline: "Mejores apps para aprender vocabulario (ranking 2026)",
+        description: "Cómo elegir las mejores apps de vocabulario si buscas juego, no solo tareas de gramática.",
+      }}
 
         locale="es"
         pageType="article"

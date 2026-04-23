@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/como-aprender-vocabulario-coreano/",
+        headline: "Cómo aprender vocabulario coreano (de forma divertida)",
+        description: "Cómo aprender vocabulario coreano de forma divertida: Hangul rápido, temas de interés, cortesía sin miedo y hábitos sostenibles, Letters.",
+      }}
 
         locale="es"
         pageType="article"

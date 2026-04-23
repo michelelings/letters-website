@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/mejores-juegos-vocabulario-adultos/",
+        headline: "Mejores juegos de vocabulario para adultos (qué elegir)",
+        description: "Mejores juegos de vocabulario para adultos: qué priorizar, sesión corta, profundidad de recuperación, tono, idiomas y encaje de Letters.",
+      }}
 
         locale="es"
         pageType="article"

@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/best-apps-to-learn-vocabulary/",
+        headline: "Best Apps to Learn Vocabulary (Ranked 2026)",
+        description: "How to pick the best apps to learn vocabulary when you want games, not grammar homework, framework for 2026.",
+      }}
 
         locale="en"
         pageType="article"

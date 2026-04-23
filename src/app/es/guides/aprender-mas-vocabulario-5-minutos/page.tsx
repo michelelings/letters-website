@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-mas-vocabulario-5-minutos/",
+        headline: "Cómo aprender más vocabulario en 5 minutos al día",
+        description: "Cómo aprender más vocabulario en 5 minutos al día: micro-sesiones, una meta clara, recuperación primero y hábito anclado, Letters.",
+      }}
 
         locale="es"
         pageType="article"

@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/how-to-learn-chinese-vocabulary/",
+        headline: "How to Learn Chinese Vocabulary (The Fun Way)",
+        description: "How to learn Chinese vocabulary the fun way: pinyin and tones, themed words, characters on your schedule, and recall that feels like play, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

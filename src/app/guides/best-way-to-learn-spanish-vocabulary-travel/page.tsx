@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/best-way-to-learn-spanish-vocabulary-travel/",
+        headline: "Best Way to Learn Spanish Vocabulary for Travel",
+        description: "Best way to learn Spanish vocabulary for travel: situational phrases, restaurant and transport clusters, polite routines, and recall habits, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

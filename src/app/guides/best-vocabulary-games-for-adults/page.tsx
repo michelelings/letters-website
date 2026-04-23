@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/best-vocabulary-games-for-adults/",
+        headline: "Best Vocabulary Games for Adults (What to Play)",
+        description: "Best vocabulary games for adults: what to prioritize, session length, retrieval depth, tone, languages, plus why Letters fits the list.",
+      }}
 
         locale="en"
         pageType="article"

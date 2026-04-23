@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/word-games-vs-flashcards-vocabulary/",
+        headline: "Word Games vs Flashcards for Vocabulary",
+        description: "Word games vs flashcards for vocabulary: retrieval depth, context, motivation, and when each tool wins, comparison from Letters.",
+      }}
 
         locale="en"
         pageType="article"

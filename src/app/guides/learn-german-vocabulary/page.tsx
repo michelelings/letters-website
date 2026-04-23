@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/learn-german-vocabulary/",
+        headline: "Learn German Vocabulary with Daily Puzzle Practice",
+        description: "Learn German vocabulary with compounds, travel themes, and bite-sized puzzle-style practice, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

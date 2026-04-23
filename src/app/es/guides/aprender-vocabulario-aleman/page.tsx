@@ -22,6 +22,11 @@ export default function Page() {
     <ArticlePage
       topbar={{ ctaLabel: "Descargar" }}
       schemaArticle
+      articleJsonLd={{
+        path: "/es/guides/aprender-vocabulario-aleman/",
+        headline: "Aprender vocabulario alemán con práctica diaria tipo puzle",
+        description: "Aprende vocabulario alemán: palabras compuestas, viaje y práctica en microdosis tipo puzle, Letters.",
+      }}
 
         locale="es"
         pageType="article"

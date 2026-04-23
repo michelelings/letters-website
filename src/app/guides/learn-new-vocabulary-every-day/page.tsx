@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/learn-new-vocabulary-every-day/",
+        headline: "Learn New Vocabulary Every Day: A Simple System",
+        description: "Learn new vocabulary every day with a simple system: daily cap, review rhythm, capture habit, and playful recall, from Letters.",
+      }}
 
         locale="en"
         pageType="article"

@@ -21,6 +21,11 @@ export default function Page() {
   return (
     <ArticlePage
       schemaArticle
+      articleJsonLd={{
+        path: "/guides/strategies-difficult-vocabulary-words/",
+        headline: "Strategies for Learning Difficult Vocabulary Words",
+        description: "Strategies for learning difficult vocabulary words: mnemonics, chunking, contrastive pairs, pronunciation first, and retrieval spacing, from Letters.",
+      }}
 
         locale="en"
         pageType="article"
