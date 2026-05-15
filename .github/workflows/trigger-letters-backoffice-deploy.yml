@@ -1,0 +1,27 @@
+# Triggers a production redeploy of michelelings/letters-backoffice so build-time
+# manifests and coverage reflect this repo's latest default branch.
+#
+# Prerequisite (letters-website GitHub repo): repository secret VERCEL_DEPLOY_HOOK_URL
+# = Deploy Hook URL from Vercel → letters-backoffice → Settings → Git → Deploy Hooks (Production).
+
+name: Trigger letters-backoffice deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  redeploy-backoffice:
+    runs-on: ubuntu-latest
+    steps:
+      - name: POST Vercel deploy hook (letters-backoffice)
+        env:
+          HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK_URL" ]; then
+            echo "::error::Add repository secret VERCEL_DEPLOY_HOOK_URL (Vercel deploy hook for letters-backoffice production)."
+            exit 1
+          fi
+          curl -fsS -X POST "$HOOK_URL" -d ""
+          echo "letters-backoffice production deploy triggered."
