@@ -493,7 +493,12 @@ export function initLettersCardDemo(
     tileStepMs: 60,
     nextDelayMs: 216,
   };
+  const ROUND_TRANSITION = {
+    fadeOutMs: 180,
+    fadeInMs: 260,
+  };
   const MOVE_ANIMATION_MS = 220;
+  const SHIFT_ANIMATION_MS = 260;
 
   const clueEl = cardDemoEl.querySelector(".card-demo__clue") as HTMLElement | null;
   const slotsEl = cardDemoEl.querySelector(".card-demo__slots") as HTMLElement | null;
@@ -529,6 +534,7 @@ export function initLettersCardDemo(
     isLocked: boolean;
     isTransitioning: boolean;
     advanceTimer: number | null;
+    transitionTimers: number[];
   } = {
     clue: "",
     solution: "",
@@ -538,7 +544,22 @@ export function initLettersCardDemo(
     isLocked: false,
     isTransitioning: false,
     advanceTimer: null,
+    transitionTimers: [],
   };
+
+  function setTransitionTimer(callback: () => void, delayMs: number) {
+    const id = window.setTimeout(() => {
+      state.transitionTimers = state.transitionTimers.filter((timer) => timer !== id);
+      callback();
+    }, delayMs);
+    state.transitionTimers.push(id);
+    return id;
+  }
+
+  function clearTransitionTimers() {
+    state.transitionTimers.forEach((timer) => window.clearTimeout(timer));
+    state.transitionTimers = [];
+  }
 
   function setRound(word: string) {
     state.clue = clueForSolution(word);
@@ -550,6 +571,7 @@ export function initLettersCardDemo(
       (_, i) => shapeCycle[i % shapeCycle.length],
     );
     state.isLocked = false;
+    state.isTransitioning = false;
     state.advanceTimer = null;
     if (clueEl) clueEl.textContent = state.clue;
     demoEl.style.setProperty("--card-cols", String(state.solution.length));
@@ -563,6 +585,34 @@ export function initLettersCardDemo(
     wordIndex = (wordIndex + 1) % sequence.length;
     setRound(currentWord());
     render();
+  }
+
+  function transitionToNextWord() {
+    if (prefersReducedMotion()) {
+      advanceToNextWord();
+      return;
+    }
+
+    clearTransitionTimers();
+    state.isTransitioning = true;
+    demoEl.classList.add("is-round-leaving");
+    demoEl.classList.remove("is-round-entering");
+
+    setTransitionTimer(() => {
+      wordIndex = (wordIndex + 1) % sequence.length;
+      setRound(currentWord());
+      state.isTransitioning = true;
+      render();
+      demoEl.classList.remove("is-round-leaving");
+      demoEl.classList.add("is-round-entering");
+
+      requestAnimationFrame(() => {
+        demoEl.classList.remove("is-round-entering");
+        setTransitionTimer(() => {
+          state.isTransitioning = false;
+        }, ROUND_TRANSITION.fadeInMs);
+      });
+    }, ROUND_TRANSITION.fadeOutMs);
   }
 
   function playSuccessAnimation(): number {
@@ -598,16 +648,41 @@ export function initLettersCardDemo(
     return (tiles.length - 1) * tileStep + tileDuration;
   }
 
-  function animateGhostToRect(ghost: HTMLElement, targetRect: DOMRect): Promise<void> {
+  function tiltForMoveTarget(target: HTMLElement | null): string {
+    if (!target) return "0deg";
+    const raw =
+      target.style.getPropertyValue("--tilt") ||
+      getComputedStyle(target).getPropertyValue("--tilt");
+    return raw.trim() || "0deg";
+  }
+
+  function layoutPointForRect(rect: DOMRect, width: number, height: number) {
+    return {
+      x: rect.left + rect.width / 2 - width / 2,
+      y: rect.top + rect.height / 2 - height / 2,
+    };
+  }
+
+  function moveTransform(x: number, y: number, tilt: string): string {
+    return `translate3d(${x}px, ${y}px, 0) rotate(${tilt})`;
+  }
+
+  function animateGhostToRect(
+    ghost: HTMLElement,
+    targetRect: DOMRect,
+    fromX: number,
+    fromY: number,
+    width: number,
+    height: number,
+    fromTilt: string,
+    toTilt: string,
+  ): Promise<void> {
     if (!ghost || !targetRect || prefersReducedMotion()) return Promise.resolve();
-    const from = ghost.getBoundingClientRect();
-    const dx = targetRect.left - from.left;
-    const dy = targetRect.top - from.top;
-    ghost.style.transform = "none";
+    const to = layoutPointForRect(targetRect, width, height);
     const anim = ghost.animate(
       [
-        { transform: "translate3d(0, 0, 0)" },
-        { transform: `translate3d(${dx}px, ${dy}px, 0)` },
+        { transform: moveTransform(fromX, fromY, fromTilt) },
+        { transform: moveTransform(to.x, to.y, toTilt) },
       ],
       {
         duration: MOVE_ANIMATION_MS,
@@ -615,7 +690,11 @@ export function initLettersCardDemo(
         fill: "forwards",
       },
     );
-    return anim.finished.then(() => undefined).catch(() => undefined);
+    return anim.finished
+      .then(() => {
+        ghost.style.transform = moveTransform(to.x, to.y, toTilt);
+      })
+      .catch(() => undefined);
   }
 
   function feedbackForGuess(guess: string): string {
@@ -630,6 +709,7 @@ export function initLettersCardDemo(
 
   function updateFeedback() {
     if (!feedbackEl) return;
+    if (state.isTransitioning) return;
     if (state.slots.some((item) => item === null)) {
       feedbackEl.textContent = "";
       return;
@@ -643,29 +723,100 @@ export function initLettersCardDemo(
       const successMs = playSuccessAnimation();
       state.advanceTimer = window.setTimeout(() => {
         state.advanceTimer = null;
-        advanceToNextWord();
+        transitionToNextWord();
       }, successMs + SUCCESS_ANIMATION.nextDelayMs);
     }
   }
 
-  function placeFromBank(bankIndex: number, slotIndex: number) {
-    if (!state.bank[bankIndex]) return;
-    const incoming = state.bank[bankIndex];
-    state.bank[bankIndex] = null;
-    const outgoing = state.slots[slotIndex];
-    state.slots[slotIndex] = incoming;
-    if (outgoing) {
-      const firstOpenBank = state.bank.findIndex((item) => item === null);
-      if (firstOpenBank >= 0) state.bank[firstOpenBank] = outgoing;
+  type ShiftDirection = "left" | "right";
+  type SlotMove = { from: number; to: number };
+  type SlotPlacement = {
+    moves: SlotMove[];
+    slotIndex: number;
+  };
+
+  function openSlotInDirection(slotIndex: number, direction: ShiftDirection): number {
+    if (direction === "right") {
+      for (let i = slotIndex + 1; i < state.slots.length; i += 1) {
+        if (state.slots[i] === null) return i;
+      }
+      return -1;
     }
+    for (let i = slotIndex - 1; i >= 0; i -= 1) {
+      if (state.slots[i] === null) return i;
+    }
+    return -1;
   }
 
-  function moveFromSlot(slotIndex: number, nextSlotIndex: number) {
+  function oppositeDirection(direction: ShiftDirection): ShiftDirection {
+    return direction === "right" ? "left" : "right";
+  }
+
+  function placeLetterInSlot(
+    letter: string,
+    slotIndex: number,
+    preferredDirection: ShiftDirection = "right",
+  ): SlotPlacement | null {
+    if (!letter || slotIndex < 0 || slotIndex >= state.slots.length) return null;
+
+    if (state.slots[slotIndex] === null) {
+      state.slots[slotIndex] = letter;
+      return { moves: [], slotIndex };
+    }
+
+    let direction = preferredDirection;
+    let openIndex = openSlotInDirection(slotIndex, direction);
+    if (openIndex < 0) {
+      direction = oppositeDirection(direction);
+      openIndex = openSlotInDirection(slotIndex, direction);
+    }
+    if (openIndex < 0) return null;
+
+    const moves: SlotMove[] = [];
+    if (direction === "right") {
+      for (let i = openIndex; i > slotIndex; i -= 1) {
+        state.slots[i] = state.slots[i - 1];
+        moves.push({ from: i - 1, to: i });
+      }
+    } else {
+      for (let i = openIndex; i < slotIndex; i += 1) {
+        state.slots[i] = state.slots[i + 1];
+        moves.push({ from: i + 1, to: i });
+      }
+    }
+
+    state.slots[slotIndex] = letter;
+    return { moves, slotIndex };
+  }
+
+  function placeFromBank(
+    bankIndex: number,
+    slotIndex: number,
+    preferredDirection: ShiftDirection = "right",
+  ): SlotPlacement | null {
+    const incoming = state.bank[bankIndex];
+    if (!incoming) return null;
+    const placement = placeLetterInSlot(incoming, slotIndex, preferredDirection);
+    if (!placement) return null;
+    state.bank[bankIndex] = null;
+    return placement;
+  }
+
+  function moveFromSlot(
+    slotIndex: number,
+    nextSlotIndex: number,
+    preferredDirection: ShiftDirection = "right",
+  ): SlotPlacement | null {
     const incoming = state.slots[slotIndex];
-    if (!incoming) return;
-    const outgoing = state.slots[nextSlotIndex];
-    state.slots[nextSlotIndex] = incoming;
-    state.slots[slotIndex] = outgoing;
+    if (!incoming || slotIndex === nextSlotIndex) return null;
+
+    state.slots[slotIndex] = null;
+    const placement = placeLetterInSlot(incoming, nextSlotIndex, preferredDirection);
+    if (!placement) {
+      state.slots[slotIndex] = incoming;
+      return null;
+    }
+    return placement;
   }
 
   function returnToBank(slotIndex: number) {
@@ -732,6 +883,60 @@ export function initLettersCardDemo(
     render();
   }
 
+  function slotTileRects(): Map<number, DOMRect> {
+    const rects = new Map<number, DOMRect>();
+    slotsEl!.querySelectorAll<HTMLElement>(".card-demo__slot.is-filled").forEach((slot) => {
+      const slotIndex = Number.parseInt(slot.dataset.slotIndex || "", 10);
+      const tile = slot.querySelector<HTMLElement>(".card-demo__tile");
+      if (Number.isFinite(slotIndex) && tile) {
+        rects.set(slotIndex, tile.getBoundingClientRect());
+      }
+    });
+    return rects;
+  }
+
+  function animateSlotMoves(beforeRects: Map<number, DOMRect>, moves: SlotMove[]) {
+    if (prefersReducedMotion()) return;
+    moves.forEach(({ from, to }) => {
+      const before = beforeRects.get(from);
+      const slot = slotsEl!.querySelector(
+        `.card-demo__slot[data-slot-index="${to}"]`,
+      ) as HTMLElement | null;
+      const tile = slot?.querySelector<HTMLElement>(".card-demo__tile");
+      if (!before || !tile) return;
+
+      const after = tile.getBoundingClientRect();
+      const dx = before.left - after.left;
+      const dy = before.top - after.top;
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+
+      tile.classList.add("is-shifting");
+      const anim = tile.animate(
+        [
+          { transform: `translate3d(${dx}px, ${dy}px, 0)` },
+          { transform: "translate3d(0, 0, 0)" },
+        ],
+        {
+          duration: SHIFT_ANIMATION_MS,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          fill: "none",
+        },
+      );
+      void anim.finished
+        .then(() => {
+          tile.classList.remove("is-shifting");
+        })
+        .catch(() => {
+          tile.classList.remove("is-shifting");
+        });
+    });
+  }
+
+  function shiftDirectionForDrop(slot: HTMLElement, x: number): ShiftDirection {
+    const rect = slot.getBoundingClientRect();
+    return x < rect.left + rect.width / 2 ? "right" : "left";
+  }
+
   function render() {
     slotsEl!.replaceChildren();
     bankEl!.replaceChildren();
@@ -795,6 +1000,14 @@ export function initLettersCardDemo(
     offsetX: number;
     offsetY: number;
     sourceRect: DOMRect;
+    ghostX: number;
+    ghostY: number;
+    ghostWidth: number;
+    ghostHeight: number;
+    ghostTilt: string;
+    pendingX: number;
+    pendingY: number;
+    moveFrame: number | null;
     startX: number;
     startY: number;
     moved: boolean;
@@ -842,11 +1055,24 @@ export function initLettersCardDemo(
     if (!source || !Number.isFinite(index)) return;
 
     const rect = tile.getBoundingClientRect();
+    const ghostWidth = tile.offsetWidth || rect.width;
+    const ghostHeight = tile.offsetHeight || rect.height;
+    const startPoint = layoutPointForRect(rect, ghostWidth, ghostHeight);
+    const sourceTilt = tiltForMoveTarget(
+      (tile.closest(".card-demo__bank-slot") as HTMLElement | null) ||
+        (tile.closest(".card-demo__slot") as HTMLElement | null) ||
+        tile,
+    );
     const ghost = tile.cloneNode(true) as HTMLElement;
     ghost.classList.add("card-demo__tile--ghost");
-    ghost.style.width = `${rect.width}px`;
-    ghost.style.height = `${rect.height}px`;
+    ghost.setAttribute("aria-hidden", "true");
+    ghost.setAttribute("tabindex", "-1");
+    ghost.removeAttribute("data-source");
+    ghost.removeAttribute("data-index");
+    ghost.style.width = `${ghostWidth}px`;
+    ghost.style.height = `${ghostHeight}px`;
     ghost.style.visibility = "hidden";
+    ghost.style.transform = moveTransform(startPoint.x, startPoint.y, sourceTilt);
     document.body.appendChild(ghost);
 
     dragState = {
@@ -854,9 +1080,17 @@ export function initLettersCardDemo(
       index,
       originEl: tile,
       pointerId: event.pointerId,
-      offsetX: event.clientX - rect.left,
-      offsetY: event.clientY - rect.top,
+      offsetX: event.clientX - startPoint.x,
+      offsetY: event.clientY - startPoint.y,
       sourceRect: rect,
+      ghostX: startPoint.x,
+      ghostY: startPoint.y,
+      ghostWidth,
+      ghostHeight,
+      ghostTilt: sourceTilt,
+      pendingX: startPoint.x,
+      pendingY: startPoint.y,
+      moveFrame: null,
       startX: event.clientX,
       startY: event.clientY,
       moved: false,
@@ -869,8 +1103,20 @@ export function initLettersCardDemo(
 
   function positionGhost(x: number, y: number) {
     if (!dragState) return;
-    dragState.ghost.style.left = `${x - dragState.offsetX}px`;
-    dragState.ghost.style.top = `${y - dragState.offsetY}px`;
+    dragState.pendingX = x - dragState.offsetX;
+    dragState.pendingY = y - dragState.offsetY;
+    if (dragState.moveFrame !== null) return;
+    dragState.moveFrame = requestAnimationFrame(() => {
+      if (!dragState) return;
+      dragState.moveFrame = null;
+      dragState.ghostX = dragState.pendingX;
+      dragState.ghostY = dragState.pendingY;
+      dragState.ghost.style.transform = moveTransform(
+        dragState.ghostX,
+        dragState.ghostY,
+        dragState.ghostTilt,
+      );
+    });
   }
 
   function endDrag(event: PointerEvent) {
@@ -879,6 +1125,7 @@ export function initLettersCardDemo(
     const ghost = dragState.ghost;
     const wasTap = !dragState.moved;
     let destinationRect: DOMRect | null = null;
+    let destinationTilt = dragState.ghostTilt;
     let didMutate = false;
     const origin = dragState.originEl;
 
@@ -887,6 +1134,8 @@ export function initLettersCardDemo(
     const bankTarget = dropTarget?.closest(".card-demo__bank") as HTMLElement | null;
     const slotInDemo = slotTarget && demoEl.contains(slotTarget) ? slotTarget : null;
     const bankInDemo = bankTarget && demoEl.contains(bankTarget) ? bankTarget : null;
+    const beforeSlotRects = slotTileRects();
+    let placement: SlotPlacement | null = null;
 
     if (wasTap) {
       if (dragState.source === "bank") {
@@ -895,9 +1144,10 @@ export function initLettersCardDemo(
           const targetSlot = slotsEl!.querySelector(
             `.card-demo__slot[data-slot-index="${firstOpen}"]`,
           ) as HTMLElement | null;
-          placeFromBank(dragState.index, firstOpen);
+          placement = placeFromBank(dragState.index, firstOpen);
           destinationRect = targetSlot?.getBoundingClientRect() || null;
-          didMutate = true;
+          destinationTilt = tiltForMoveTarget(targetSlot);
+          didMutate = Boolean(placement);
         }
       } else if (dragState.source === "slot") {
         const firstOpenBank = state.bank.findIndex((item) => item === null);
@@ -906,19 +1156,23 @@ export function initLettersCardDemo(
         ) as HTMLElement | null;
         returnToBank(dragState.index);
         destinationRect = targetBank?.getBoundingClientRect() || null;
+        destinationTilt = tiltForMoveTarget(targetBank);
         didMutate = true;
       }
     } else if (slotInDemo) {
       const targetIndex = Number.parseInt(slotInDemo.dataset.slotIndex || "", 10);
       if (Number.isFinite(targetIndex)) {
+        const shiftDirection = shiftDirectionForDrop(slotInDemo, event.clientX);
         if (dragState.source === "bank") {
-          placeFromBank(dragState.index, targetIndex);
+          placement = placeFromBank(dragState.index, targetIndex, shiftDirection);
           destinationRect = slotInDemo.getBoundingClientRect();
-          didMutate = true;
+          destinationTilt = tiltForMoveTarget(slotInDemo);
+          didMutate = Boolean(placement);
         } else if (dragState.source === "slot") {
-          moveFromSlot(dragState.index, targetIndex);
+          placement = moveFromSlot(dragState.index, targetIndex, shiftDirection);
           destinationRect = slotInDemo.getBoundingClientRect();
-          didMutate = true;
+          destinationTilt = tiltForMoveTarget(slotInDemo);
+          didMutate = Boolean(placement);
         }
       }
     } else if (bankInDemo && dragState.source === "slot") {
@@ -928,6 +1182,7 @@ export function initLettersCardDemo(
         `.card-demo__bank-slot[data-bank-index="${firstOpenBank}"]`,
       ) as HTMLElement | null;
       destinationRect = targetBank?.getBoundingClientRect() || null;
+      destinationTilt = tiltForMoveTarget(targetBank);
       didMutate = true;
     }
 
@@ -938,16 +1193,59 @@ export function initLettersCardDemo(
       if (!dragState.moved) {
         origin?.classList.add("is-drag-origin");
         ghost.style.visibility = "visible";
-        ghost.style.left = `${dragState.sourceRect.left}px`;
-        ghost.style.top = `${dragState.sourceRect.top}px`;
+        const sourcePoint = layoutPointForRect(
+          dragState.sourceRect,
+          dragState.ghostWidth,
+          dragState.ghostHeight,
+        );
+        dragState.ghostX = sourcePoint.x;
+        dragState.ghostY = sourcePoint.y;
+        ghost.style.transform = moveTransform(
+          dragState.ghostX,
+          dragState.ghostY,
+          dragState.ghostTilt,
+        );
       }
       state.isTransitioning = true;
-      animateGhostToRect(ghost, destinationRect).finally(() => {
+      if (dragState.moveFrame !== null) {
+        cancelAnimationFrame(dragState.moveFrame);
+        dragState.moveFrame = null;
+      }
+      const fromX = dragState.moved ? dragState.pendingX : dragState.ghostX;
+      const fromY = dragState.moved ? dragState.pendingY : dragState.ghostY;
+      dragState.ghostX = fromX;
+      dragState.ghostY = fromY;
+
+      let landingTile: HTMLElement | null = null;
+      if (placement) {
+        render();
+        animateSlotMoves(beforeSlotRects, placement.moves);
+        const targetSlot = slotsEl!.querySelector(
+          `.card-demo__slot[data-slot-index="${placement.slotIndex}"]`,
+        ) as HTMLElement | null;
+        landingTile = targetSlot?.querySelector<HTMLElement>(".card-demo__tile") || null;
+        if (landingTile) landingTile.style.visibility = "hidden";
+        destinationRect = targetSlot?.getBoundingClientRect() || destinationRect;
+        destinationTilt = tiltForMoveTarget(targetSlot);
+      }
+
+      animateGhostToRect(
+        ghost,
+        destinationRect,
+        fromX,
+        fromY,
+        dragState.ghostWidth,
+        dragState.ghostHeight,
+        dragState.ghostTilt,
+        destinationTilt,
+      ).finally(() => {
         origin?.classList.remove("is-drag-origin");
+        if (landingTile) landingTile.style.removeProperty("visibility");
         ghost.remove();
         dragState = null;
         state.isTransitioning = false;
-        render();
+        if (!placement) render();
+        updateFeedback();
       });
       return;
     }
@@ -973,6 +1271,7 @@ export function initLettersCardDemo(
     if (!dragState || event.pointerId !== dragState.pointerId) return;
     const origin = dragState.originEl;
     origin?.classList.remove("is-drag-origin");
+    if (dragState.moveFrame !== null) cancelAnimationFrame(dragState.moveFrame);
     dragState.ghost.remove();
     dragState = null;
   }
@@ -982,6 +1281,8 @@ export function initLettersCardDemo(
       window.clearTimeout(state.advanceTimer);
       state.advanceTimer = null;
     }
+    clearTransitionTimers();
+    demoEl.classList.remove("is-round-leaving", "is-round-entering");
     setRound(currentWord());
     render();
   };
@@ -999,6 +1300,7 @@ export function initLettersCardDemo(
 
   return () => {
     if (state.advanceTimer) window.clearTimeout(state.advanceTimer);
+    clearTransitionTimers();
     resetEl?.removeEventListener("click", onResetClick);
     document.removeEventListener("click", onTapTile);
     document.removeEventListener("pointerdown", startDrag);

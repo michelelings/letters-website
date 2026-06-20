@@ -247,6 +247,10 @@ body {
   height: 100%;
 }
 
+.card-demo__tile.is-shifting {
+  will-change: transform;
+}
+
 .card-demo__tile.is-drag-origin {
   opacity: 0;
   pointer-events: none;
@@ -254,10 +258,14 @@ body {
 
 .card-demo__tile--ghost {
   position: fixed;
+  left: 0;
+  top: 0;
   margin: 0;
   z-index: 9999;
   pointer-events: none;
   box-shadow: var(--lg-tile-hover-drop);
+  transition: none;
+  will-change: transform;
 }
 
 .card-demo__feedback {
@@ -289,6 +297,34 @@ body {
 .card-demo__reset:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--lg-fg-primary) 75%, transparent);
   outline-offset: 2px;
+}
+
+.card-demo__clue,
+.card-demo__slots,
+.card-demo__bank,
+.card-demo__feedback {
+  transition:
+    opacity 0.18s var(--tile-ease-out),
+    transform 0.26s var(--tile-ease-out),
+    filter 0.26s var(--tile-ease-out);
+}
+
+.card-demo.is-round-leaving .card-demo__clue,
+.card-demo.is-round-leaving .card-demo__slots,
+.card-demo.is-round-leaving .card-demo__bank,
+.card-demo.is-round-leaving .card-demo__feedback {
+  opacity: 0;
+  transform: translate3d(0, -0.35rem, 0) scale(0.985);
+  filter: blur(1px);
+}
+
+.card-demo.is-round-entering .card-demo__clue,
+.card-demo.is-round-entering .card-demo__slots,
+.card-demo.is-round-entering .card-demo__bank,
+.card-demo.is-round-entering .card-demo__feedback {
+  opacity: 0;
+  transform: translate3d(0, 0.45rem, 0) scale(0.985);
+  filter: blur(1px);
 }
 
 .site-footer {
@@ -577,7 +613,11 @@ body {
   }
 
   .tile,
-  .tile__face {
+  .tile__face,
+  .card-demo__clue,
+  .card-demo__slots,
+  .card-demo__bank,
+  .card-demo__feedback {
     animation: none !important;
     transition: none;
   }
