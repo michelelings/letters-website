@@ -19,7 +19,7 @@ This topical map targets casual language-curious adults who prefer game-first ex
 
 **Maintainers:** Treat this section as the running changelog for the marketing repo. When you add a locale, URL, or article: (1) set **Last updated** below, (2) edit the bullets/tables here, (3) mark **Shipped** on the matching **Content calendar** lines and pillar tables if applicable, (4) update `sitemap.xml` in git. One source of truth: no duplicate shipped lists in other docs.
 
-*Last updated: June 24, 2026 (first weekly downloadable + playable pack live in repo).*
+*Last updated: June 24, 2026 (Spanish Travel Season 1 weekly downloadable + playable packs live in repo).*
 
 ### Locales and homepage
 
@@ -92,11 +92,18 @@ Pillar hubs link to relevant clusters (e.g. **Best ways…**, language hubs, **G
 
 ### Weekly micro-packs
 
-The first weekly lead-magnet format is in repo: `/weekly/spanish-restaurant-words/`.
-It pairs a short playable Letters round with a one-page PDF at
-`/downloads/weekly/spanish-restaurant-words.pdf`. This is the template for
-future small weekly packs: one theme, roughly ten useful words, one printable
-asset, one playable round, and links back into the relevant SEO cluster.
+The first weekly lead-magnet format is in repo at `/weekly/`, with Spanish
+Travel Season 1:
+
+- `/weekly/spanish-restaurant-words/`
+- `/weekly/spanish-hotel-words/`
+- `/weekly/spanish-airport-words/`
+- `/weekly/spanish-directions-words/`
+
+Each pack pairs a short playable Letters round with a one-page PDF under
+`/downloads/weekly/`. This is the template for future small weekly packs: one
+theme, roughly ten useful words, one printable asset, one playable round, and
+links back into the relevant SEO cluster.
 
 ## Pillar Overview
 

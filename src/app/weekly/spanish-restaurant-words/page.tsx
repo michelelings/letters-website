@@ -43,7 +43,7 @@ export default function Page() {
       locale="en"
       pageType="article"
       extras={[
-        { href: "/", label: "Home" },
+        { href: "/weekly/", label: "Weekly packs" },
         { href: "/guides/", label: "All guides" },
       ]}
     >
@@ -86,6 +86,29 @@ export default function Page() {
       <PrintableDownload href={pdfPath}>Download the weekly PDF</PrintableDownload>
 
       <RelatedLinks
+        ariaLabel="Spanish Travel Season 1"
+        heading="Spanish Travel Season 1"
+        items={[
+          {
+            href: "/weekly/spanish-hotel-words/",
+            label: <>Spanish hotel words</>,
+          },
+          {
+            href: "/weekly/spanish-airport-words/",
+            label: <>Spanish airport words</>,
+          },
+          {
+            href: "/weekly/spanish-directions-words/",
+            label: <>Spanish directions words</>,
+          },
+          {
+            href: "/weekly/",
+            label: <>All weekly packs</>,
+          },
+        ]}
+      />
+
+      <RelatedLinks
         ariaLabel="Related Spanish practice"
         heading="Related Spanish practice"
         items={[
@@ -100,10 +123,6 @@ export default function Page() {
           {
             href: "/guides/learn-spanish-vocabulary/",
             label: <>Learn Spanish vocabulary</>,
-          },
-          {
-            href: "/learn/spanish/",
-            label: <>Learn Spanish overview</>,
           },
         ]}
       />

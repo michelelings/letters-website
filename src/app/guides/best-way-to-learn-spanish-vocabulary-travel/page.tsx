@@ -92,6 +92,10 @@ export default function Page() {
       heading="Practice pages"
       items={[
       {
+      href: "/weekly/",
+      label: <>Spanish travel weekly packs</>,
+      },
+      {
       href: "/weekly/spanish-restaurant-words/",
       label: <>Weekly pack: Spanish restaurant words</>,
       },
