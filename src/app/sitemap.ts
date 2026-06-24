@@ -60,6 +60,20 @@ const PATHS: string[] = [
   "/es/guides/juegos-vocabulario-ingles-adultos/",
   "/guides/best-vocabulary-games-for-adults/",
   "/es/guides/mejores-juegos-vocabulario-adultos/",
+  "/weekly/spanish-restaurant-words/",
+  "/spanish/",
+  "/learn/spanish/",
+  "/learn/spanish/family-vocabulary/",
+  "/learn/spanish/phrase/buenos-dias/",
+  "/learn/spanish/travel/restaurants/",
+  "/learn/spanish/word/hermana/",
+  "/learn/spanish/mexico/slang/",
+  "/learn/spanish/costa-rica/slang/",
+  "/how-to-say/sister-in-spanish/",
+  "/hoe-zeg-je/zus-in-het-spaans/",
+  "/wie-sagt-man/schwester-auf-spanisch/",
+  "/translate/spanish-to-dutch/hermana/",
+  "/translate/spanish-to-english/hermana/",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

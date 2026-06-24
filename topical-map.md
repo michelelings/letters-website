@@ -19,7 +19,7 @@ This topical map targets casual language-curious adults who prefer game-first ex
 
 **Maintainers:** Treat this section as the running changelog for the marketing repo. When you add a locale, URL, or article: (1) set **Last updated** below, (2) edit the bullets/tables here, (3) mark **Shipped** on the matching **Content calendar** lines and pillar tables if applicable, (4) update `sitemap.xml` in git. One source of truth: no duplicate shipped lists in other docs.
 
-*Last updated: March 30, 2026 (fifteen EN+ES cluster / support guides live).*
+*Last updated: June 24, 2026 (first weekly downloadable + playable pack live in repo).*
 
 ### Locales and homepage
 
@@ -89,6 +89,14 @@ Pillar hubs link to relevant clusters (e.g. **Best ways…**, language hubs, **G
 
 - Many **remaining** cluster articles from the calendar, **daily puzzle** URLs, food/travel **play** pages, and **playable embeds** on hub pages (per calendar below).
 - Locales beyond `en` + `es` on the marketing site (target locale *codes*: [translation.md](translation.md)).
+
+### Weekly micro-packs
+
+The first weekly lead-magnet format is in repo: `/weekly/spanish-restaurant-words/`.
+It pairs a short playable Letters round with a one-page PDF at
+`/downloads/weekly/spanish-restaurant-words.pdf`. This is the template for
+future small weekly packs: one theme, roughly ten useful words, one printable
+asset, one playable round, and links back into the relevant SEO cluster.
 
 ## Pillar Overview
 
@@ -426,4 +434,3 @@ This topical map is designed to position letters.game as the definitive puzzle-f
 Start with Phase 1's quick wins (Pillars 1, 8, 9) to prove the core mechanic works for low-KD keywords. These pages establish your unique positioning: vocabulary learning through letter-bucket puzzles, not flashcards or grammar drills. Once these rank, Phase 2 builds out daily puzzle URLs for each language: these are your retention loop and SEO compound effect, since fresh daily content signals authority to Google and habit to users.
 
 The internal linking strategy is critical: every language-specific article (Spanish, Japanese, Chinese, etc.) links up to its pillar and cross-links to the "Daily Vocabulary Puzzle" hub in Pillar 10. This creates a hub-and-spoke architecture where Pillar 10 becomes your highest-authority page over time, funneling users into daily challenges regardless of which language they searched for. By Month 6, you should have 50+ indexed pages, daily content refreshing across all languages, and clear conversion paths from "I'm curious about Spanish puzzles" to "I'm opening the app every morning." The map grows topical authority while staying true to your product's game-first, low-commitment promise.
-

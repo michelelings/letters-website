@@ -90,6 +90,12 @@ const WORD_CLUES_BY_LOCALE: Record<Locale, Record<string, string>> = {
     hola: "Hello",
     gracias: "Thanks",
     familia: "Family",
+    cuenta: "Ask for this when you are ready to pay",
+    menu: "The list of food and drinks",
+    reserva: "A booking for your table",
+    propina: "Extra money you leave for service",
+    mesa: "Where you sit to eat",
+    agua: "A drink you often order first",
   },
   es: {
     bienvenido: "Saludo para recibir a alguien",

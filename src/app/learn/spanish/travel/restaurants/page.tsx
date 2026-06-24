@@ -65,6 +65,10 @@ export default function Page() {
       heading="Related"
       items={[
       {
+      href: "/weekly/spanish-restaurant-words/",
+      label: <>Weekly pack: Spanish restaurant words</>,
+      },
+      {
       href: "/guides/best-way-to-learn-spanish-vocabulary-travel/",
       label: <>Best way to learn Spanish vocabulary for travel</>,
       },
@@ -83,7 +87,9 @@ export default function Page() {
       ]}
       />
       <ArticleCta label="Download Letters" />
-      <PrintableDownload href="/downloads/learn/spanish/travel/restaurants/cheat-sheet.pdf" />
+      <PrintableDownload href="/downloads/weekly/spanish-restaurant-words.pdf">
+      Download this week&apos;s restaurant pack
+      </PrintableDownload>
       
     </ArticlePage>
   );

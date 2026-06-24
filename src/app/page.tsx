@@ -28,6 +28,7 @@ export default function HomePage() {
       <SiteFooter
         locale="en"
         extras={[
+          { href: "/weekly/spanish-restaurant-words/", label: "Weekly pack" },
           { href: "/guides/best-ways-to-learn-vocabulary/", label: "Learn vocabulary" },
           { href: "/guides/", label: "All guides" },
         ]}
